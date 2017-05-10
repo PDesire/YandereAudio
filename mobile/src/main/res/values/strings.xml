@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Yandere Audio 2.0</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="pdesireaudio_service_control">PDesireAudio Service Control</string>
+    <string name="yandere_audio_service_control">Yandere Audio Service Control</string>
+    <string name="navigation_drawer_open"> </string>
+    <string name="navigation_drawer_close"> </string>
+
+</resources>

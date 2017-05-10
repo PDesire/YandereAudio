@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Soundmod">
+        <menu>
+            <item
+                android:id="@+id/nav_service"
+                android:icon="@drawable/ic_headset_black_24dp"
+                android:title="@string/yandere_audio_service_control"/>
+        </menu>
+    </item>
+
+    <item android:title="Kernel">
+        <menu>
+            <item
+                android:id="@+id/nav_pdesireaudio"
+                android:icon="@drawable/ic_whatshot_black_24dp"
+                android:title="@string/pdesireaudio_service_control"/>
+        </menu>
+    </item>
+
+</menu>
