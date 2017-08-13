@@ -19,22 +19,22 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    val closedRelease : Boolean = false;
     private fun checkLuckyPatcher(): Boolean {
-        if (packageExists("com.dimonvideo.luckypatcher")) {
-            return true
-        }
+        if (!closedRelease)
+            return false
 
-        if (packageExists("com.chelpus.lackypatch")) {
+        if (packageExists("com.dimonvideo.luckypatcher"))
             return true
-        }
 
-        if (packageExists("com.android.vending.billing.InAppBillingService.LACK")) {
+        if (packageExists("com.chelpus.lackypatch"))
             return true
-        }
 
-        if (packageExists("com.android.vending.billing.InAppBillingService.LOCK")) {
+        if (packageExists("com.android.vending.billing.InAppBillingService.LACK"))
             return true
-        }
+
+        if (packageExists("com.android.vending.billing.InAppBillingService.LOCK"))
+            return true
 
         return false
     }
@@ -57,16 +57,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.setDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = findViewById(R.id.nav_view) as NavigationView
+        val navigationView = findViewById<NavigationView>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
         if (checkLuckyPatcher()) {
             val pirate = AlertDialog.Builder(this)
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
         return true
     }

@@ -4,10 +4,12 @@ package teamdevelite.yandereaudio20.pdesire
  * Created by PDesire on 20.05.2017.
  */
 
+import android.graphics.drawable.DrawableContainer
 import android.os.Bundle
 import android.support.wearable.activity.WearableActivity
 import android.support.wearable.view.BoxInsetLayout
 import android.view.View
+import android.widget.TextClock
 import android.widget.TextView
 
 import java.text.SimpleDateFormat
@@ -25,9 +27,9 @@ class MainActivity : WearableActivity() {
         setContentView(R.layout.activity_main)
         setAmbientEnabled()
 
-        mContainerView = findViewById(R.id.container) as BoxInsetLayout
-        mTextView = findViewById(R.id.text) as TextView
-        mClockView = findViewById(R.id.clock) as TextView
+        mContainerView = findViewById<View>(R.id.container) as BoxInsetLayout
+        mTextView = findViewById<TextView>(R.id.text) as TextView
+        mClockView = findViewById<TextClock>(R.id.clock) as TextView
     }
 
     override fun onEnterAmbient(ambientDetails: Bundle?) {
