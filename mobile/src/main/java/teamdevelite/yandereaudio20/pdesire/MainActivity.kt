@@ -75,6 +75,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             pirate.create()
             pirate.show()
         }
+
+        if (!packageExists("com.meli.pdesire.yandereservice")) {
+            val yandere = AlertDialog.Builder(this)
+            yandere.setTitle("Yandere Service not found!")
+            yandere.setMessage("YandereService could not be found on your system \n \n To use Project Meli, it is important to install it")
+            yandere.create()
+            yandere.show()
+        }
+
     }
 
     override fun onBackPressed() {
@@ -92,11 +101,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (id == R.id.nav_service) {
             val intent = Intent(Intent.ACTION_MAIN)
-            intent.component = ComponentName("com.meli.pdesire.projectmeliaudioeffects", "com.meli.pdesire.projectmeliaudioeffects.SettingsActivity")
+            intent.component = ComponentName("com.meli.pdesire.yandereservice", "com.meli.pdesire.yandereservice.SettingsActivity")
             startActivity(intent)
         } else if (id == R.id.nav_pdesireaudio) {
             val intent = Intent(Intent.ACTION_MAIN)
-            intent.component = ComponentName("com.meli.pdesire.projectmeliaudioeffects", "com.meli.pdesire.projectmeliaudioeffects.PDesireAudioActivity")
+            intent.component = ComponentName("com.meli.pdesire.yandereservice", "com.meli.pdesire.yandereservice.PDesireAudioActivity")
             startActivity(intent)
         }
 
