@@ -1,4 +1,4 @@
-package teamdevelite.yandereaudio20.pdesire;
+package projectmeli.yandereaudio.pdesire;
 
 import org.junit.Test;
 

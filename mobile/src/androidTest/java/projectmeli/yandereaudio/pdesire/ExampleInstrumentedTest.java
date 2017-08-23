@@ -1,4 +1,4 @@
-package teamdevelite.yandereaudio20.pdesire;
+package projectmeli.yandereaudio.pdesire;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext ();
 
-        assertEquals ("teamdevelite.yandereaudio20.pdesire", appContext.getPackageName ());
+        assertEquals ("projectmeli.yandereaudio.pdesire", appContext.getPackageName ());
     }
 }

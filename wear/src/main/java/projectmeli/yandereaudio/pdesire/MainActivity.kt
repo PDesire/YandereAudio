@@ -1,10 +1,9 @@
-package teamdevelite.yandereaudio20.pdesire
+package projectmeli.yandereaudio.pdesire
 
 /**
  * Created by PDesire on 20.05.2017.
  */
 
-import android.graphics.drawable.DrawableContainer
 import android.os.Bundle
 import android.support.wearable.activity.WearableActivity
 import android.support.wearable.view.BoxInsetLayout

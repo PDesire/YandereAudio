@@ -7,15 +7,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="teamdevelite.yandereaudio20.pdesire.MainActivity"
+    tools:context="projectmeli.yandereaudio.pdesire.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <ImageView
-        android:id="@+id/background_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
+        android:id="@+id/meli_logo_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:visibility="visible"
-        app:srcCompat="@drawable/meli_backround"/>
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="160dp"
+        android:contentDescription="Project Meli Logo"
+        app:srcCompat="@drawable/meli_logo" />
+
+    <ImageView
+        android:id="@+id/meli_description_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignTop="@+id/meli_logo_view"
+        android:layout_below="@+id/meli_logo_view"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        app:srcCompat="@drawable/meli_description" />
 </RelativeLayout>

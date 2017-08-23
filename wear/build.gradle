@@ -5,7 +5,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion '26.0.1'
     defaultConfig {
-        applicationId "teamdevelite.yandereaudio20.pdesire"
+        applicationId "projectmeli.yandereaudio.pdesire"
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 1

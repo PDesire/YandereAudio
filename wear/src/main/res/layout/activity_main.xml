@@ -6,7 +6,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="teamdevelite.yandereaudio20.pdesire.MainActivity"
+    tools:context="projectmeli.yandereaudio.pdesire.MainActivity"
     tools:deviceIds="wear">
 
 

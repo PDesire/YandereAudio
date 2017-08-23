@@ -7,5 +7,51 @@
     <string name="yandere_audio_service_control">Yandere Audio Service Control</string>
     <string name="navigation_drawer_open"> </string>
     <string name="navigation_drawer_close"> </string>
+    <string name="security_error">App shutdowning because security conditions not given</string>
+    <string name="yandere_service_not_found">Yandere Service not found!</string>
+    <string name="yandere_service_not_found_description">YandereService could not be found on your system \n \n To use Project Meli, it is important to install it</string>
+
+
+    <string name="service_name">Yandere Audio Service</string>
+    <string name="title_activity_pdesire_audio">PDesireAudio Service</string>
+
+
+
+    <!-- HEAVYBASS STRINGS -->
+    <string name="heavybass_description">A SRS Re-callibration to output more bass from the Headphones</string>
+    <string name="heavybass_title">Heavybass Mode</string>
+
+    <!-- PDESIREAUDIO STRINGS -->
+    <string name="pdesireaudio_uhqa_description">Set your Soundcard to the PDesireAudio Ultra High Quality Mode</string>
+    <string name="pdesireaudio_uhqa_title">Ultra High Quality Mode</string>
+    <string name="pdesireaudio_static_description">Gives you full control to PDesireAudio</string>
+    <string name="pdesireaudio_static_title">Static Mode</string>
+
+
+    <!-- HEADER STRINGS -->
+    <string name="pref_header_audio_settings">Audio Settings</string>
+    <string name="pref_header_engines">Engines</string>
+    <string name="pref_header_credits">Other</string>
+    <string name="pref_header_pdesireaudio_controls">PDesireAudio Controls</string>
+    <string name="pref_header_pdesireaudio_credits">Other</string>
+
+
+    <!-- INFORMATION STRINGS -->
+    <string name="main_author_description">Tristan Marsell (PDesire)</string>
+    <string name="main_author_title">Main Author</string>
+    <string name="special_author_title">Special Credits</string>
+    <string name="team_author_description">Team DevElite</string>
+    <string name="team_author_title">Development Team</string>
+
+    <!-- MISC STRINGS -->
+    <string name="sound_enhance_strings_v4a_title_txt">VIPER4Android®</string>
+    <string name="sound_enhance_strings_v4a_desc_txt">Customize your Audio Output however you want</string>
+    <string name="credits_title">Credits:</string>
+    <string name="credits">Special Thanks to Team DevElite for your all around support \n \n Thanks to: \n RXS Moonbreakers \n Team Duality \n Team Harmonics Symphonium \n Team Unity \n Team A.R.I.S.E \n \n and to Yasmin the Melon alias my GF xD</string>
+    <string name="credits_pdesireaudio">Special Thanks to: \n \n Team DevElite \n \n Sony OSS \n \n Qualcomm</string>
+    <string name="pdesireaudio_found">PDesireAudio found on Kernel</string>
+    <string name="pdesireaudio_not_found">PDesireAudio not found on Kernel</string>
+    <string name="pdesireaudio_desc">What is PDesireAudio</string>
+    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \n Ask your kernel developer if he can implement PDesireAudio to his kernel if it doesn't have it yet</string>
 
 </resources>

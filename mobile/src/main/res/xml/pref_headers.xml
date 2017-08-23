@@ -1,0 +1,17 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.AudioSettingsFragment"
+        android:icon="@null"
+        android:title="@string/pref_header_audio_settings" />
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.EngineFragment"
+        android:icon="@null"
+        android:title="@string/pref_header_engines" />
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.CreditsFragment"
+        android:icon="@null"
+        android:title="@string/pref_header_credits" />
+
+</preference-headers>
