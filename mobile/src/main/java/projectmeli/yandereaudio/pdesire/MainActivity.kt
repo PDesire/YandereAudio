@@ -4,7 +4,10 @@ package projectmeli.yandereaudio.pdesire
  * Created by PDesire on 20.05.2017.
  */
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -19,7 +22,20 @@ import android.view.animation.AnimationSet
 import android.widget.Toast
 import com.meli.pdesire.yandereservice.PDesireAudioActivity
 import com.meli.pdesire.yandereservice.SettingsActivity
+import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
+import android.os.Build
+import android.webkit.WebSettings
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebResourceRequest
+import android.webkit.WebViewClient
+
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +45,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Toast.makeText(this, getString(R.string.security_error),
                     Toast.LENGTH_LONG).show()
             finish()
+        }
+    }
+
+    fun meliInstalledCheck () {
+        if(!YandereFileManager.fileCheck("/system/meli.prop")) {
+            val messageOutput = AlertDialog.Builder(this)
+            messageOutput.setTitle(getString(R.string.meli_not_installed))
+                    .setMessage(getString(R.string.no_project_meli_installed))
+                    .setPositiveButton(getString(R.string.go_to_thread)) { dialog, which ->
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
+                        startActivity(intent)
+                    }
+                    .setNegativeButton(getString(R.string.ignore)) { dialog, which ->
+                        // do nothing
+                    }
+                    .setIcon(R.mipmap.ic_launcher)
+                    .create()
+                    .show()
         }
     }
 
@@ -57,7 +91,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         meliDescriptionView.startAnimation(fadeInAnimationSet)
 
         closedReleaseTest()
+        meliInstalledCheck()
     }
+
+
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout

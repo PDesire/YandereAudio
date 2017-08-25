@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yandere Audio 2.0</string>
+    <string name="app_name">YandereAudio</string>
 
     <string name="action_settings">Settings</string>
 
@@ -47,11 +47,19 @@
     <string name="sound_enhance_strings_v4a_title_txt">VIPER4Android®</string>
     <string name="sound_enhance_strings_v4a_desc_txt">Customize your Audio Output however you want</string>
     <string name="credits_title">Credits:</string>
-    <string name="credits">Special Thanks to Team DevElite for your all around support \n \n Thanks to: \n RXS Moonbreakers \n Team Duality \n Team Harmonics Symphonium \n Team Unity \n Team A.R.I.S.E \n \n and to Yasmin the Melon alias my GF xD</string>
-    <string name="credits_pdesireaudio">Special Thanks to: \n \n Team DevElite \n \n Sony OSS \n \n Qualcomm</string>
+    <string name="credits">All Credits goes to PDesire and Team DevElite</string>
+    <string name="credits_pdesireaudio">All Credits goes to PDesire</string>
     <string name="pdesireaudio_found">PDesireAudio found on Kernel</string>
     <string name="pdesireaudio_not_found">PDesireAudio not found on Kernel</string>
     <string name="pdesireaudio_desc">What is PDesireAudio</string>
     <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \n Ask your kernel developer if he can implement PDesireAudio to his kernel if it doesn't have it yet</string>
+    <string name="meli_not_installed">Project Meli not installed</string>
+    <string name="no_project_meli_installed">You do not have Project Meli installed, or installed not properly, download the latest version from Project Meli Thread</string>
+    <string name="go_to_thread">Go To Thread</string>
+    <string name="ignore">Ignore</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ensure_restart">Do you really want to restart?</string>
+    <string name="ensure_restart_description">Are you sure you want to restart your phone?</string>
 
 </resources>

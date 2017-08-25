@@ -43,8 +43,7 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
         closedReleaseTest()
 
         if (!alreadyShown) {
-            YandereOutputWrapper.outputMessageString(getString(R.string.pdesireaudio_desc),
-                                                    getString(R.string.pdesireaudio_description),
+            YandereOutputWrapper.outputMessage(R.string.pdesireaudio_desc, R.string.pdesireaudio_description,
                                                     this)
             alreadyShown = true
         }

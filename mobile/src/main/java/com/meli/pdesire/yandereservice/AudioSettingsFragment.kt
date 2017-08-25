@@ -5,6 +5,9 @@ package com.meli.pdesire.yandereservice
  */
 
 import android.annotation.TargetApi
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
@@ -63,8 +66,18 @@ class AudioSettingsFragment : PreferenceFragment() {
         val reboot = findPreference("reboot_click")
 
         reboot.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            YandereRootUtility.sudo("reboot")
-
+            val messageOutput = AlertDialog.Builder(activity)
+            messageOutput.setTitle(getString(R.string.ensure_restart))
+                    .setMessage(getString(R.string.ensure_restart_description))
+                    .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                        YandereRootUtility.sudo("reboot")
+                    }
+                    .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                        // do nothing
+                    }
+                    .setIcon(R.mipmap.ic_launcher)
+                    .create()
+                    .show()
             false
         }
     }
