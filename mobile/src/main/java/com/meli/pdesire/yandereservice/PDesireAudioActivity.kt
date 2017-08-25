@@ -28,7 +28,7 @@ import projectmeli.yandereaudio.pdesire.R
  */
 class PDesireAudioActivity : AppCompatPreferenceActivity() {
 
-    fun closedReleaseTest () {
+    private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
                 Toast.makeText(this, getString(R.string.security_error),
                         Toast.LENGTH_LONG).show()
@@ -36,7 +36,7 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
         }
     }
 
-    var alreadyShown : Boolean = false
+    private var alreadyShown : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -29,7 +29,7 @@ import projectmeli.yandereaudio.pdesire.R
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
 
-    fun closedReleaseTest () {
+    private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
             Toast.makeText(this, getString(R.string.security_error),
                     Toast.LENGTH_LONG).show()

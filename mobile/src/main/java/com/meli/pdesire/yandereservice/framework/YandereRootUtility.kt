@@ -9,8 +9,8 @@ import java.io.IOException
 
 object YandereRootUtility {
 
-    var rootfsIsRW : Boolean = false
-    var systemIsRW : Boolean = false
+    private var rootfsIsRW : Boolean = false
+    private var systemIsRW : Boolean = false
 
     fun mount_rw_rootfs() {
         sudo("mount -o remount,rw /")

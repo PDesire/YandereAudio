@@ -18,18 +18,18 @@ object YanderePackageManager : PreferenceActivity() {
         val context = contexts
         val pm = context.packageManager
         var installed: Boolean
-        try {
+        installed = try {
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
-            installed = true
+            true
         } catch (e: PackageManager.NameNotFoundException) {
-            installed = false
+            false
         }
 
         return installed
     }
 
     // Check if classes and subclasses exist
-    fun packageExists(packageName: String, context: Context): Boolean {
+    private fun packageExists(packageName: String, context: Context): Boolean {
         try {
             val info = context.packageManager.getApplicationInfo(packageName, 0) ?: // No need really to test for null, if the package does not
                     // exist it will really rise an exception. but in case Google
@@ -44,14 +44,14 @@ object YanderePackageManager : PreferenceActivity() {
         return false
     }
 
-    val closedRelease : Boolean = false
+    private val closedRelease : Boolean = false
 
     fun closedReleaseTest(context: Context) : Boolean {
         if (!closedRelease)
             return false
 
-        var blockedClassesValue : Int = 4
-        var blockedClasses = arrayOf("com.dimonvideo.luckypatcher",
+        val blockedClassesValue : Int = 4
+        val blockedClasses = arrayOf("com.dimonvideo.luckypatcher",
                                             "com.chelpus.lackypatch",
                                             "com.android.vending.billing.InAppBillingService.LACK",
                                             "com.android.vending.billing.InAppBillingService.LOCK")

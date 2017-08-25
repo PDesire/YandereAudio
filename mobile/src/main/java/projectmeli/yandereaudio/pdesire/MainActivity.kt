@@ -5,7 +5,6 @@ package projectmeli.yandereaudio.pdesire
  */
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -24,23 +23,12 @@ import com.meli.pdesire.yandereservice.PDesireAudioActivity
 import com.meli.pdesire.yandereservice.SettingsActivity
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
-import android.os.Build
-import android.webkit.WebSettings
-import android.webkit.WebChromeClient
-import android.webkit.WebView
-import android.webkit.WebResourceRequest
-import android.webkit.WebViewClient
-
-
-
-
-
 
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    fun closedReleaseTest () {
+    private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
             Toast.makeText(this, getString(R.string.security_error),
                     Toast.LENGTH_LONG).show()
@@ -48,7 +36,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun meliInstalledCheck () {
+    private fun meliInstalledCheck () {
         if(!YandereFileManager.fileCheck("/system/meli.prop")) {
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.meli_not_installed))
