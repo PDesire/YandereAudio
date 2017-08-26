@@ -23,7 +23,7 @@ import com.meli.pdesire.yandereservice.PDesireAudioActivity
 import com.meli.pdesire.yandereservice.SettingsActivity
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
-
+import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -80,6 +80,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         closedReleaseTest()
         meliInstalledCheck()
+
+        val intent = Intent(applicationContext, YandereWearableApplyListener::class.java)
+        startService(intent)
     }
 
 
@@ -102,6 +105,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         } else if (id == R.id.nav_pdesireaudio) {
             val intent = Intent(applicationContext, PDesireAudioActivity::class.java)
+            startActivity(intent)
+        } else if (id == R.id.light_theme) {
+            this.setTheme(R.style.AppTheme)
+            recreate()
+        } else if (id == R.id.dark_theme) {
+            this.setTheme(R.style.AppThemeDark)
+            recreate()
+        } else if (id == R.id.nav_contact_xda) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
+            startActivity(intent)
+        } else if (id == R.id.nav_contact_pdesire) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/member.php?u=6126659"))
             startActivity(intent)
         }
 

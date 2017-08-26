@@ -4,64 +4,73 @@ package projectmeli.yandereaudio.pdesire
  * Created by PDesire on 20.05.2017.
  */
 
+import android.content.Context
 import android.os.Bundle
-import android.support.wearable.activity.WearableActivity
-import android.support.wearable.view.BoxInsetLayout
-import android.view.View
-import android.widget.TextClock
-import android.widget.TextView
+import android.preference.Preference
+import android.preference.PreferenceActivity
+import android.preference.SwitchPreference
+import android.util.Log
+import preference.WearPreferenceActivity
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.wearable.Wearable
+import java.util.concurrent.TimeUnit
 
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
-class MainActivity : WearableActivity() {
+class MainActivity : WearPreferenceActivity() {
 
-    private var mContainerView: BoxInsetLayout? = null
-    private var mTextView: TextView? = null
-    private var mClockView: TextView? = null
+    private val LOG_TAG = MainActivity::class.java.simpleName
+
+    private val CONNECTION_TIME_OUT_MS: Long = 2000
+
+    private var googleApiClient: GoogleApiClient? = null
+    private var nodeId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setAmbientEnabled()
+        addPreferencesFromResource(R.xml.pref_main)
 
-        mContainerView = findViewById<View>(R.id.container) as BoxInsetLayout
-        mTextView = findViewById<TextView>(R.id.text) as TextView
-        mClockView = findViewById<TextClock>(R.id.clock) as TextView
+        initGoogleApiClient()
+        sendToast("test")
     }
 
-    override fun onEnterAmbient(ambientDetails: Bundle?) {
-        super.onEnterAmbient(ambientDetails)
-        updateDisplay()
+    private fun initGoogleApiClient() {
+        googleApiClient = getGoogleApiClient(this)
+        retrieveDeviceNode()
     }
 
-    override fun onUpdateAmbient() {
-        super.onUpdateAmbient()
-        updateDisplay()
+    private fun getGoogleApiClient(context: Context): GoogleApiClient {
+        return GoogleApiClient.Builder(context)
+                .addApi(Wearable.API)
+                .build()
     }
 
-    override fun onExitAmbient() {
-        updateDisplay()
-        super.onExitAmbient()
+    private fun retrieveDeviceNode() {
+        Thread(Runnable {
+            if (googleApiClient != null && !(googleApiClient!!.isConnected() || googleApiClient!!.isConnecting()))
+                googleApiClient!!.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS)
+
+            val result = Wearable.NodeApi.getConnectedNodes(googleApiClient).await()
+
+            val nodes = result.nodes
+
+            if (nodes.size > 0)
+                nodeId = nodes[0].id
+
+            Log.v(LOG_TAG, "Node ID of phone: " + nodeId)
+
+            googleApiClient!!.disconnect()
+        }).start()
     }
 
-    private fun updateDisplay() {
-        if (isAmbient) {
-            mContainerView!!.setBackgroundColor(resources.getColor(android.R.color.black))
-            mTextView!!.setTextColor(resources.getColor(android.R.color.white))
-            mClockView!!.visibility = View.VISIBLE
+    private fun sendToast(path : String) {
+        if (nodeId != null) {
+            Thread(Runnable {
+                if (googleApiClient != null && !(googleApiClient!!.isConnected() || googleApiClient!!.isConnecting()))
+                    googleApiClient!!.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS)
 
-            mClockView!!.text = AMBIENT_DATE_FORMAT.format(Date())
-        } else {
-            mContainerView!!.background = null
-            mTextView!!.setTextColor(resources.getColor(android.R.color.black))
-            mClockView!!.visibility = View.GONE
+                Wearable.MessageApi.sendMessage(googleApiClient, nodeId, path, null).await()
+                googleApiClient!!.disconnect()
+            }).start()
         }
-    }
-
-    companion object {
-
-        private val AMBIENT_DATE_FORMAT = SimpleDateFormat("HH:mm", Locale.US)
     }
 }

@@ -4,7 +4,7 @@
     <string name="action_settings">Settings</string>
 
     <string name="pdesireaudio_service_control">PDesireAudio Service Control</string>
-    <string name="yandere_audio_service_control">Yandere Audio Service Control</string>
+    <string name="yandere_audio_service_control">YandereAudio Service Control</string>
     <string name="navigation_drawer_open"> </string>
     <string name="navigation_drawer_close"> </string>
     <string name="security_error">App shutdowning because security conditions not given</string>
@@ -61,5 +61,13 @@
     <string name="no">No</string>
     <string name="ensure_restart">Do you really want to restart?</string>
     <string name="ensure_restart_description">Are you sure you want to restart your phone?</string>
+    <string name="xda_thread">XDA Thread</string>
+    <string name="support">Support</string>
+    <string name="contact_pdesire_xda">Contact PDesire on XDA</string>
+    <string name="kernel">Kernel</string>
+    <string name="soundmod">Soundmod</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="theme">Theme</string>
 
 </resources>

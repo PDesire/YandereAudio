@@ -1,5 +1,6 @@
 package com.meli.pdesire.yandereservice.framework
 
+import android.support.annotation.NonNull
 import java.io.DataOutputStream
 import java.io.IOException
 
@@ -9,39 +10,25 @@ import java.io.IOException
 
 object YandereRootUtility {
 
-    private var rootfsIsRW : Boolean = false
-    private var systemIsRW : Boolean = false
-
     fun mount_rw_rootfs() {
         sudo("mount -o remount,rw /")
         sudo("mount -o remount,rw rootfs")
-        rootfsIsRW = true
     }
 
     fun mount_ro_rootfs() {
         sudo("mount -o remount,ro /")
         sudo("mount -o remount,ro rootfs")
-        rootfsIsRW = false
     }
 
     fun mount_rw_system() {
         sudo("mount -o remount,rw /system")
-        systemIsRW = true
     }
 
     fun mount_ro_system() {
         sudo("mount -o remount,ro /system")
-        systemIsRW = false
     }
 
-    fun security_harden() {
-        if (systemIsRW)
-            mount_ro_system()
-
-        if (rootfsIsRW == true)
-            mount_ro_rootfs()
-    }
-
+    @NonNull
     fun sudo(strings: String) {
         try {
             val su = Runtime.getRuntime().exec("su")
@@ -65,5 +52,12 @@ object YandereRootUtility {
             e.printStackTrace()
         }
 
+        execute_sudo(strings)
+    }
+
+    @NonNull
+    private fun execute_sudo(command : String) {
+        val execute = Runtime.getRuntime().exec("su -c " + command)
+        execute.waitFor()
     }
 }

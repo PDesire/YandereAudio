@@ -32,7 +32,6 @@ class EngineFragment : PreferenceFragment() {
             YandereRootUtility.sudo("cp /system/Yuno/Engines/Yume/Final/vendor/audio_effects.conf /system/etc")
             YandereRootUtility.mount_ro_rootfs()
             YandereRootUtility.mount_ro_system()
-            YandereRootUtility.security_harden()
 
             false
         }
@@ -44,11 +43,8 @@ class EngineFragment : PreferenceFragment() {
             YandereRootUtility.sudo("cp /system/Yuno/Engines/Meli/vendor/audio_effects.conf /system/etc")
             YandereRootUtility.mount_ro_rootfs()
             YandereRootUtility.mount_ro_system()
-            YandereRootUtility.security_harden()
 
             false
         }
-
-        YandereRootUtility.security_harden()
     }
 }

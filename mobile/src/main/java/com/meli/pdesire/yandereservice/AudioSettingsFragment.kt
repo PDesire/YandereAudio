@@ -47,7 +47,6 @@ class AudioSettingsFragment : PreferenceFragment() {
                 YandereRootUtility.sudo("cp /system/Yuno/stock/srs_processing.cfg /system/etc/srs")
                 YandereRootUtility.mount_ro_rootfs()
                 YandereRootUtility.mount_ro_system()
-                YandereRootUtility.security_harden()
 
             } else {
                 YandereRootUtility.mount_rw_rootfs()
@@ -55,7 +54,6 @@ class AudioSettingsFragment : PreferenceFragment() {
                 YandereRootUtility.sudo("cp /system/Yuno/heavybass/srs_processing.cfg /system/etc/srs")
                 YandereRootUtility.mount_ro_rootfs()
                 YandereRootUtility.mount_ro_system()
-                YandereRootUtility.security_harden()
             }
             true
         }

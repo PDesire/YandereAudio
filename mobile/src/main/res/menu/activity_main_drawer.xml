@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Soundmod">
+    <item android:title="@string/soundmod">
         <menu>
             <item
                 android:id="@+id/nav_service"
@@ -10,12 +11,40 @@
         </menu>
     </item>
 
-    <item android:title="Kernel">
+    <item android:title="@string/kernel">
         <menu>
             <item
                 android:id="@+id/nav_pdesireaudio"
                 android:icon="@drawable/ic_whatshot_black_24dp"
                 android:title="@string/pdesireaudio_service_control"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/theme">
+        <menu>
+            <item
+                android:id="@+id/light_theme"
+                android:icon="@drawable/ic_contact_outline_black_24dp"
+                android:title="@string/light_theme"/>
+
+            <item
+                android:id="@+id/dark_theme"
+                android:icon="@drawable/ic_chat_bubble_black_24dp"
+                android:title="@string/dark_theme"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/support">
+        <menu>
+            <item
+                android:id="@+id/nav_contact_xda"
+                android:icon="@drawable/ic_question_answer_black_24dp"
+                android:title="@string/xda_thread"/>
+
+            <item
+                android:id="@+id/nav_contact_pdesire"
+                android:icon="@drawable/ic_chat_black_24dp"
+                android:title="@string/contact_pdesire_xda"/>
         </menu>
     </item>
 
