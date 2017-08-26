@@ -12,7 +12,7 @@
     <string name="yandere_service_not_found_description">YandereService could not be found on your system \n \n To use Project Meli, it is important to install it</string>
 
 
-    <string name="service_name">Yandere Audio Service</string>
+    <string name="service_name">YandereAudio Service</string>
     <string name="title_activity_pdesire_audio">PDesireAudio Service</string>
 
 

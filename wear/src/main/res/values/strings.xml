@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Yandere Audio Wear</string>
+    <string name="app_name">YandereAudio Wear</string>
     <string name="hello_world">Hello World!</string>
     <string name="coming_soon">Hello Project Meli User \n please take patience, this app is ready soon</string>
+    <string name="pdesireaudio">PDesireAudio</string>
+    <string name="heavybass">Heavybass</string>
+    <string name="reboot_phone">Reboot Phone</string>
 </resources>

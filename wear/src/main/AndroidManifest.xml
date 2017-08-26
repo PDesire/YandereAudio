@@ -11,7 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Light">
+        android:theme="@style/AppTheme">
         <uses-library
             android:name="com.google.android.wearable"
             android:required="true"/>
@@ -22,10 +22,13 @@
             android:theme="@android:style/Theme.DeviceDefault.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+                <action android:name="com.google.android.gms.wearable" />
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

@@ -14,11 +14,14 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.view.animation.AnimationUtils
 import android.view.animation.AnimationSet
 import android.widget.Toast
+import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.wearable.Wearable
 import com.meli.pdesire.yandereservice.PDesireAudioActivity
 import com.meli.pdesire.yandereservice.SettingsActivity
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
@@ -84,8 +87,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val intent = Intent(applicationContext, YandereWearableApplyListener::class.java)
         startService(intent)
     }
-
-
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout

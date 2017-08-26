@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="heavybass_switch"
+        android:title="@string/heavybass" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="pdesireaudio_switch"
+        android:title="@string/pdesireaudio" />
+    <Preference
+        android:defaultValue="true"
+        android:key="reboot_phone_click"
+        android:title="@string/reboot_phone" />
+</PreferenceScreen>
