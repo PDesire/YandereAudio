@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme.New" parent="AppTheme">
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNew</item>
+        <item name="colorPrimary">@color/colorPrimaryNew</item>
+        <item name="colorAccent">@color/colorAccentNew</item>
+        <item name="android:navigationBarColor">@color/colorAccentNew</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

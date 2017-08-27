@@ -12,13 +12,11 @@ import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.PreferenceScreen
 import android.preference.SwitchPreference
+import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
-import com.meli.pdesire.yandereservice.framework.YandereRootUtility
 import projectmeli.yandereaudio.pdesire.R
 
 class AudioSettingsFragment : PreferenceFragment() {
-
-
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,18 +40,9 @@ class AudioSettingsFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereRootUtility.mount_rw_rootfs()
-                YandereRootUtility.mount_rw_system()
-                YandereRootUtility.sudo("cp /system/Yuno/stock/srs_processing.cfg /system/etc/srs")
-                YandereRootUtility.mount_ro_rootfs()
-                YandereRootUtility.mount_ro_system()
-
+                YandereCommandHandler.callHeavybass(true)
             } else {
-                YandereRootUtility.mount_rw_rootfs()
-                YandereRootUtility.mount_rw_system()
-                YandereRootUtility.sudo("cp /system/Yuno/heavybass/srs_processing.cfg /system/etc/srs")
-                YandereRootUtility.mount_ro_rootfs()
-                YandereRootUtility.mount_ro_system()
+                YandereCommandHandler.callHeavybass(false)
             }
             true
         }
@@ -65,8 +54,8 @@ class AudioSettingsFragment : PreferenceFragment() {
             val messageOutput = AlertDialog.Builder(activity)
             messageOutput.setTitle(getString(R.string.ensure_restart))
                     .setMessage(getString(R.string.ensure_restart_description))
-                    .setPositiveButton(getString(R.string.yes)) { dialog, which ->
-                        YandereRootUtility.sudo("reboot")
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                        YandereCommandHandler.callReboot()
                     }
                     .setNegativeButton(getString(R.string.no)) { dialog, which ->
                         // do nothing

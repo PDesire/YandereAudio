@@ -5,8 +5,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.AppCompat">
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.New" parent="AppTheme">
+        <item name="colorAccent">@color/colorAccentNew</item>
+        <item name="android:navigationBarColor">@color/colorAccentNew</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -18,8 +19,13 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <style name="AppThemeDark.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+    <!-- app/src/main/res/values/styles.xml -->
+    <style name="AppTheme.New.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-    <style name="AppThemeDark.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+    <style name="AppTheme.New.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.New.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

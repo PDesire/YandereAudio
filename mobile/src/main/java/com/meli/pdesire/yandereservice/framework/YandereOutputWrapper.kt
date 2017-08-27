@@ -2,6 +2,7 @@ package com.meli.pdesire.yandereservice.framework
 
 import android.app.AlertDialog
 import android.content.Context
+import android.widget.Toast
 import projectmeli.yandereaudio.pdesire.R
 
 /**
@@ -26,5 +27,15 @@ object YandereOutputWrapper {
                 .setMessage(message).setIcon(R.mipmap.ic_launcher)
                 .create()
                 .show()
+    }
+
+    @Override
+    fun outputToast (message : Int, context : Context) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
+    @Override
+    fun outputToast (message : String, context : Context) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }

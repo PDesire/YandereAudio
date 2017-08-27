@@ -5,6 +5,7 @@ package projectmeli.yandereaudio.pdesire
  */
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,22 +15,35 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.view.animation.AnimationUtils
 import android.view.animation.AnimationSet
 import android.widget.Toast
-import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.wearable.Wearable
 import com.meli.pdesire.yandereservice.PDesireAudioActivity
 import com.meli.pdesire.yandereservice.SettingsActivity
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
+import android.content.SharedPreferences
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private val PREFS_NAME = "prefs"
+    private val PREF_NEW_THEME = "new_theme"
+
+    private fun toggleThemeNew(newTheme: Boolean) {
+        val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+        editor.putBoolean(PREF_NEW_THEME, newTheme)
+        editor.apply()
+
+        val intent = intent
+        finish()
+
+        startActivity(intent)
+    }
 
     private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
@@ -44,11 +58,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.meli_not_installed))
                     .setMessage(getString(R.string.no_project_meli_installed))
-                    .setPositiveButton(getString(R.string.go_to_thread)) { dialog, which ->
+                    .setPositiveButton(getString(R.string.go_to_thread)) { _, _j ->
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
                         startActivity(intent)
                     }
-                    .setNegativeButton(getString(R.string.ignore)) { dialog, which ->
+                    .setNegativeButton(getString(R.string.ignore)) { _, _ ->
                         // do nothing
                     }
                     .setIcon(R.mipmap.ic_launcher)
@@ -58,6 +72,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Use the chosen theme
+        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
+
+        if (useNewTheme) {
+            setTheme(R.style.AppTheme_New_NoActionBar)
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
@@ -107,12 +129,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.nav_pdesireaudio) {
             val intent = Intent(applicationContext, PDesireAudioActivity::class.java)
             startActivity(intent)
-        } else if (id == R.id.light_theme) {
-            this.setTheme(R.style.AppTheme)
-            recreate()
-        } else if (id == R.id.dark_theme) {
-            this.setTheme(R.style.AppThemeDark)
-            recreate()
+        } else if (id == R.id.basic_theme) {
+            toggleThemeNew(false)
+        } else if (id == R.id.new_theme) {
+            toggleThemeNew(true)
         } else if (id == R.id.nav_contact_xda) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
             startActivity(intent)

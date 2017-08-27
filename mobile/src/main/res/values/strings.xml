@@ -1,15 +1,11 @@
 <resources>
     <string name="app_name">YandereAudio</string>
 
-    <string name="action_settings">Settings</string>
-
     <string name="pdesireaudio_service_control">PDesireAudio Service Control</string>
     <string name="yandere_audio_service_control">YandereAudio Service Control</string>
     <string name="navigation_drawer_open"> </string>
     <string name="navigation_drawer_close"> </string>
     <string name="security_error">App shutdowning because security conditions not given</string>
-    <string name="yandere_service_not_found">Yandere Service not found!</string>
-    <string name="yandere_service_not_found_description">YandereService could not be found on your system \n \n To use Project Meli, it is important to install it</string>
 
 
     <string name="service_name">YandereAudio Service</string>
@@ -52,7 +48,7 @@
     <string name="pdesireaudio_found">PDesireAudio found on Kernel</string>
     <string name="pdesireaudio_not_found">PDesireAudio not found on Kernel</string>
     <string name="pdesireaudio_desc">What is PDesireAudio</string>
-    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \n Ask your kernel developer if he can implement PDesireAudio to his kernel if it doesn't have it yet</string>
+    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \nAsk your kernel developer if he can implement PDesireAudio to his kernel if it doesn't have it yet</string>
     <string name="meli_not_installed">Project Meli not installed</string>
     <string name="no_project_meli_installed">You do not have Project Meli installed, or installed not properly, download the latest version from Project Meli Thread</string>
     <string name="go_to_thread">Go To Thread</string>
@@ -66,8 +62,12 @@
     <string name="contact_pdesire_xda">Contact PDesire on XDA</string>
     <string name="kernel">Kernel</string>
     <string name="soundmod">Soundmod</string>
-    <string name="light_theme">Light Theme</string>
-    <string name="dark_theme">Dark Theme</string>
+    <string name="basic_theme">Basic Theme</string>
+    <string name="new_theme">New Theme</string>
     <string name="theme">Theme</string>
+    <string name="yume_audio">YumeAudio Engine</string>
+    <string name="yume_audio_description">The old but best Engine of Project Yume.\nApply if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
+    <string name="meli_audio">MeliAudio Y Engine</string>
+    <string name="meli_audio_description">New, better, more powerful.\nThe MeliAudio Y Engine is for people, who wants audio without any compromises. \nIt does get updated everytime by every Project Meli version, and is already activated by default.\nAttention: Your device will reboot</string>
 
 </resources>

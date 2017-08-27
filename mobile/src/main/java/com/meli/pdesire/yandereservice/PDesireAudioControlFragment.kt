@@ -10,9 +10,9 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
-import android.widget.Toast
+import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
+import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import com.meli.pdesire.yandereservice.framework.YanderePDesireAudioAPI
-import com.meli.pdesire.yandereservice.framework.YandereRootUtility
 import projectmeli.yandereaudio.pdesire.R
 
 class PDesireAudioControlFragment : PreferenceFragment() {
@@ -26,11 +26,9 @@ class PDesireAudioControlFragment : PreferenceFragment() {
         setHasOptionsMenu(true)
 
         if (!YanderePDesireAudioAPI.getPDesireAudio().equals(""))
-            Toast.makeText(activity, getString(R.string.pdesireaudio_found),
-                    Toast.LENGTH_LONG).show()
+            YandereOutputWrapper.outputToast(R.string.pdesireaudio_found, activity)
         else
-            Toast.makeText(activity, getString(R.string.pdesireaudio_not_found),
-                    Toast.LENGTH_LONG).show()
+            YandereOutputWrapper.outputToast(R.string.pdesireaudio_not_found, activity)
 
         val pdesireaudio_uhqa = findPreference("pdesireaudio_uhqa_switch")
 
@@ -38,9 +36,9 @@ class PDesireAudioControlFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereRootUtility.sudo("echo 1 " + YanderePDesireAudioAPI.getPDesireAudio())
+                YandereCommandHandler.callPDesireAudio(1)
             } else {
-                YandereRootUtility.sudo("echo 0 " + YanderePDesireAudioAPI.getPDesireAudio())
+                YandereCommandHandler.callPDesireAudio(0)
             }
 
             true
@@ -53,9 +51,9 @@ class PDesireAudioControlFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereRootUtility.sudo("echo 1 " + YanderePDesireAudioAPI.getPDesireAudioStatic())
+                YandereCommandHandler.callPDesireAudioStatic(1)
             } else {
-                YandereRootUtility.sudo("echo 0 " + YanderePDesireAudioAPI.getPDesireAudioStatic())
+                YandereCommandHandler.callPDesireAudioStatic(0)
             }
 
             true

@@ -23,14 +23,14 @@
     <item android:title="@string/theme">
         <menu>
             <item
-                android:id="@+id/light_theme"
+                android:id="@+id/basic_theme"
                 android:icon="@drawable/ic_contact_outline_black_24dp"
-                android:title="@string/light_theme"/>
+                android:title="@string/basic_theme"/>
 
             <item
-                android:id="@+id/dark_theme"
+                android:id="@+id/new_theme"
                 android:icon="@drawable/ic_chat_bubble_black_24dp"
-                android:title="@string/dark_theme"/>
+                android:title="@string/new_theme"/>
         </menu>
     </item>
 

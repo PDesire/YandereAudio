@@ -5,6 +5,7 @@ package com.meli.pdesire.yandereservice
  */
 
 import android.annotation.TargetApi
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceActivity
@@ -28,10 +29,12 @@ import projectmeli.yandereaudio.pdesire.R
  */
 class PDesireAudioActivity : AppCompatPreferenceActivity() {
 
+    private val PREFS_NAME = "prefs"
+    private val PREF_NEW_THEME = "new_theme"
+
     private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
-                Toast.makeText(this, getString(R.string.security_error),
-                        Toast.LENGTH_LONG).show()
+            YandereOutputWrapper.outputToast(R.string.security_error, this)
             finish()
         }
     }
@@ -39,6 +42,14 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
     private var alreadyShown : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Use the chosen theme
+        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
+
+        if (useNewTheme) {
+            setTheme(R.style.AppTheme_New)
+        }
+
         super.onCreate(savedInstanceState)
         closedReleaseTest()
 
