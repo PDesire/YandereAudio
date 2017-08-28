@@ -1,9 +1,8 @@
-package com.meli.pdesire.yandereservice
+package com.meli.pdesire.yandereservice.fragments
 
 /**
  * Created by PDesire on 20.05.2017.
  */
-
 
 import android.annotation.TargetApi
 import android.content.Intent
@@ -15,15 +14,16 @@ import android.preference.PreferenceFragment
 import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import projectmeli.yandereaudio.pdesire.R
 
-class PDesireAudioCreditsFragment : PreferenceFragment() {
+class CreditsFragment : PreferenceFragment() {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        addPreferencesFromResource(R.xml.pref_other_pdesireaudio)
+        addPreferencesFromResource(R.xml.pref_other)
         setHasOptionsMenu(true)
+
         val profile_view = findPreference("profile_view_click")
         profile_view.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/member.php?u=6126659"))
@@ -33,7 +33,7 @@ class PDesireAudioCreditsFragment : PreferenceFragment() {
 
         val credits = findPreference("credits_click")
         credits.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            YandereOutputWrapper.outputMessage(R.string.credits_title, R.string.credits_pdesireaudio, activity)
+            YandereOutputWrapper.outputMessage(R.string.credits_title, R.string.credits, activity)
             false
         }
     }

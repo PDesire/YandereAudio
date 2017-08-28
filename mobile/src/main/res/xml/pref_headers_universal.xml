@@ -1,0 +1,13 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.fragments.HTCCallibrationFragment"
+        android:icon="@null"
+        android:title="@string/htc_callibration" />
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.fragments.SupportedEqualizerFragment"
+        android:icon="@null"
+        android:title="@string/supported_eq" />
+
+</preference-headers>

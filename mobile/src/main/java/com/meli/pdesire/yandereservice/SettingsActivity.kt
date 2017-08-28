@@ -11,6 +11,9 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
+import com.meli.pdesire.yandereservice.fragments.AudioSettingsFragment
+import com.meli.pdesire.yandereservice.fragments.CreditsFragment
+import com.meli.pdesire.yandereservice.fragments.EngineFragment
 
 import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager

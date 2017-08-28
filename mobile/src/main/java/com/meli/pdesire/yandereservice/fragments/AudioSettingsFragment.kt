@@ -1,4 +1,4 @@
-package com.meli.pdesire.yandereservice
+package com.meli.pdesire.yandereservice.fragments
 
 /**
  * Created by PDesire on 20.05.2017.
@@ -24,15 +24,6 @@ class AudioSettingsFragment : PreferenceFragment() {
 
         addPreferencesFromResource(R.xml.pref_general)
         setHasOptionsMenu(true)
-
-        val isV4AInstalled = YanderePackageManager.isAppInstalled("com.audlabs.viperfx", activity)
-
-        val screen = preferenceScreen
-        val v4a = findPreference("v4a") as PreferenceScreen
-
-        if (!isV4AInstalled) {
-            screen.removePreference(v4a)
-        }
 
         val heavybass = findPreference("heavybass_switch")
 

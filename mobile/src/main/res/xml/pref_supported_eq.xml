@@ -1,0 +1,8 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- IMPLEMENTATION OF 3RD PARTY apps, PLEASE DON'T REMOVE THIS -->
+
+    <PreferenceScreen android:title="@string/sound_enhance_strings_v4a_title_txt" android:summary="@string/sound_enhance_strings_v4a_desc_txt" android:key="v4a">
+        <intent android:targetPackage="com.audlabs.viperfx" android:action="android.intent.action.MAIN" android:targetClass="com.audlabs.viperfx.main.MainActivity" />
+    </PreferenceScreen>
+
+</PreferenceScreen>

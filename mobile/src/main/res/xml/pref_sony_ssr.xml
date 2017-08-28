@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/ssr" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="htc_ssr_switch"
+        android:summary="@string/htc_ssr_description"
+        android:title="@string/htc_ssr" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="pdesire_clearaudio_switch"
+        android:summary="@string/pdesire_ssr_description"
+        android:title="@string/pdesire_ssr" />
+
+</PreferenceScreen>

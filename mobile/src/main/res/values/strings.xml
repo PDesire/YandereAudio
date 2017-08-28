@@ -6,40 +6,26 @@
     <string name="navigation_drawer_open"> </string>
     <string name="navigation_drawer_close"> </string>
     <string name="security_error">App shutdowning because security conditions not given</string>
-
-
     <string name="service_name">YandereAudio Service</string>
     <string name="title_activity_pdesire_audio">PDesireAudio Service</string>
-
-
-
-    <!-- HEAVYBASS STRINGS -->
+    <string name="title_activity_universal">Universal Management</string>
+    <string name="title_activity_sony">Sony Management</string>
     <string name="heavybass_description">A SRS Re-callibration to output more bass from the Headphones</string>
     <string name="heavybass_title">Heavybass Mode</string>
-
-    <!-- PDESIREAUDIO STRINGS -->
     <string name="pdesireaudio_uhqa_description">Set your Soundcard to the PDesireAudio Ultra High Quality Mode</string>
     <string name="pdesireaudio_uhqa_title">Ultra High Quality Mode</string>
     <string name="pdesireaudio_static_description">Gives you full control to PDesireAudio</string>
     <string name="pdesireaudio_static_title">Static Mode</string>
-
-
-    <!-- HEADER STRINGS -->
     <string name="pref_header_audio_settings">Audio Settings</string>
     <string name="pref_header_engines">Engines</string>
     <string name="pref_header_credits">Other</string>
     <string name="pref_header_pdesireaudio_controls">PDesireAudio Controls</string>
     <string name="pref_header_pdesireaudio_credits">Other</string>
-
-
-    <!-- INFORMATION STRINGS -->
     <string name="main_author_description">Tristan Marsell (PDesire)</string>
     <string name="main_author_title">Main Author</string>
     <string name="special_author_title">Special Credits</string>
     <string name="team_author_description">Team DevElite</string>
     <string name="team_author_title">Development Team</string>
-
-    <!-- MISC STRINGS -->
     <string name="sound_enhance_strings_v4a_title_txt">VIPER4Android®</string>
     <string name="sound_enhance_strings_v4a_desc_txt">Customize your Audio Output however you want</string>
     <string name="credits_title">Credits:</string>
@@ -48,8 +34,8 @@
     <string name="pdesireaudio_found">PDesireAudio found on Kernel</string>
     <string name="pdesireaudio_not_found">PDesireAudio not found on Kernel</string>
     <string name="pdesireaudio_desc">What is PDesireAudio</string>
-    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \nAsk your kernel developer if he can implement PDesireAudio to his kernel if it doesn't have it yet</string>
-    <string name="meli_not_installed">Project Meli not installed</string>
+    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \nAsk your kernel developer if he can implement PDesireAudio to his kernel if it doesn\'t have it yet</string>
+    <string name="meli_not_installed">Project Meli not found</string>
     <string name="no_project_meli_installed">You do not have Project Meli installed, or installed not properly, download the latest version from Project Meli Thread</string>
     <string name="go_to_thread">Go To Thread</string>
     <string name="ignore">Ignore</string>
@@ -69,5 +55,31 @@
     <string name="yume_audio_description">The old but best Engine of Project Yume.\nApply if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
     <string name="meli_audio">MeliAudio Y Engine</string>
     <string name="meli_audio_description">New, better, more powerful.\nThe MeliAudio Y Engine is for people, who wants audio without any compromises. \nIt does get updated everytime by every Project Meli version, and is already activated by default.\nAttention: Your device will reboot</string>
+    <string name="sony_management">Sony Management</string>
+    <string name="universal_management">Universal Management</string>
+    <string name="device_management">Device Management</string>
+    <string name="htc_callibration">HTC Device Callibration</string>
+    <string name="supported_eq">Supported Equalizers</string>
+    <string name="sse_callibration">SoundEnhancement Callibration</string>
+    <string name="ssr_sony_callibration">Sony Surround Recording Callibration</string>
+    <string name="vendor_htc_audio">Vendoring HTC Audio Effects</string>
+    <string name="etc_htc_audio">Etcing HTC Audio Effects</string>
+    <string name="meli_htc_audio">Project Meli HTC Audio Effects</string>
+    <string name="vendor_htc_audio_description">Does set htc_audio_effects.conf similar to vendor audio_effects.conf</string>
+    <string name="etc_htc_audio_description">Does set htc_audio_effects.conf similar to etc audio_effects.conf</string>
+    <string name="meli_htc_audio_description">Does set htc_audio_effects.conf to PDesire\'s modified one</string>
+    <string name="pdesire_clearaudio">PDesire\'s ClearAudio</string>
+    <string name="pdesire_clearaudio_description">PDesire\'s own callibration of ClearAudio</string>
+    <string name="bass_clearaudio">Bassing ClearAudio</string>
+    <string name="bass_clearaudio_description">Sets up the bass on ClearAudio</string>
+    <string name="treble_clearaudio">Trebling ClearAudio</string>
+    <string name="treble_clearaudio_description">Sets up the treble on ClearAudio</string>
+    <string name="htc_ssr_description">Use HTC SSR implementation</string>
+    <string name="htc_ssr">HTC SSR</string>
+    <string name="pdesire_ssr_description">Use PDesire SSR implementation</string>
+    <string name="pdesire_ssr">PDesire SSR</string>
+    <string name="ssr">Surround Sound Recording (SSR)</string>
+    <string name="clearaudio">ClearAudio</string>
+    <string name="htc_audio_effects">HTC Audio Effects</string>
 
 </resources>

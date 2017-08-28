@@ -1,4 +1,4 @@
-package com.meli.pdesire.yandereservice
+package com.meli.pdesire.yandereservice.fragments
 
 /**
  * Created by PDesire on 20.05.2017.

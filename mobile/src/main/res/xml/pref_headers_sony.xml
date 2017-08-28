@@ -1,0 +1,13 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These settings headers are only used on tablets. -->
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.fragments.SSECallibrationFragment"
+        android:icon="@null"
+        android:title="@string/sse_callibration" />
+    <header
+        android:fragment="com.meli.pdesire.yandereservice.fragments.SSRSonyCallibrationFragment"
+        android:icon="@null"
+        android:title="@string/ssr_sony_callibration" />
+
+</preference-headers>

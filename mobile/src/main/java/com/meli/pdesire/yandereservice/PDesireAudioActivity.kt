@@ -10,7 +10,8 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
-import android.widget.Toast
+import com.meli.pdesire.yandereservice.fragments.PDesireAudioControlFragment
+import com.meli.pdesire.yandereservice.fragments.PDesireAudioCreditsFragment
 
 import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager

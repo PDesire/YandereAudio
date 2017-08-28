@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/soundmod">
         <menu>
@@ -17,6 +16,20 @@
                 android:id="@+id/nav_pdesireaudio"
                 android:icon="@drawable/ic_whatshot_black_24dp"
                 android:title="@string/pdesireaudio_service_control"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/device_management">
+        <menu>
+            <item
+                android:id="@+id/universal_management"
+                android:icon="@drawable/ic_universal_black_24dp"
+                android:title="@string/universal_management"/>
+
+            <item
+                android:id="@+id/sony_management"
+                android:icon="@drawable/ic_sony_black_24dp"
+                android:title="@string/sony_management"/>
         </menu>
     </item>
 

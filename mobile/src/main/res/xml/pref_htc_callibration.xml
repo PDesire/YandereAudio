@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/htc_audio_effects" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="vendor_htc_switch"
+        android:summary="@string/vendor_htc_audio_description"
+        android:title="@string/vendor_htc_audio" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="etc_htc_switch"
+        android:summary="@string/etc_htc_audio_description"
+        android:title="@string/etc_htc_audio" />
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="own_htc_switch"
+        android:summary="@string/meli_htc_audio_description"
+        android:title="@string/meli_htc_audio" />
+
+</PreferenceScreen>

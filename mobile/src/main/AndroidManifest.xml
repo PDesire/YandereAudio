@@ -41,6 +41,22 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.meli.pdesire.yandereservice.UniversalManagementActivity"
+            android:label="@string/title_activity_universal">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.meli.pdesire.yandereservice.SonyManagementActivity"
+            android:label="@string/title_activity_sony">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
         <service
             android:name="com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener" >
             <intent-filter>
@@ -61,6 +77,7 @@
 
         <meta-data android:name="com.google.android.gms.version"
                    android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

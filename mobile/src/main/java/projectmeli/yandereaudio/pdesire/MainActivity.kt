@@ -26,7 +26,8 @@ import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
 import android.content.SharedPreferences
-
+import com.meli.pdesire.yandereservice.SonyManagementActivity
+import com.meli.pdesire.yandereservice.UniversalManagementActivity
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.meli_not_installed))
                     .setMessage(getString(R.string.no_project_meli_installed))
-                    .setPositiveButton(getString(R.string.go_to_thread)) { _, _j ->
+                    .setPositiveButton(getString(R.string.go_to_thread)) { _, _ ->
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
                         startActivity(intent)
                     }
@@ -128,6 +129,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         } else if (id == R.id.nav_pdesireaudio) {
             val intent = Intent(applicationContext, PDesireAudioActivity::class.java)
+            startActivity(intent)
+        } else if (id == R.id.universal_management) {
+            val intent = Intent(applicationContext, UniversalManagementActivity::class.java)
+            startActivity(intent)
+        } else if (id == R.id.sony_management) {
+            val intent = Intent(applicationContext, SonyManagementActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.basic_theme) {
             toggleThemeNew(false)
