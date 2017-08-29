@@ -25,7 +25,6 @@ import com.meli.pdesire.yandereservice.SettingsActivity
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
-import android.content.SharedPreferences
 import com.meli.pdesire.yandereservice.SonyManagementActivity
 import com.meli.pdesire.yandereservice.UniversalManagementActivity
 

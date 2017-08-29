@@ -81,5 +81,7 @@
     <string name="ssr">Surround Sound Recording (SSR)</string>
     <string name="clearaudio">ClearAudio</string>
     <string name="htc_audio_effects">HTC Audio Effects</string>
+    <string name="secure_replace_successful">Secure Replace: Successful</string>
+    <string name="secure_replace_failed">Secure Replace: Failed</string>
 
 </resources>

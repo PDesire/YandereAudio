@@ -1,9 +1,9 @@
 package com.meli.pdesire.yandereservice.framework
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.preference.PreferenceActivity
 
 @SuppressLint("Registered")
 /**
@@ -11,13 +11,13 @@ import android.preference.PreferenceActivity
  */
 
 
-object YanderePackageManager : PreferenceActivity() {
+object YanderePackageManager : Activity() {
 
     // Check if app is installed, this just count for apps which are installed and not their subclasses
     fun isAppInstalled(packageName : String, contexts : Context): Boolean {
         val context = contexts
         val pm = context.packageManager
-        var installed: Boolean
+        val installed: Boolean
         installed = try {
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
             true
