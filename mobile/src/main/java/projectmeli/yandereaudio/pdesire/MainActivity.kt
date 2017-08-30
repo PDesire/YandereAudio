@@ -20,19 +20,18 @@ import android.widget.ImageView
 import android.view.animation.AnimationUtils
 import android.view.animation.AnimationSet
 import android.widget.Toast
-import com.meli.pdesire.yandereservice.PDesireAudioActivity
-import com.meli.pdesire.yandereservice.SettingsActivity
+import com.meli.pdesire.yandereservice.*
+import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
-import com.meli.pdesire.yandereservice.SonyManagementActivity
-import com.meli.pdesire.yandereservice.UniversalManagementActivity
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
+    private val PREF_SECURE_REPLACE = "secure_replace"
 
     private fun toggleThemeNew(newTheme: Boolean) {
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
@@ -75,10 +74,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Use the chosen theme
         val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
+        val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
 
         if (useNewTheme) {
             setTheme(R.style.AppTheme_New_NoActionBar)
         }
+
+        YandereCommandHandler.setSecureReplace(useSecureReplace)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -124,7 +126,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val id = item.itemId
 
         if (id == R.id.nav_service) {
-            val intent = Intent(applicationContext, SettingsActivity::class.java)
+            val intent = Intent(applicationContext, YandereAudioActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.nav_pdesireaudio) {
             val intent = Intent(applicationContext, PDesireAudioActivity::class.java)
@@ -139,7 +141,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             toggleThemeNew(false)
         } else if (id == R.id.new_theme) {
             toggleThemeNew(true)
-        } else if (id == R.id.nav_contact_xda) {
+        } else if (id == R.id.settings) {
+            val intent = Intent(applicationContext, YandereSettingsActivity::class.java)
+            startActivity(intent)
+        }else if (id == R.id.nav_contact_xda) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
             startActivity(intent)
         } else if (id == R.id.nav_contact_pdesire) {

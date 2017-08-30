@@ -2,8 +2,7 @@ package com.meli.pdesire.yandereservice.framework
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
-
+import android.os.Bundle
 
 
 @SuppressLint("Registered")
@@ -13,31 +12,38 @@ import android.content.Context
  */
 object YandereCommandHandler : Activity() {
 
-    private val PREFS_NAME = "prefs_secure_replace"
-    private val PREF_SECURE_REPLACE = "secure_replace"
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    private var useSecureReplace: Boolean = false
+
+    fun setSecureReplace (set : Boolean) {
+        useSecureReplace = set
+    }
+
+    fun getSecureReplace() : Boolean {
+        return useSecureReplace
+    }
 
     fun secure_replace(source_directory : String, source_file : String, destination : String) : Int {
-        //val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        //val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
-        var md5hashsum : String = ""
-        var secondmd5hashsum : String = " "
 
-        //if (useSecureReplace) {
-        md5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
+        if (getSecureReplace()) {
+            val md5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
 
-        YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
+            YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
 
-        secondmd5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
+            val secondmd5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
 
-        if (md5hashsum.equals(secondmd5hashsum))
-            return 1
-        else
+            if (md5hashsum.equals(secondmd5hashsum))
+                return 1
+
             return 0
 
-        //} else {
-        //    YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
-        //    return 1
-        //}
+        } else {
+            YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
+            return 1
+        }
     }
 
     @Override
@@ -53,29 +59,6 @@ object YandereCommandHandler : Activity() {
         if (success == 1)
             return 1
         else
-            return 0
-    }
-
-    @Override
-    fun copy(source_directory : String,
-             source_file : String,
-             destination : String,
-             source_directoryTwo : String,
-             source_fileTwo : String,
-             destinationTwo : String) : Int {
-        var successOne : Int = 0
-        var successTwo : Int = 0
-        mount_rw()
-        successOne = secure_replace(source_directory, source_file, destination)
-        successTwo = secure_replace(source_directoryTwo, source_fileTwo, destinationTwo)
-        mount_ro()
-
-        if (successOne == successTwo) {
-            if (successOne == 1)
-                return 1
-            else
-                return 0
-        } else
             return 0
     }
 
@@ -101,22 +84,23 @@ object YandereCommandHandler : Activity() {
         }
     }
 
-    fun callYumeEngine() : Int {
-        return copy("/system/Yuno/Engines/Yume/Final/etc",
+    fun callYumeEngine() {
+        copy("/system/Yuno/Engines/Yume/Final/etc",
                 "audio_effects.conf",
-                "/system/etc",
-                "/system/Yuno/Engines/Yume/Final/vendor",
+                "/system/etc")
+        copy("/system/Yuno/Engines/Yume/Final/vendor",
                 "audio_effects.conf",
                 "/system/vendor/etc")
     }
 
-    fun callMeliEngine() : Int {
-        return copy("/system/Yuno/Engines/Meli/etc",
+    fun callMeliEngine(){
+        copy("/system/Yuno/Engines/Meli/etc",
                 "audio_effects.conf",
-                "/system/etc",
-                "/system/Yuno/Engines/Meli/vendor",
+                "/system/etc")
+        copy("/system/Yuno/Engines/Meli/vendor",
                 "audio_effects.conf",
                 "/system/vendor/etc")
+
     }
 
     fun callReboot() {

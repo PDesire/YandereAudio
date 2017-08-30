@@ -1,6 +1,8 @@
 package com.meli.pdesire.yandereservice.framework;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.support.annotation.NonNull;
 
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hashing;
@@ -13,8 +15,10 @@ import java.security.MessageDigest;
  * Created by PDesire on 8/29/17.
  */
 
+@SuppressLint("Registered")
+
 public class YandereCryptography extends Activity {
-    public static String fileToMD5(String filePath) {
+    @NonNull public static String fileToMD5(String filePath) {
         InputStream inputStream = null;
         try {
             inputStream = new FileInputStream(filePath);
@@ -34,24 +38,24 @@ public class YandereCryptography extends Activity {
             if (inputStream != null) {
                 try {
                     inputStream.close();
-                } catch (Exception e) { }
+                } catch (Exception ignored) { }
             }
         }
     }
 
-    private static String convertHashToString(byte[] md5Bytes) {
-        String returnVal = "";
-        for (int i = 0; i < md5Bytes.length; i++) {
-            returnVal += Integer.toString(( md5Bytes[i] & 0xff ) + 0x100, 16).substring(1);
+    @NonNull private static String convertHashToString(byte[] md5Bytes) {
+        StringBuilder returnVal = new StringBuilder();
+        for (byte md5Byte : md5Bytes) {
+            returnVal.append(Integer.toString((md5Byte & 0xff) + 0x100, 16).substring(1));
         }
-        return returnVal.toUpperCase();
+        return returnVal.toString().toUpperCase();
     }
 
-    public String convertStringToSHA256 (String string) {
+    @NonNull public String convertStringToSHA256 (String string) {
         return Hashing.sha256().hashString( string, Charsets.UTF_8 ).toString();
     }
 
-    public String convertStringToSHA256 (int string) {
+    @NonNull public String convertStringToSHA256 (int string) {
         String finalString = getString(string);
         return Hashing.sha256().hashString(finalString, Charsets.UTF_8 ).toString();
     }

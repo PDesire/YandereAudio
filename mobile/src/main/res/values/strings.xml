@@ -83,5 +83,8 @@
     <string name="htc_audio_effects">HTC Audio Effects</string>
     <string name="secure_replace_successful">Secure Replace: Successful</string>
     <string name="secure_replace_failed">Secure Replace: Failed</string>
+    <string name="security">Security</string>
+    <string name="settings">Settings</string>
+    <string name="yandere_settings">Yandere Settings</string>
 
 </resources>

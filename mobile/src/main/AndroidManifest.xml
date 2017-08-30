@@ -26,7 +26,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.SettingsActivity"
+            android:name="com.meli.pdesire.yandereservice.YandereAudioActivity"
             android:label="@string/service_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -52,6 +52,14 @@
         <activity
             android:name="com.meli.pdesire.yandereservice.SonyManagementActivity"
             android:label="@string/title_activity_sony">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.meli.pdesire.yandereservice.YandereSettingsActivity"
+            android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>

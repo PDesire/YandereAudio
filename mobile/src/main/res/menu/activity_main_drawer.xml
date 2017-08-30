@@ -47,6 +47,15 @@
         </menu>
     </item>
 
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="@string/yandere_settings"/>
+        </menu>
+    </item>
+
     <item android:title="@string/support">
         <menu>
             <item

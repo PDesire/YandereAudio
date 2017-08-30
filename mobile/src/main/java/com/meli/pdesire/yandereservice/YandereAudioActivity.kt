@@ -31,7 +31,7 @@ import projectmeli.yandereaudio.pdesire.R
    * Android Design: Settings](http://developer.android.com/design/patterns/settings.html) for design guidelines and the [Settings
    * API Guide](http://developer.android.com/guide/topics/ui/settings.html) for more information on developing a Settings UI.
  */
-class SettingsActivity : AppCompatPreferenceActivity() {
+class YandereAudioActivity : AppCompatPreferenceActivity() {
 
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
