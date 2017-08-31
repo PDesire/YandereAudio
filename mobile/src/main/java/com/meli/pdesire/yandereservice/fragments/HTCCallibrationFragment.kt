@@ -57,5 +57,9 @@ class HTCCallibrationFragment : PreferenceFragment() {
             }
             true
         }
+
+        own.setEnabled(false)
+        etc.setEnabled(false)
+        vendor.setEnabled(false)
     }
 }

@@ -9,7 +9,7 @@
 
     <SwitchPreference
         android:defaultValue="false"
-        android:key="pdesire_clearaudio_switch"
+        android:key="pdesire_ssr_switch"
         android:summary="@string/pdesire_ssr_description"
         android:title="@string/pdesire_ssr" />
 
