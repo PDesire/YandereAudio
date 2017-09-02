@@ -13,6 +13,7 @@ import android.preference.PreferenceFragment
 import android.preference.PreferenceScreen
 import android.preference.SwitchPreference
 import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
+import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import projectmeli.yandereaudio.pdesire.R
 
@@ -32,8 +33,10 @@ class AudioSettingsFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.callHeavybass(true)
+                YandereOutputWrapper.addNotification(activity, getString(R.string.heavybass_enabled), getString(R.string.heavybass_enabled_description))
             } else {
                 YandereCommandHandler.callHeavybass(false)
+                YandereOutputWrapper.addNotification(activity, getString(R.string.heavybass_disabled), getString(R.string.heavybass_disabled_description))
             }
             true
         }

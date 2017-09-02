@@ -23,6 +23,7 @@ import android.widget.Toast
 import com.meli.pdesire.yandereservice.*
 import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
 import com.meli.pdesire.yandereservice.framework.YandereFileManager
+import com.meli.pdesire.yandereservice.framework.YandereJobUtility
 import com.meli.pdesire.yandereservice.framework.YanderePackageManager
 import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
 
@@ -107,9 +108,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         closedReleaseTest()
         meliInstalledCheck()
-
-        val intent = Intent(applicationContext, YandereWearableApplyListener::class.java)
-        startService(intent)
     }
 
     override fun onBackPressed() {

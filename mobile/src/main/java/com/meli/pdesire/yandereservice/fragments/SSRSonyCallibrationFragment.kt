@@ -8,6 +8,7 @@ import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
+import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import projectmeli.yandereaudio.pdesire.R
 
 class SSRSonyCallibrationFragment : PreferenceFragment() {
@@ -61,6 +62,7 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
                 val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
                 editor.putBoolean(PREF_PDESIRE_SSR, true)
                 editor.apply()
+                YandereOutputWrapper.addNotification(activity, getString(R.string.pdesire_ssr_enabled), getString(R.string.pdesire_ssr_enabled_description))
             } else {
                 setStock()
                 htc.setEnabled(true)

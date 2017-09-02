@@ -8,6 +8,7 @@ import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
 import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
+import com.meli.pdesire.yandereservice.framework.YandereOutputWrapper
 import projectmeli.yandereaudio.pdesire.R
 
 class SSECallibrationFragment : PreferenceFragment() {
@@ -90,6 +91,7 @@ class SSECallibrationFragment : PreferenceFragment() {
                 val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
                 editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, true)
                 editor.apply()
+                YandereOutputWrapper.addNotification(activity, getString(R.string.pdesire_clearaudio_enabled), getString(R.string.pdesire_clearaudio_enabled_description))
             } else {
                 setStock()
                 treble.setEnabled(true)
