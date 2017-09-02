@@ -21,11 +21,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.AnimationSet
 import android.widget.Toast
 import com.meli.pdesire.yandereservice.*
-import com.meli.pdesire.yandereservice.framework.YandereCommandHandler
-import com.meli.pdesire.yandereservice.framework.YandereFileManager
-import com.meli.pdesire.yandereservice.framework.YandereJobUtility
-import com.meli.pdesire.yandereservice.framework.YanderePackageManager
-import com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener
+import com.meli.pdesire.yandereservice.framework.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -108,6 +104,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         closedReleaseTest()
         meliInstalledCheck()
+
+        YandereOutputWrapper.addNotification(this, getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
     }
 
     override fun onBackPressed() {

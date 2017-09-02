@@ -100,5 +100,6 @@
     <string name="pdesire_ssr_enabled">PDesire\'s Surround Sound Recording Enabled</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="welcome_back_description">Welcome Back to Project Meli</string>
+    <string name="welcome_back_yandereaudio">Welcome back to YandereAudio</string>
 
 </resources>
