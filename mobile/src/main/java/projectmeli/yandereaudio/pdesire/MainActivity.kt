@@ -22,6 +22,13 @@ import android.view.animation.AnimationSet
 import android.widget.Toast
 import com.meli.pdesire.yandereservice.*
 import com.meli.pdesire.yandereservice.framework.*
+import com.google.firebase.analytics.FirebaseAnalytics
+
+
+
+
+
+
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +36,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
     private val PREF_SECURE_REPLACE = "secure_replace"
+    private val PREF_YANDERE = "yandere"
+    private val PREF_ANALYTICS = "analytics"
+
+    private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
     private fun toggleThemeNew(newTheme: Boolean) {
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
@@ -41,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
 
-    private fun closedReleaseTest () {
+    private fun closedReleaseTest() {
         if (YanderePackageManager.closedReleaseTest(this)) {
             Toast.makeText(this, getString(R.string.security_error),
                     Toast.LENGTH_LONG).show()
@@ -49,8 +60,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun meliInstalledCheck () {
-        if(!YandereFileManager.fileCheck("/system/meli.prop")) {
+    private fun meliInstalledCheck(): Boolean {
+        if (!YandereFileManager.fileCheck("/system/meli.prop")) {
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.meli_not_installed))
                     .setMessage(getString(R.string.no_project_meli_installed))
@@ -64,7 +75,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .setIcon(R.mipmap.ic_launcher)
                     .create()
                     .show()
+            return false
         }
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,6 +85,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
         val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
+        val useYandere = preferences.getBoolean(PREF_YANDERE, false)
+        val useAnalytics = preferences.getBoolean(PREF_YANDERE, false)
+        val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         if (useNewTheme) {
             setTheme(R.style.AppTheme_New_NoActionBar)
@@ -103,9 +119,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         meliDescriptionView.startAnimation(fadeInAnimationSet)
 
         closedReleaseTest()
-        meliInstalledCheck()
+        if (meliInstalledCheck() && !useYandere) {
+            val messageOutput = AlertDialog.Builder(this)
+            messageOutput.setTitle(getString(R.string.hello_yandere))
+                    .setMessage(getString(R.string.hello_yandere_description))
+                    .setPositiveButton(getString(R.string.ignore)) { _, _ ->
+
+                    }
+                    .setNegativeButton(getString(R.string.never_show_again)) { _, _ ->
+                        editor.putBoolean(PREF_YANDERE, true)
+                        editor.apply()
+                    }
+                    .setIcon(R.mipmap.ic_launcher)
+                    .create()
+                    .show()
+        }
 
         YandereOutputWrapper.addNotification(this, getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
+
+
+
+        if (!useAnalytics) {
+            mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
+            val params = Bundle()
+
+            params.putString(FirebaseAnalytics.Param.ITEM_ID, "id_open")
+            params.putString(FirebaseAnalytics.Param.ITEM_NAME, "open")
+            params.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "App opened")
+            mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
+
+        } else {
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false)
+        }
     }
 
     override fun onBackPressed() {
@@ -140,7 +187,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.settings) {
             val intent = Intent(applicationContext, YandereSettingsActivity::class.java)
             startActivity(intent)
-        }else if (id == R.id.nav_contact_xda) {
+        } else if (id == R.id.nav_contact_xda) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
             startActivity(intent)
         } else if (id == R.id.nav_contact_pdesire) {

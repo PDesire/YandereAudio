@@ -29,20 +29,21 @@ class SSECallibrationFragment : PreferenceFragment() {
         val usePDesire = preferences.getBoolean(PREF_PDESIRE_CLEARAUDIO, false)
         val useBass = preferences.getBoolean(PREF_BASS_CLEARAUDIO, false)
         val useTreble = preferences.getBoolean(PREF_TREBLE_CLEARAUDIO, false)
+        val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         val treble = findPreference("treble_clearaudio_switch")
         val bass = findPreference("bass_clearaudio_switch")
         val pdesire = findPreference("pdesire_clearaudio_switch")
 
         if (usePDesire) {
-            treble.setEnabled(false)
-            bass.setEnabled(false)
+            treble.isEnabled = false
+            bass.isEnabled = false
         } else if (useBass) {
-            treble.setEnabled(false)
-            pdesire.setEnabled(false)
+            treble.isEnabled = false
+            pdesire.isEnabled = false
         } else if (useTreble) {
-            pdesire.setEnabled(false)
-            bass.setEnabled(false)
+            pdesire.isEnabled = false
+            bass.isEnabled = false
         }
 
         treble.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
@@ -50,15 +51,15 @@ class SSECallibrationFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/Treble", "/system/etc/sony_effect")
-                pdesire.setEnabled(false)
-                bass.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                pdesire.isEnabled = false
+                bass.isEnabled = false
                 editor.putBoolean(PREF_TREBLE_CLEARAUDIO, true)
                 editor.apply()
+                YandereOutputWrapper.addNotification(activity, getString(R.string.treble_clearaudio_enabled), getString(R.string.treble_clearaudio_enabled_description))
             } else {
                 setStock()
-                pdesire.setEnabled(true)
-                bass.setEnabled(true)
+                pdesire.isEnabled = true
+                bass.isEnabled = true
             }
             true
         }
@@ -68,15 +69,15 @@ class SSECallibrationFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/Bass", "/system/etc/sony_effect")
-                treble.setEnabled(false)
-                pdesire.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                treble.isEnabled = false
+                pdesire.isEnabled = false
                 editor.putBoolean(PREF_BASS_CLEARAUDIO, true)
                 editor.apply()
+                YandereOutputWrapper.addNotification(activity, getString(R.string.bass_clearaudio_enabled), getString(R.string.bass_clearaudio_enabled_description))
             } else {
                 setStock()
-                treble.setEnabled(true)
-                pdesire.setEnabled(true)
+                treble.isEnabled = true
+                pdesire.isEnabled = true
             }
             true
         }
@@ -86,16 +87,15 @@ class SSECallibrationFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/PDesire", "/system/etc/sony_effect")
-                treble.setEnabled(false)
-                bass.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                treble.isEnabled = false
+                bass.isEnabled = false
                 editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, true)
                 editor.apply()
                 YandereOutputWrapper.addNotification(activity, getString(R.string.pdesire_clearaudio_enabled), getString(R.string.pdesire_clearaudio_enabled_description))
             } else {
                 setStock()
-                treble.setEnabled(true)
-                bass.setEnabled(true)
+                treble.isEnabled = true
+                bass.isEnabled = true
             }
             true
         }

@@ -27,28 +27,29 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
         val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val usePDesire = preferences.getBoolean(PREF_PDESIRE_SSR, false)
         val useHTC = preferences.getBoolean(PREF_HTC_SSR, false)
+        val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         val htc = findPreference("htc_ssr_switch")
 
         val pdesire = findPreference("pdesire_ssr_switch")
 
         if (usePDesire)
-            htc.setEnabled(false)
+            htc.isEnabled = false
         else if (useHTC)
-            pdesire.setEnabled(false)
+            pdesire.isEnabled = false
 
         htc.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.secure_replace("surround_sound_rec_AZ.cfg", "/system/Yuno/Sony/SSR/HTC", "/system/etc/surround_sound_3mic")
-                pdesire.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                pdesire.isEnabled = false
                 editor.putBoolean(PREF_HTC_SSR, true)
                 editor.apply()
+                YandereOutputWrapper.addNotification(activity, getString(R.string.htc_ssr_enabled), getString(R.string.htc_ssr_enabled_description))
             } else {
                 setStock()
-                pdesire.setEnabled(true)
+                pdesire.isEnabled = true
             }
             true
         }
@@ -58,14 +59,13 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.secure_replace("surround_sound_rec_AZ.cfg", "/system/Yuno/Sony/SSR/PDesire", "/system/etc/surround_sound_3mic")
-                htc.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                htc.isEnabled = false
                 editor.putBoolean(PREF_PDESIRE_SSR, true)
                 editor.apply()
                 YandereOutputWrapper.addNotification(activity, getString(R.string.pdesire_ssr_enabled), getString(R.string.pdesire_ssr_enabled_description))
             } else {
                 setStock()
-                htc.setEnabled(true)
+                htc.isEnabled = true
             }
             true
         }

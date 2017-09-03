@@ -29,11 +29,11 @@ object YandereCommandHandler : Activity() {
     fun secure_replace(source_directory : String, source_file : String, destination : String) : Int {
 
         if (getSecureReplace()) {
-            val md5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
+            val md5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file)
 
             YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
 
-            val secondmd5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file);
+            val secondmd5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file)
 
             if (md5hashsum.equals(secondmd5hashsum))
                 return 1

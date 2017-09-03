@@ -1,10 +1,21 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Secure Replace" />
+    <PreferenceCategory android:title="@string/secure_replace" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="secure_replace_switch"
-        android:summary="Ensure your files does get replaced successfully in cost of performance"
-        android:title="Secure Replace" />
+        android:summary="@string/secure_replace_description"
+        android:title="@string/secure_replace" />
+
+    <PreferenceCategory android:title="@string/analytics" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="analytics_switch"
+        android:summary="@string/google_analytics_description"
+        android:title="@string/google_analytics" />
+
+    <Preference
+        android:key="analytics_help"
+        android:title="@string/info_analytics" />
 
 </PreferenceScreen>

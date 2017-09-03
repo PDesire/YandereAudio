@@ -33,9 +33,10 @@ class PDesireAudioControlFragment : PreferenceFragment() {
 
         val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val usePDesireAudio = preferences.getBoolean(PREF_PDESIREAUDIO, false)
+        val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         if (!usePDesireAudio) {
-            pdesireaudio_static.setEnabled(false)
+            pdesireaudio_static.isEnabled = false
         }
 
         if (!YanderePDesireAudioAPI.getPDesireAudio().equals("")) {
@@ -50,15 +51,13 @@ class PDesireAudioControlFragment : PreferenceFragment() {
             if (!switched) {
                 YandereCommandHandler.callPDesireAudio(1)
                 YandereOutputWrapper.addNotification(activity, getString(R.string.pdesireaudio_enabled), getString(R.string.pdesireaudio_enabled_description))
-                pdesireaudio_static.setEnabled(true)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                pdesireaudio_static.isEnabled = true
                 editor.putBoolean(PREF_PDESIREAUDIO, true)
                 editor.apply()
             } else {
                 YandereCommandHandler.callPDesireAudio(0)
                 YandereOutputWrapper.addNotification(activity, getString(R.string.pdesireaudio_disabled), getString(R.string.pdesireaudio_disabled_description))
-                pdesireaudio_static.setEnabled(false)
-                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                pdesireaudio_static.isEnabled = false
                 editor.putBoolean(PREF_PDESIREAUDIO, false)
                 editor.apply()
             }

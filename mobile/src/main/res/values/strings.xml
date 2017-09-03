@@ -96,10 +96,27 @@
     <string name="pdesireaudio_disabled_description">PDesireAudio is disabled, maybe too much for you…</string>
     <string name="pdesire_clearaudio_enabled">PDesire\'s ClearAudio enabled</string>
     <string name="pdesire_clearaudio_enabled_description">PDesire\'s ClearAudio is enabled. He has put much effort on this, I hope you enjoy</string>
+    <string name="treble_clearaudio_enabled">Treble ClearAudio enabled</string>
+    <string name="treble_clearaudio_enabled_description">Treble ClearAudio is enabled. So so sharp</string>
+    <string name="bass_clearaudio_enabled">Bass ClearAudio enabled</string>
+    <string name="bass_clearaudio_enabled_description">Bass ClearAudio is enabled. Whoa, that bass is whooming</string>
     <string name="pdesire_ssr_enabled_description">PDesire\'s Surround Sound Recording is enabled. Whoa, it feels so real</string>
     <string name="pdesire_ssr_enabled">PDesire\'s Surround Sound Recording Enabled</string>
+    <string name="htc_ssr_enabled_description">HTC Surround Sound Recording is enabled. Many people does hate HTC, but they know how to use audio correctly</string>
+    <string name="htc_ssr_enabled">HTC Surround Sound Recording Enabled</string>
     <string name="welcome_back">Welcome Back</string>
     <string name="welcome_back_description">Welcome Back to Project Meli</string>
     <string name="welcome_back_yandereaudio">Welcome back to YandereAudio</string>
+    <string name="hello_yandere">Hello, I am YandereAudio ^-^</string>
+    <string name="hello_yandere_description">I am YandereAudio, your personal assistant for Project Meli hihi ^~^ \nI was created by PDesire as replication of his personality in Project Meli. \nHe coded me to assist you while callibrating Project Meli. \nI hope it is okay for you that I call you master :3 \nAre you ready for fantastic audio? ^~^</string>
+    <string name="never_show_again">Never show again</string>
+    <string name="info_analytics">Info about Analytics</string>
+    <string name="google_analytics">Google Firebase Analytics</string>
+    <string name="google_analytics_description">Enable anonymous Analytics, for helping PDesire what features should be improved. Of course any data will keep private and secure</string>
+    <string name="secure_replace">Secure Replace</string>
+    <string name="secure_replace_description">Ensure your files does get replaced successfully in cost of performance</string>
+    <string name="analytics">Analytics</string>
+    <string name="about_firebase_analytics">About Google Firebase Analytics</string>
+    <string name="about_firebase_analytics_description">Google Firebase Analytics is a service by Google to provide analytics to this app. \nLogged will be: Gender, Device, Android Version, Which country you are living and What you are doing on YandereAudio app. \nThese data will be saved on Google Servers and I just have access to these data. \nI grant that any data of you will keep private and is just for improving Project Meli. \nI will not spy on you nor these data will be used for payment. \nIf you still do not believe me, look on the Source Code and you see there will not be any dangerous data transmitted to me or something like that-</string>
 
 </resources>
