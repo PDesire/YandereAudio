@@ -14,16 +14,19 @@ import projectmeli.yandereaudio.pdesire.R
  */
 class YandereBootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, arg1: Intent) {
-        val intent = Intent(context, YandereWearableApplyListener::class.java)
+        val wearable = Intent(context, YandereWearableApplyListener::class.java)
+        val firebase = Intent(context, YandereWearableApplyListener::class.java)
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M){
             YandereJobUtility.scheduleJobWearable(context)
+            YandereJobUtility.scheduleJobFirebase(context)
         } else {
-            context.startService(intent)
+            context.startService(wearable)
+            context.startService(firebase)
         }
         
         YandereOutputWrapper.addNotification(context, context.getString(R.string.welcome_back), context.getString(R.string.welcome_back_description))
 
-        Log.i("YandereAudio:", "YandereWearableApplyListener started")
+        Log.i("YandereAudio:", "YandereServices started")
     }
 }

@@ -87,6 +87,19 @@
             android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>
 
+        <service
+            android:name="com.meli.pdesire.yandereservice.services.YandereFirebaseJobSchedulerService"
+            android:label="YandereJobSchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
+
+        <service
+            android:name="com.meli.pdesire.yandereservice.services.YandereFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
         <receiver android:name="com.meli.pdesire.yandereservice.receivers.YandereBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

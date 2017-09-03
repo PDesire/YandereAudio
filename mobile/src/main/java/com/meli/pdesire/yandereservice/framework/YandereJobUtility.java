@@ -11,6 +11,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 
+import com.meli.pdesire.yandereservice.services.YandereFirebaseJobSchedulerService;
 import com.meli.pdesire.yandereservice.services.YandereJobSchedulerService;
 
 public class YandereJobUtility {
@@ -22,6 +23,17 @@ public class YandereJobUtility {
         JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
         builder.setMinimumLatency(500); // wait at least
         builder.setOverrideDeadline(3 * 1000); // maximum delay
+        JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
+        assert jobScheduler != null;
+        jobScheduler.schedule(builder.build());
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void scheduleJobFirebase(Context context) {
+        ComponentName serviceComponent = new ComponentName(context, YandereFirebaseJobSchedulerService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(0, serviceComponent);
+        builder.setMinimumLatency(10000); // wait at least
+        builder.setOverrideDeadline(50000); // maximum delay
         JobScheduler jobScheduler = context.getSystemService(JobScheduler.class);
         assert jobScheduler != null;
         jobScheduler.schedule(builder.build());
