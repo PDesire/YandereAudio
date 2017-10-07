@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "projectmeli.yandereaudio.pdesire"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -25,6 +26,10 @@ android {
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -32,16 +37,19 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.google.android.gms:play-services-wearable:11.2.0'
-    implementation 'com.android.support:support-compat:26.0.1'
+    implementation 'com.google.android.gms:play-services-wearable:11.4.0'
+    implementation 'com.android.support:support-compat:26.1.0'
     wearApp project(':wear')
-    implementation 'com.android.support:appcompat-v7:26.0.1'
-    implementation 'com.android.support:support-v13:26.0.1'
-    implementation 'com.android.support:design:26.0.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v13:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
     implementation 'com.google.guava:guava:23.0-android'
-    implementation 'com.google.firebase:firebase-core:11.2.0'
-    implementation 'com.google.firebase:firebase-messaging:11.2.0'
-    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
+    implementation 'com.google.firebase:firebase-core:11.4.0'
+    implementation 'com.google.firebase:firebase-messaging:11.4.0'
+    implementation 'com.firebase:firebase-jobdispatcher:0.6.0'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
+        transitive = true;
+    }
     testImplementation 'junit:junit:4.12'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

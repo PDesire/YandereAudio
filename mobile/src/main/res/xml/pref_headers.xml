@@ -2,15 +2,15 @@
 
     <!-- These settings headers are only used on tablets. -->
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.AudioSettingsFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.AudioSettingsFragment"
         android:icon="@null"
         android:title="@string/pref_header_audio_settings" />
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.EngineFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.EngineFragment"
         android:icon="@null"
         android:title="@string/pref_header_engines" />
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.CreditsFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.CreditsFragment"
         android:icon="@null"
         android:title="@string/pref_header_credits" />
 

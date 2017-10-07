@@ -38,14 +38,11 @@ import android.widget.ImageView
 import android.view.animation.AnimationUtils
 import android.view.animation.AnimationSet
 import android.widget.Toast
-import com.meli.pdesire.yandereservice.*
-import com.meli.pdesire.yandereservice.framework.*
+import com.meli.pdesire.yanderecore.*
+import com.meli.pdesire.yanderecore.framework.*
 import com.google.firebase.analytics.FirebaseAnalytics
-
-
-
-
-
+import com.crashlytics.android.Crashlytics
+import io.fabric.sdk.android.Fabric
 
 
 
@@ -104,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
         val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
         val useYandere = preferences.getBoolean(PREF_YANDERE, false)
-        val useAnalytics = preferences.getBoolean(PREF_YANDERE, false)
+        val useAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         if (useNewTheme) {
@@ -114,6 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         YandereCommandHandler.setSecureReplace(useSecureReplace)
 
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)

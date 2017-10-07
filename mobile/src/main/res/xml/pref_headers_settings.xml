@@ -2,8 +2,13 @@
 
     <!-- These settings headers are only used on tablets. -->
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.SecurityFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.SecurityFragment"
         android:icon="@null"
         android:title="@string/security" />
+
+    <header
+        android:fragment="com.meli.pdesire.yanderecore.fragments.AnalyticsFragment"
+        android:icon="@null"
+        android:title="@string/analytics" />
 
 </preference-headers>

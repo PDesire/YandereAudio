@@ -2,11 +2,11 @@
 
     <!-- These settings headers are only used on tablets. -->
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.HTCCallibrationFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.HTCCallibrationFragment"
         android:icon="@null"
         android:title="@string/htc_callibration" />
     <header
-        android:fragment="com.meli.pdesire.yandereservice.fragments.SupportedEqualizerFragment"
+        android:fragment="com.meli.pdesire.yanderecore.fragments.SupportedEqualizerFragment"
         android:icon="@null"
         android:title="@string/supported_eq" />
 

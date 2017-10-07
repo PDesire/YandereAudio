@@ -30,7 +30,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.YandereAudioActivity"
+            android:name="com.meli.pdesire.yanderecore.YandereAudioActivity"
             android:label="@string/service_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -38,7 +38,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.PDesireAudioActivity"
+            android:name="com.meli.pdesire.yanderecore.PDesireAudioActivity"
             android:label="@string/title_activity_pdesire_audio">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -46,7 +46,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.UniversalManagementActivity"
+            android:name="com.meli.pdesire.yanderecore.UniversalManagementActivity"
             android:label="@string/title_activity_universal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -54,7 +54,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.SonyManagementActivity"
+            android:name="com.meli.pdesire.yanderecore.SonyManagementActivity"
             android:label="@string/title_activity_sony">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -62,7 +62,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yandereservice.YandereSettingsActivity"
+            android:name="com.meli.pdesire.yanderecore.YandereSettingsActivity"
             android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -70,7 +70,7 @@
         </activity>
 
         <service
-            android:name="com.meli.pdesire.yandereservice.listeners.YandereWearableApplyListener" >
+            android:name="com.meli.pdesire.yanderecore.listeners.YandereWearableApplyListener" >
             <intent-filter>
                 <!-- listeners receive events that match the action and data filters -->
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
@@ -82,25 +82,25 @@
         </service>
 
         <service
-            android:name="com.meli.pdesire.yandereservice.services.YandereJobSchedulerService"
+            android:name="com.meli.pdesire.yanderecore.services.YandereJobSchedulerService"
             android:label="YandereJobSchedulerService"
             android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>
 
         <service
-            android:name="com.meli.pdesire.yandereservice.services.YandereFirebaseJobSchedulerService"
+            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseJobSchedulerService"
             android:label="YandereJobSchedulerService"
             android:permission="android.permission.BIND_JOB_SERVICE" >
         </service>
 
         <service
-            android:name="com.meli.pdesire.yandereservice.services.YandereFirebaseMessagingService">
+            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
-        <receiver android:name="com.meli.pdesire.yandereservice.receivers.YandereBootReceiver">
+        <receiver android:name="com.meli.pdesire.yanderecore.receivers.YandereBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -109,6 +109,11 @@
         <meta-data android:name="com.google.android.gms.version"
                    android:value="@integer/google_play_services_version" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0" />
+
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+sh remove_fabric_key.sh
+
+git add .
+git commit
+
+sh add_fabric_key.sh

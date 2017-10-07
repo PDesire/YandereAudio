@@ -1,18 +1,31 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Heavybass Mode" />
+    <PreferenceCategory android:title="@string/heavybass" />
     <SwitchPreference
         android:defaultValue="true"
         android:key="heavybass_switch"
         android:summary="@string/heavybass_description"
         android:title="@string/heavybass_title" />
 
+    <PreferenceCategory android:title="@string/pdaec" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="pdaec_core_switch"
+        android:summary="@string/pdaec_core_description"
+        android:title="@string/pdaec_core" />
 
-    <PreferenceCategory android:title="" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="pdaec_effects_switch"
+        android:summary="@string/pdaec_audio_effects_description"
+        android:title="@string/pdaec_audio_effects" />
+
+
+    <PreferenceCategory android:title="Apply Settings" />
     <Preference
         android:defaultValue="true"
         android:key="reboot_click"
-        android:summary="It's required to Reboot the System if you changed something on the settings"
-        android:title="Reboot System" />
+        android:summary="@string/reboot_description"
+        android:title="@string/reboot" />
 
 </PreferenceScreen>

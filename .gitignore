@@ -9,3 +9,5 @@
 .externalNativeBuild
 /mobile/google-services.json
 /release
+add_fabric_key.sh
+remove_fabric_key.sh
