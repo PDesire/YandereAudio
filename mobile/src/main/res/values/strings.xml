@@ -113,11 +113,15 @@
     <string name="info_analytics">Info about Analytics</string>
     <string name="google_analytics">Google Firebase Analytics</string>
     <string name="google_analytics_description">Enable anonymous Analytics, for helping PDesire what features should be improved. Of course any data will keep private and secure</string>
+    <string name="fabric_analytics">Fabric.io Analytics</string>
+    <string name="fabric_analytics_description">Enable anonymous Analytics and Crashlytics, for helping PDesire to improve the app. Of course any data will keep private and secure</string>
     <string name="secure_replace">Secure Replace</string>
     <string name="secure_replace_description">Ensure your files does get replaced successfully in cost of performance</string>
     <string name="analytics">Analytics</string>
     <string name="about_firebase_analytics">About Google Firebase Analytics</string>
     <string name="about_firebase_analytics_description">Google Firebase Analytics is a service by Google to provide analytics to this app. \nLogged will be: Gender, Device, Android Version, Which country you are living and What you are doing on YandereAudio app. \nThese data will be saved on Google Servers and I just have access to these data. \nI grant that any data of you will keep private and is just for improving Project Meli. \nI will not spy on you nor these data will be used for payment. \nIf you still do not believe me, look on the Source Code and you see there will not be any dangerous data transmitted to me or something like that</string>
+    <string name="about_fabric_analytics">About Fabric.io Realtime Analytics/Crashlytics</string>
+    <string name="about_fabric_analytics_description">Fabric.io Analytics/Crashlytics is a service by Fabric.io, a Google company, to provide analytics to this app. \nLogged will be: which country you are living, if your app does crash and what you are doing on YandereAudio app. \nThese data will be saved on Fabric.io Servers and I just have access to these data. \nI grant that any data of you will keep private and is just for improving Project Meli. \nI will not spy on you nor these data will be used for payment. \nIf you still do not believe me, look on the Source Code and you see there will not be any dangerous data transmitted to me or something like that</string>
     <string name="reboot">Reboot System</string>
     <string name="reboot_description">It\'s required to Reboot the System if you changed something on the settings</string>
     <string name="pdaec_core_description">Not available yet</string><!--The PDAEC addition to the Hardware Abstraction Layer, possibly does not work on any device-->

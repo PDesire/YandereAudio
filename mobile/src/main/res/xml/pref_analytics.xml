@@ -11,4 +11,14 @@
         android:key="analytics_help"
         android:title="@string/info_analytics" />
 
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="analytics_switch_fabric"
+        android:summary="@string/fabric_analytics_description"
+        android:title="@string/fabric_analytics" />
+
+    <Preference
+        android:key="analytics_help_fabric"
+        android:title="@string/info_analytics" />
+
 </PreferenceScreen>

@@ -43,6 +43,10 @@ import com.meli.pdesire.yanderecore.framework.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.crashlytics.android.Crashlytics
 import io.fabric.sdk.android.Fabric
+import com.crashlytics.android.answers.ContentViewEvent
+import com.crashlytics.android.answers.Answers
+
+
 
 
 
@@ -53,6 +57,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val PREF_SECURE_REPLACE = "secure_replace"
     private val PREF_YANDERE = "yandere"
     private val PREF_ANALYTICS = "analytics"
+    private val PREF_ANALYTICS_FABRIC = "analytics_fabric"
 
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
@@ -101,7 +106,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
         val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
         val useYandere = preferences.getBoolean(PREF_YANDERE, false)
-        val useAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
+        val useGoogleAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
+        val useFabricAnalytics = preferences.getBoolean(PREF_ANALYTICS_FABRIC, false)
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
 
         if (useNewTheme) {
@@ -155,7 +161,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
 
-        if (!useAnalytics) {
+        if (!useGoogleAnalytics) {
+            // Google Firebase Analytics
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
             val params = Bundle()
@@ -166,10 +173,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             mFirebaseAnalytics!!.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, params)
             FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
 
+
         } else {
             FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false)
         }
+
+        if (useFabricAnalytics) {
+            // Fabric.io Analytics
+            Answers.getInstance().logContentView(ContentViewEvent()
+                    .putContentName("App")
+                    .putContentType("Click")
+                    .putContentId("101"))
+        }
     }
+
+
 
     override fun onBackPressed() {
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout

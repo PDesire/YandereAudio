@@ -14,6 +14,7 @@ class AnalyticsFragment : PreferenceFragment() {
 
     private val PREFS_NAME = "prefs"
     private val PREF_ANALYTICS = "analytics"
+    private val PREF_ANALYTICS_FABRIC = "analytics_fabric"
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,38 @@ class AnalyticsFragment : PreferenceFragment() {
             val messageOutput = AlertDialog.Builder(activity)
             messageOutput.setTitle(getString(R.string.about_firebase_analytics))
                     .setMessage(getString(R.string.about_firebase_analytics_description))
+                    .setPositiveButton("Okay") { _, _ ->
+
+                    }
+                    .setIcon(R.mipmap.ic_launcher)
+                    .create()
+                    .show()
+            false
+        }
+
+        val analytics_fabric = findPreference("analytics_switch_fabric")
+
+        analytics_fabric.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
+            val switched = (preference as SwitchPreference)
+                    .isChecked
+            if (!switched) {
+                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                editor.putBoolean(PREF_ANALYTICS_FABRIC, false)
+                editor.apply()
+            } else {
+                val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                editor.putBoolean(PREF_ANALYTICS_FABRIC, true)
+                editor.apply()
+            }
+            true
+        }
+
+        val analytics_info_fabric = findPreference("analytics_help_fabric")
+
+        analytics_info_fabric.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            val messageOutput = AlertDialog.Builder(activity)
+            messageOutput.setTitle(getString(R.string.about_fabric_analytics))
+                    .setMessage(getString(R.string.about_fabric_analytics_description))
                     .setPositiveButton("Okay") { _, _ ->
 
                     }
