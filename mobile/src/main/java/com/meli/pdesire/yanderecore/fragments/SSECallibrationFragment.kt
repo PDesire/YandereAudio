@@ -68,7 +68,7 @@ class SSECallibrationFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/Treble", "/system/etc/sony_effect")
+                YandereCommandHandler.secure_replace("/system/Yuno/Sony/ClearAudio/Treble", "effect_params.data", "/system/etc/sony_effect")
                 pdesire.isEnabled = false
                 bass.isEnabled = false
                 editor.putBoolean(PREF_TREBLE_CLEARAUDIO, true)
@@ -86,7 +86,7 @@ class SSECallibrationFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/Bass", "/system/etc/sony_effect")
+                YandereCommandHandler.secure_replace("/system/Yuno/Sony/ClearAudio/Bass", "effect_params.data", "/system/etc/sony_effect")
                 treble.isEnabled = false
                 pdesire.isEnabled = false
                 editor.putBoolean(PREF_BASS_CLEARAUDIO, true)
@@ -104,7 +104,7 @@ class SSECallibrationFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/PDesire", "/system/etc/sony_effect")
+                YandereCommandHandler.secure_replace("/system/Yuno/Sony/ClearAudio/PDesire", "effect_params.data", "/system/etc/sony_effect")
                 treble.isEnabled = false
                 bass.isEnabled = false
                 editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, true)
@@ -120,7 +120,7 @@ class SSECallibrationFragment : PreferenceFragment() {
     }
 
     fun setStock() {
-        YandereCommandHandler.secure_replace("effect_params.data", "/system/Yuno/Sony/ClearAudio/stock", "/system/etc/sony_effect")
+        YandereCommandHandler.secure_replace("/system/Yuno/Sony/ClearAudio/stock", "effect_params.data", "/system/etc/sony_effect")
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
         editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, false)
         editor.apply()
