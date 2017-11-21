@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.screen.portrait" />
 
     <application
@@ -115,5 +116,4 @@
 
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
