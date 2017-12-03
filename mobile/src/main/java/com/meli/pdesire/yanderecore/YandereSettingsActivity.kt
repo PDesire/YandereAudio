@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -23,8 +23,11 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.Toolbar
 import com.meli.pdesire.yanderecore.fragments.AnalyticsFragment
-import com.meli.pdesire.yanderecore.fragments.SecurityFragment
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePackageManager
 import projectmeli.yandereaudio.pdesire.R
@@ -45,9 +48,11 @@ class YandereSettingsActivity : AppCompatPreferenceActivity() {
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
 
+    private val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(this)
+
     private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
-            YandereOutputWrapper.outputToast(R.string.security_error, this)
+            mOutputWrapper!!.outputToast(R.string.security_error)
             finish()
         }
     }
@@ -81,7 +86,6 @@ class YandereSettingsActivity : AppCompatPreferenceActivity() {
      */
     override fun isValidFragment(fragmentName: String): Boolean {
         return PreferenceFragment::class.java.name == fragmentName
-                || SecurityFragment::class.java.name == fragmentName
                 || AnalyticsFragment::class.java.name == fragmentName
     }
 

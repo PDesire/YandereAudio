@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -16,29 +16,17 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.meli.pdesire.yanderecore.services
+package com.meli.pdesire.yanderecore.framework
 
-import android.app.job.JobParameters
-import android.app.job.JobService
-import android.content.Intent
-import com.meli.pdesire.yanderecore.framework.YandereJobUtility
+import android.app.ActivityManager
+import android.content.Context
 
 /**
- * JobService to be scheduled by the JobScheduler.
- * start another service
+ * Created by pdesire on 24.11.17.
  */
-class YandereFirebaseJobSchedulerService : JobService() {
-
-    private val TAG = "SyncService"
-
-    override fun onStartJob(params: JobParameters): Boolean {
-        val service = Intent(applicationContext, YandereFirebaseMessagingService::class.java)
-        applicationContext.startService(service)
-        YandereJobUtility.scheduleJobFirebase(applicationContext)
-        return true
-    }
-
-    override fun onStopJob(params: JobParameters): Boolean {
-        return true
+object YandereActivityManager {
+    fun checkServiceRunning(className : String, context: Context): Boolean {
+        val manager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return manager.getRunningServices(Integer.MAX_VALUE).any { className == it.service.className }
     }
 }

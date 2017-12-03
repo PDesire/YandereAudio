@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -24,42 +24,27 @@ package com.meli.pdesire.yanderecore.framework
 object YanderePDesireAudioAPI {
 
     fun getPDesireAudio() : String {
-        var pdesireaudio_path : String = ""
-
-        val apiLists : Int = 4
-        val pdesireaudio_arrayed_paths = arrayOf("/sys/module/snd_soc_wcd9330/uhqa_mode_pdesireaudio",
-                                                "/sys/module/snd_soc_wcd9330/PDesireAudio",
-                                                "/sys/module/snd_soc_wcd9320/uhqa_mode_pdesireaudio",
-                                                "/sys/module/snd_soc_wcd9320/PDesireAudio")
-
-        var count : Int = 0
-        while (count != apiLists) {
-            if(YandereFileManager.fileCheck(pdesireaudio_arrayed_paths[count])) {
-                pdesireaudio_path = pdesireaudio_arrayed_paths[count]
-                break
-            }
-            count++
-        }
-
-        return pdesireaudio_path
+        val pdesireaudio_path = "/sys/module/snd_soc_wcd9330/PDesireAudio"
+        return if (YandereFileManager.fileCheck(pdesireaudio_path))
+            pdesireaudio_path
+        else
+            ""
     }
 
-    fun getPDesireAudioStatic() : String{
-        var pdesireaudio_path : String = ""
+    private fun getPDesireAudioStatic() : String {
+        val pdesireaudio_path = "/sys/module/snd_soc_wcd9330/pdesireaudio_static_mode"
+        return if(YandereFileManager.fileCheck(pdesireaudio_path))
+            pdesireaudio_path
+        else
+            ""
 
-        val apiLists : Int = 2
-        val pdesireaudio_arrayed_paths = arrayOf("/sys/module/snd_soc_wcd9320/pdesireaudio_static_mode",
-                                                        "/sys/module/snd_soc_wcd9330/pdesireaudio_static_mode")
+    }
 
-        var count : Int = 0
-        while (count != apiLists) {
-            if(YandereFileManager.fileCheck(pdesireaudio_arrayed_paths[count])) {
-                pdesireaudio_path = pdesireaudio_arrayed_paths[count]
-                break
-            }
-            count++
-        }
+    fun callPDesireAudio (activation : Int) {
+        YandereRootUtility().sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudio())
+    }
 
-        return pdesireaudio_path
+    fun callPDesireAudioStatic (activation : Int) {
+        YandereRootUtility().sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudioStatic())
     }
 }

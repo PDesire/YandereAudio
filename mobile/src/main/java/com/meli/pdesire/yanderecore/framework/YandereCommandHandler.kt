@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -18,81 +18,36 @@
 
 package com.meli.pdesire.yanderecore.framework
 
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.os.Bundle
-
-
-@SuppressLint("Registered")
-
 /**
  * Created by PDesire on 8/27/17.
  */
-object YandereCommandHandler : Activity() {
-
-    private var useSecureReplace: Boolean = false
-
-    fun setSecureReplace (set : Boolean) {
-        useSecureReplace = set
-    }
-
-    fun getSecureReplace() : Boolean {
-        return useSecureReplace
-    }
-
-    fun secure_replace(source_directory : String, source_file : String, destination : String) : Int {
-
-        if (getSecureReplace()) {
-            val md5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file)
-
-            YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
-
-            val secondmd5hashsum = YandereCryptography.fileToMD5(destination + "/" + source_file)
-
-            if (md5hashsum.equals(secondmd5hashsum))
-                return 1
-
-            return 0
-
-        } else {
-            YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
-            return 1
-        }
-    }
+object YandereCommandHandler {
 
     @Override
     fun copy(source_directory : String,
              source_file : String,
-             destination : String) : Int {
-        var success : Int = 0
+             destination : String) {
 
-        mount_rw()
-        success = secure_replace(source_directory, source_file, destination)
-        mount_ro()
-
-        if (success == 1)
-            return 1
-        else
-            return 0
+        YandereRootUtility().sudo("cp " + source_directory + "/" + source_file + " " + destination)
     }
 
     fun mount_rw () {
-        YandereRootUtility.mount_rw_rootfs()
-        YandereRootUtility.mount_rw_system()
+        YandereRootUtility().mount_rw_rootfs()
+        YandereRootUtility().mount_rw_system()
     }
 
     fun mount_ro () {
-        YandereRootUtility.mount_ro_rootfs()
-        YandereRootUtility.mount_ro_system()
+        YandereRootUtility().mount_ro_rootfs()
+        YandereRootUtility().mount_ro_system()
     }
 
-    fun callHeavybass (apply : Boolean) : Int {
+    fun callHeavybass (apply : Boolean) {
         if (apply) {
-            return copy("/system/Yuno/heavybass",
+            copy("/system/Yuno/heavybass",
                     "srs_processing.cfg",
                     "/system/etc/srs")
         } else {
-            return copy("/system/Yuno/stock",
+            copy("/system/Yuno/stock",
                     "srs_processing.cfg",
                     "/system/etc/srs")
         }
@@ -166,14 +121,8 @@ object YandereCommandHandler : Activity() {
     }
 
     fun callReboot() {
-        YandereRootUtility.sudo("reboot")
+        YandereRootUtility().sudo("reboot")
     }
 
-    fun callPDesireAudio (activation : Int) {
-        YandereRootUtility.sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudio())
-    }
 
-    fun callPDesireAudioStatic (activation : Int) {
-        YandereRootUtility.sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudioStatic())
-    }
 }

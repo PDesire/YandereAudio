@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-feature android:name="android.hardware.screen.portrait" />
 
     <application
@@ -38,8 +39,8 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.PDesireAudioActivity"
-            android:label="@string/title_activity_pdesire_audio">
+            android:name="com.meli.pdesire.yanderecore.KernelSettingsActivity"
+            android:label="@string/title_activity_kernel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
@@ -70,7 +71,7 @@
         </activity>
 
         <service
-            android:name="com.meli.pdesire.yanderecore.listeners.YandereWearableApplyListener" >
+            android:name="com.meli.pdesire.yanderecore.services.listeners.YandereWearableApplyListener" >
             <intent-filter>
                 <!-- listeners receive events that match the action and data filters -->
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
@@ -82,21 +83,26 @@
         </service>
 
         <service
-            android:name="com.meli.pdesire.yanderecore.services.YandereJobSchedulerService"
-            android:label="YandereJobSchedulerService"
-            android:permission="android.permission.BIND_JOB_SERVICE" >
-        </service>
-
-        <service
-            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseJobSchedulerService"
-            android:label="YandereJobSchedulerService"
-            android:permission="android.permission.BIND_JOB_SERVICE" >
-        </service>
-
-        <service
-            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseMessagingService">
+            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseMessagingService"
+            android:permission="com.google.firebase.MESSAGING_EVENT">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:exported="false"
+            android:name="com.meli.pdesire.yanderecore.services.jobs.YandereFirebaseJob">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:exported="false"
+            android:name="com.meli.pdesire.yanderecore.services.jobs.YandereWearableJob">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
 
@@ -111,9 +117,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="0" />
+            android:value="" />
 
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

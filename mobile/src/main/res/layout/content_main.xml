@@ -1,34 +1,269 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="projectmeli.yandereaudio.pdesire.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <ImageView
-        android:id="@+id/meli_logo_view"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="160dp"
-        android:contentDescription="Project Meli Logo"
-        app:srcCompat="@drawable/meli_logo" />
+        android:layout_width="fill_parent">
 
-    <ImageView
-        android:id="@+id/meli_description_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="false"
-        android:layout_alignTop="@+id/meli_logo_view"
-        android:layout_below="@+id/meli_logo_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/meli_description" />
-</RelativeLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/intro"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/thumbnail_intro"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/xperiabackground" />
+
+                <TextView
+                    android:id="@+id/title_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/thumbnail_intro"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/project_shinka_pd_for_xperia"
+                    android:textColor="#222"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_intro"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/the_hi_fi_power_of_xperia_together_with_project_shinka_pd_unleashes_perfect_audio_performance"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/secd"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/intro"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/thumbnail_secd"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pixelbackground" />
+
+                <TextView
+                    android:id="@+id/title_secd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/thumbnail_secd"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/project_shinka_pd_for_pixel"
+                    android:textColor="#222"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_secd"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/the_perfection_made_by_google_llc_with_project_shinka_pd_is_the_perfect_combination_for_your_music_lifestyle"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/thrd"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/secd"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/thumbnail_thrd"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/yanderebackground" />
+
+                <TextView
+                    android:id="@+id/title_thrd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/thumbnail_thrd"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/project_shinka_pd_for_everyone"
+                    android:textColor="#222"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_thrd"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/the_unique_audio_procession_by_project_shinka_pd_for_everyone"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fth"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/thrd"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/thumbnail_fth"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/yanderebackground" />
+
+                <TextView
+                    android:id="@+id/title_fth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/thumbnail_fth"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/yuno_gasaiq_kernel_audio_project"
+                    android:textColor="#222"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_fth"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/get_the_maximum_out_of_your_qualcomm_dac_with_just_a_modified_kernel_driver"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/fifth"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/fth"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/thumbnail_fifth"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/telegrambackground" />
+
+                <TextView
+                    android:id="@+id/title_fifth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_below="@+id/thumbnail_fifth"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/project_shinka_pd_telegram_community"
+                    android:textColor="#222"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title_fifth"
+                    android:maxLines="3"
+                    android:padding="8dp"
+                    android:text="@string/we_are_project_shinka_pd_join_our_community_on_telegram_now"
+                    android:textColor="#666"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+</ScrollView>

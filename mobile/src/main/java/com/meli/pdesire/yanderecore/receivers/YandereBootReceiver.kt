@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -22,29 +22,65 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.meli.pdesire.yanderecore.framework.YandereJobUtility
+import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
-import com.meli.pdesire.yanderecore.listeners.YandereWearableApplyListener
+import com.meli.pdesire.yanderecore.services.jobs.YandereFirebaseJob
+import com.meli.pdesire.yanderecore.services.jobs.YandereWearableJob
+import com.meli.pdesire.yanderecore.framework.YandereBootApplyManager
 import projectmeli.yandereaudio.pdesire.R
+import com.firebase.jobdispatcher.GooglePlayDriver
+import com.firebase.jobdispatcher.FirebaseJobDispatcher
+import com.firebase.jobdispatcher.RetryStrategy
+import com.firebase.jobdispatcher.Trigger
+
 
 /**
  * Created by PDesire on 8/26/17.
  */
 class YandereBootReceiver : BroadcastReceiver() {
+
     override fun onReceive(context: Context, arg1: Intent) {
-        val wearable = Intent(context, YandereWearableApplyListener::class.java)
-        val firebase = Intent(context, YandereWearableApplyListener::class.java)
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M){
-            YandereJobUtility.scheduleJobWearable(context)
-            YandereJobUtility.scheduleJobFirebase(context)
-        } else {
-            context.startService(wearable)
-            context.startService(firebase)
+        val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(context)
+
+        val actionOfIntent = arg1.action
+        if (actionOfIntent == CONNECTIVITY_ACTION) {
+            Log.d("YandereAudio:", "BroadcastReceiver Connected")
         }
-        
-        YandereOutputWrapper.addNotification(context, context.getString(R.string.welcome_back), context.getString(R.string.welcome_back_description))
 
-        Log.i("YandereAudio:", "YandereServices started")
+        val firebase = FirebaseJobDispatcher(GooglePlayDriver(context))
+        val firebaseJob = firebase.newJobBuilder()
+                .setService(YandereFirebaseJob::class.java)
+                .setTag("YandereFirebaseJob")
+                .setRecurring(false)
+                .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setTrigger(Trigger.executionWindow(0, 120))
+                .build()
+        val wearable = FirebaseJobDispatcher(GooglePlayDriver(context))
+        val wearableJob = wearable.newJobBuilder()
+                .setService(YandereWearableJob::class.java)
+                .setTag("YandereWearableJob")
+                .setRecurring(false)
+                .setReplaceCurrent(true)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setTrigger(Trigger.executionWindow(30, 360))
+                .build()
+
+        firebase.mustSchedule(firebaseJob)
+        wearable.mustSchedule(wearableJob)
+        firebase.schedule(firebaseJob)
+        wearable.schedule(wearableJob)
+
+        val apply_manager = YandereBootApplyManager(context).release()
+
+        if (apply_manager)
+            mOutputWrapper!!.addNotification(context.getString(R.string.boot_apply_success_title), context.getString(R.string.boot_apply_success_desc))
+        else
+            mOutputWrapper!!.addNotification(context.getString(R.string.boot_apply_failed_title), context.getString(R.string.boot_apply_failed_desc))
+
+        mOutputWrapper.addNotification(context.getString(R.string.welcome_back), context.getString(R.string.welcome_back_description))
+
+        Log.d("YandereAudio:", "YandereServices started")
     }
 }

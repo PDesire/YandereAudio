@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -30,6 +30,7 @@ import android.preference.PreferenceActivity
 import android.preference.PreferenceFragment
 import com.meli.pdesire.yanderecore.fragments.PDesireAudioControlFragment
 import com.meli.pdesire.yanderecore.fragments.PDesireAudioCreditsFragment
+import com.meli.pdesire.yanderecore.fragments.YunoGasaIQControlFragment
 
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePackageManager
@@ -46,24 +47,24 @@ import projectmeli.yandereaudio.pdesire.R
    * Android Design: Settings](http://developer.android.com/design/patterns/settings.html) for design guidelines and the [Settings
    * API Guide](http://developer.android.com/guide/topics/ui/settings.html) for more information on developing a Settings UI.
  */
-class PDesireAudioActivity : AppCompatPreferenceActivity() {
+class KernelSettingsActivity : AppCompatPreferenceActivity() {
 
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
 
+    private val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(this)
+
     private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
-            YandereOutputWrapper.outputToast(R.string.security_error, this)
+            mOutputWrapper!!.outputToast(R.string.security_error)
             finish()
         }
     }
 
-    private var alreadyShown : Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // Use the chosen theme
-        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
+        val useNewTheme = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                            .getBoolean(PREF_NEW_THEME, false)
 
         if (useNewTheme) {
             setTheme(R.style.AppTheme_New)
@@ -71,12 +72,6 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
 
         super.onCreate(savedInstanceState)
         closedReleaseTest()
-
-        if (!alreadyShown) {
-            YandereOutputWrapper.outputMessage(R.string.pdesireaudio_desc, R.string.pdesireaudio_description,
-                                                    this)
-            alreadyShown = true
-        }
     }
 
 
@@ -85,7 +80,7 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onBuildHeaders(target: List<PreferenceActivity.Header>) {
-        loadHeadersFromResource(R.xml.pref_headers_pdesireaudio, target)
+        loadHeadersFromResource(R.xml.pref_headers_kernel, target)
     }
 
     /**
@@ -96,6 +91,7 @@ class PDesireAudioActivity : AppCompatPreferenceActivity() {
         return PreferenceFragment::class.java.name == fragmentName
                 || PDesireAudioControlFragment::class.java.name == fragmentName
                 || PDesireAudioCreditsFragment::class.java.name == fragmentName
+                || YunoGasaIQControlFragment::class.java.name == fragmentName
     }
 
     public override fun onStart() {

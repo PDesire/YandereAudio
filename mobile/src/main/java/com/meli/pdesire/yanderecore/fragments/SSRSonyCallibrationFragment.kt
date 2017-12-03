@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Daniel Vásquez, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -37,6 +38,7 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(activity)
         super.onCreate(savedInstanceState)
 
         addPreferencesFromResource(R.xml.pref_sony_ssr)
@@ -60,11 +62,11 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.secure_replace("surround_sound_rec_AZ.cfg", "/system/Yuno/Sony/SSR/HTC", "/system/etc/surround_sound_3mic")
+                YandereCommandHandler.copy("/system/Yuno/Sony/SSR/HTC", "surround_sound_rec_AZ.cfg", "/system/etc/surround_sound_3mic")
                 pdesire.isEnabled = false
                 editor.putBoolean(PREF_HTC_SSR, true)
                 editor.apply()
-                YandereOutputWrapper.addNotification(activity, getString(R.string.htc_ssr_enabled), getString(R.string.htc_ssr_enabled_description))
+                mOutputWrapper!!.addNotification(getString(R.string.htc_ssr_enabled), getString(R.string.htc_ssr_enabled_description))
             } else {
                 setStock()
                 pdesire.isEnabled = true
@@ -76,11 +78,11 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.secure_replace("surround_sound_rec_AZ.cfg", "/system/Yuno/Sony/SSR/PDesire", "/system/etc/surround_sound_3mic")
+                YandereCommandHandler.copy("/system/Yuno/Sony/SSR/PDesire", "surround_sound_rec_AZ.cfg", "/system/etc/surround_sound_3mic")
                 htc.isEnabled = false
                 editor.putBoolean(PREF_PDESIRE_SSR, true)
                 editor.apply()
-                YandereOutputWrapper.addNotification(activity, getString(R.string.pdesire_ssr_enabled), getString(R.string.pdesire_ssr_enabled_description))
+                mOutputWrapper!!.addNotification(getString(R.string.pdesire_ssr_enabled), getString(R.string.pdesire_ssr_enabled_description))
             } else {
                 setStock()
                 htc.isEnabled = true
@@ -89,8 +91,8 @@ class SSRSonyCallibrationFragment : PreferenceFragment() {
         }
     }
 
-    fun setStock() {
-        YandereCommandHandler.secure_replace("surround_sound_rec_AZ.cfg", "/system/Yuno/Sony/SSR/stock", "/system/etc/surround_sound_3mic")
+    private fun setStock() {
+        YandereCommandHandler.copy("/system/Yuno/Sony/SSR/stock", "surround_sound_rec_AZ.cfg", "/system/etc/surround_sound_3mic")
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
         editor.putBoolean(PREF_HTC_SSR, false)
         editor.apply()

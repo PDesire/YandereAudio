@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -18,71 +18,69 @@
 
 package com.meli.pdesire.yanderecore.framework
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.widget.Toast
-import projectmeli.yandereaudio.pdesire.R
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
+import projectmeli.yandereaudio.pdesire.R
 import projectmeli.yandereaudio.pdesire.MainActivity
 
-
-@SuppressLint("Registered")
 /**
  * Created by PDesire on 8/16/17.
  */
-object YandereOutputWrapper : Activity() {
+class YandereOutputWrapper(private val mContext : Context) {
 
     // If you use R strings, use that
     @Override
-    fun outputMessage (title : Int, message : Int, context : Context) {
-        val messageOutput = AlertDialog.Builder(context)
+    fun outputMessage (title : Int, message : Int) {
+        val messageOutput = AlertDialog.Builder(mContext)
         messageOutput.setTitle(title)
-        .setMessage(message).setIcon(R.mipmap.ic_launcher)
-        .create()
-        .show()
-    }
-
-    @Override
-    fun outputMessage (title : String, message : String, context : Context) {
-        val messageOutput = AlertDialog.Builder(context)
-        messageOutput.setTitle(title)
-                .setMessage(message).setIcon(R.mipmap.ic_launcher)
+                .setMessage(message)
+                .setIcon(R.mipmap.ic_launcher)
                 .create()
                 .show()
     }
 
     @Override
-    fun outputToast (message : Int, context : Context) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    fun outputMessage (title : String, message : String) {
+        val messageOutput = AlertDialog.Builder(mContext)
+        messageOutput.setTitle(title)
+                .setMessage(message)
+                .setIcon(R.mipmap.ic_launcher)
+                .create()
+                .show()
     }
 
     @Override
-    fun outputToast (message : String, context : Context) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    fun outputToast (message : Int) {
+        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show()
     }
 
-    fun addNotification(context: Context, title: String, message: String) {
+    @Override
+    fun outputToast (message : String) {
+        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show()
+    }
 
-        val i = Intent(context, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context, 0, i, 0)
+    fun addNotification(title: String, message: String) {
 
-        val b = NotificationCompat.Builder(context)
+        val i = Intent(mContext, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(mContext, 0, i, 0)
+
+        val b = NotificationCompat.Builder(mContext, "OutputWrapperNotification")
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.ic_yandere_black_24dp)
-                .setTicker("test")
+                .setTicker(message)
                 .setContentTitle(title + " ^-^")
                 .setContentText("Master, " + message + " ^~^")
                 .setContentIntent(pendingIntent)
                 .setContentInfo("INFO")
 
-        val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val nm = mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         nm.notify(1, b.build())
     }
 }

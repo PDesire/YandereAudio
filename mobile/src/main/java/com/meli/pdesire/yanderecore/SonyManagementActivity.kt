@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -45,9 +45,11 @@ class SonyManagementActivity : AppCompatPreferenceActivity() {
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
 
+    private val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(this)
+
     private fun closedReleaseTest () {
         if (YanderePackageManager.closedReleaseTest(this)) {
-            YandereOutputWrapper.outputToast(R.string.security_error, this)
+            mOutputWrapper!!.outputToast(R.string.security_error)
             finish()
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -18,10 +18,6 @@
 
 package projectmeli.yandereaudio.pdesire
 
-/**
- * Created by PDesire on 20.05.2017.
- */
-
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -32,34 +28,41 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.ImageView
 import android.view.animation.AnimationUtils
-import android.view.animation.AnimationSet
 import android.widget.Toast
-import com.meli.pdesire.yanderecore.*
-import com.meli.pdesire.yanderecore.framework.*
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.crashlytics.android.Crashlytics
-import io.fabric.sdk.android.Fabric
-import com.crashlytics.android.answers.ContentViewEvent
 import com.crashlytics.android.answers.Answers
+import com.crashlytics.android.answers.ContentViewEvent
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.meli.pdesire.yanderecore.*
+import com.meli.pdesire.yanderecore.framework.YandereFileManager
+import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
+import com.meli.pdesire.yanderecore.framework.YanderePackageManager
+import com.meli.pdesire.yanderecore.framework.YandereRootUtility
+import io.fabric.sdk.android.Fabric
 
 
-
+/**
+ * Created by PDesire on 20.05.2017.
+ */
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val PREFS_NAME = "prefs"
     private val PREF_NEW_THEME = "new_theme"
-    private val PREF_SECURE_REPLACE = "secure_replace"
     private val PREF_YANDERE = "yandere"
     private val PREF_ANALYTICS = "analytics"
     private val PREF_ANALYTICS_FABRIC = "analytics_fabric"
 
+    private val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(this)
+
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
+    private var mFirebaseRemoteConfig: FirebaseRemoteConfig? = null
 
     private fun toggleThemeNew(newTheme: Boolean) {
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
@@ -92,6 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .setNegativeButton(getString(R.string.ignore)) { _, _ ->
                         // do nothing
                     }
+                    .setCancelable(false)
                     .setIcon(R.mipmap.ic_launcher)
                     .create()
                     .show()
@@ -104,7 +108,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Use the chosen theme
         val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val useNewTheme = preferences.getBoolean(PREF_NEW_THEME, false)
-        val useSecureReplace = preferences.getBoolean(PREF_SECURE_REPLACE, false)
         val useYandere = preferences.getBoolean(PREF_YANDERE, false)
         val useGoogleAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
         val useFabricAnalytics = preferences.getBoolean(PREF_ANALYTICS_FABRIC, false)
@@ -114,10 +117,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setTheme(R.style.AppTheme_New_NoActionBar)
         }
 
-        YandereCommandHandler.setSecureReplace(useSecureReplace)
-
         super.onCreate(savedInstanceState)
-        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_main)
         val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
@@ -125,22 +125,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.setDrawerListener(toggle)
+        drawer.addDrawerListener(toggle)
         toggle.syncState()
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
 
-        val fadeInAnimationSet = AnimationSet(false)
+        val animate = AnimationUtils.loadAnimation(this, R.anim.fade)
 
-        val meliLogoView = findViewById<ImageView>(R.id.meli_logo_view) as ImageView
-        val meliDescriptionView = findViewById<ImageView>(R.id.meli_description_view) as ImageView
-        val fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_in)
-        fadeInAnimationSet.addAnimation(fadeInAnimation)
-        meliLogoView.startAnimation(fadeInAnimationSet)
-        meliDescriptionView.startAnimation(fadeInAnimationSet)
+        YandereRootUtility().obtainSURights()
 
         closedReleaseTest()
+
         if (meliInstalledCheck() && !useYandere) {
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.hello_yandere))
@@ -152,14 +148,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         editor.putBoolean(PREF_YANDERE, true)
                         editor.apply()
                     }
+                    .setCancelable(false)
                     .setIcon(R.mipmap.ic_launcher)
                     .create()
                     .show()
         }
 
-        YandereOutputWrapper.addNotification(this, getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
+        mOutputWrapper!!.addNotification(getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
 
-
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+        mFirebaseRemoteConfig!!.setDefaults(R.xml.firebase_values)
+        mFirebaseRemoteConfig!!.fetch(50)
 
         if (!useGoogleAnalytics) {
             // Google Firebase Analytics
@@ -178,15 +177,88 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false)
         }
 
-        if (useFabricAnalytics) {
+        if (!useFabricAnalytics) {
             // Fabric.io Analytics
-            Answers.getInstance().logContentView(ContentViewEvent()
-                    .putContentName("App")
-                    .putContentType("Click")
-                    .putContentId("101"))
+            Fabric.with(this, Crashlytics())
+            Answers.getInstance().logContentView(ContentViewEvent())
+        }
+
+        val cardview_intro = findViewById<CardView>(R.id.intro)
+        val cardview_secd = findViewById<CardView>(R.id.secd)
+        val cardview_thrd = findViewById<CardView>(R.id.thrd)
+        val cardview_fth = findViewById<CardView>(R.id.fth)
+        val cardview_fifth = findViewById<CardView>(R.id.fifth)
+
+        cardview_intro.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
+
+            cardview_intro.startAnimation(animate)
+            cardview_secd.startAnimation(animate)
+            cardview_thrd.startAnimation(animate)
+            cardview_fth.startAnimation(animate)
+            cardview_fifth.startAnimation(animate)
+            cardview_fth.postDelayed({
+                startActivity(intent)
+                finish()
+            }, animate.duration)
+        }
+
+        cardview_secd.setOnClickListener {
+             /*val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
+
+            cardview_intro.startAnimation(animate)
+            cardview_secd.startAnimation(animate)
+            cardview_thrd.startAnimation(animate)
+            cardview_fth.startAnimation(animate)
+            cardview_fth.postDelayed({
+                startActivity(intent)
+                finish()
+            }, animate.duration) */
+            mOutputWrapper.outputToast("Coming soon")
+        }
+
+        cardview_thrd.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/android/software/soundmod-project-desire-hear-perfection-t3183119"))
+
+            cardview_intro.startAnimation(animate)
+            cardview_secd.startAnimation(animate)
+            cardview_thrd.startAnimation(animate)
+            cardview_fth.startAnimation(animate)
+            cardview_fifth.startAnimation(animate)
+            cardview_fth.postDelayed({
+                startActivity(intent)
+                finish()
+            }, animate.duration)
+        }
+
+        cardview_fth.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/PDesire/YandereSatsukiKernel/commit/f438e0a32cc8e45cd5a6d7b3b80b6e9058099d92"))
+
+            cardview_intro.startAnimation(animate)
+            cardview_secd.startAnimation(animate)
+            cardview_thrd.startAnimation(animate)
+            cardview_fth.startAnimation(animate)
+            cardview_fifth.startAnimation(animate)
+            cardview_fth.postDelayed({
+                startActivity(intent)
+                finish()
+            }, animate.duration)
+        }
+
+        cardview_fifth.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/ProjectShinkaPD"))
+
+            cardview_intro.startAnimation(animate)
+            cardview_secd.startAnimation(animate)
+            cardview_thrd.startAnimation(animate)
+            cardview_fth.startAnimation(animate)
+            cardview_fifth.startAnimation(animate)
+            cardview_fth.postDelayed({
+                startActivity(intent)
+                finish()
+            }, animate.duration)
         }
     }
-
 
 
     override fun onBackPressed() {
@@ -206,7 +278,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val intent = Intent(applicationContext, YandereAudioActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.nav_pdesireaudio) {
-            val intent = Intent(applicationContext, PDesireAudioActivity::class.java)
+            val intent = Intent(applicationContext, KernelSettingsActivity::class.java)
             startActivity(intent)
         } else if (id == R.id.universal_management) {
             val intent = Intent(applicationContext, UniversalManagementActivity::class.java)

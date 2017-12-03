@@ -1,0 +1,35 @@
+PPL (Public Permissive License) license by Tristan Marsell.
+
+Copyright (C) 2017 Tristan Marsell, All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Definitions:
+- Copyright holder: 
+  -> The creator and publisher of the source code.
+  
+- Contributors: 
+  -> People who contributes to an existing source code.
+
+1. General
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+With using parts of the source code, you agree that the copyright of the used source code goes to the copyright holder, to the contributors and to the redistributor.
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+2. Product Promotion
+You are allowed to use the name of the copyright holder and the name of the code for product promotions, advertisements and commercial use.
+You are allowed to use the name of the source for product promotions, advertisements and commercial use.
+You are allowed to use the name of a contributor if he explictly allow it.
+copyright holders and contributors are allowed to disagree and disallow anytime the use of their names for product promotions, advertisements and commercial use.
+
+3. Re-Licensing
+Re-Licensing is just allowed if following conditions are met:
+The copyright holder and every contributor does agree with it, which has to be proven by a contract between re-licensor and copyright holder/contributor.
+The new license has to be permissive or copyleft, "just propietary" licenses are disallowed.
+The copyright holder and the contributors has to agree with the new license.
+
+4. Warranty
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+This licensed is based on BSD-3-Clause license

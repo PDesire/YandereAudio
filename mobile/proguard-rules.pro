@@ -16,6 +16,8 @@
 #   public *;
 #}
 
+-optimizationpasses 10
+
 -keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
     public static final *** NULL;
 }

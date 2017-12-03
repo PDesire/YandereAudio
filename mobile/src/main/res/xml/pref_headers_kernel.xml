@@ -2,6 +2,10 @@
 
     <!-- These settings headers are only used on tablets. -->
     <header
+        android:fragment="com.meli.pdesire.yanderecore.fragments.YunoGasaIQControlFragment"
+        android:icon="@null"
+        android:title="@string/pref_header_yuno_gasaiq_controls" />
+    <header
         android:fragment="com.meli.pdesire.yanderecore.fragments.PDesireAudioControlFragment"
         android:icon="@null"
         android:title="@string/pref_header_pdesireaudio_controls" />

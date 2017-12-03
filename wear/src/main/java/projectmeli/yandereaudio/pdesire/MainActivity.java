@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.SwitchPreference;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -51,12 +52,7 @@ public class MainActivity extends PreferenceActivity implements MessageApi.Messa
 
         client = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(ConnectionResult result) {
-                        Log.i(MainActivity.class.getSimpleName(), "Connection failed");
-                    }
-                })
+                .addOnConnectionFailedListener(result -> Log.i(MainActivity.class.getSimpleName(), "Connection failed"))
                 .addApi(Wearable.API)
                 .build();
 
@@ -70,7 +66,7 @@ public class MainActivity extends PreferenceActivity implements MessageApi.Messa
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean switched = ((SwitchPreference) preference)
                         .isChecked();
-                if (switched == false) {
+                if (!switched) {
                     sendMessage("/start_heavybass_enable", null);
                 } else {
                     sendMessage("/start_heavybass_disable", null);
@@ -87,7 +83,7 @@ public class MainActivity extends PreferenceActivity implements MessageApi.Messa
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 boolean switched = ((SwitchPreference) preference)
                         .isChecked();
-                if (switched == false) {
+                if (!switched) {
                     sendMessage("/start_pdesireaudio_enable", null);
                 } else {
                     sendMessage("/start_pdesireaudio_disable", null);
@@ -111,13 +107,13 @@ public class MainActivity extends PreferenceActivity implements MessageApi.Messa
         Log.i(MainActivity.class.getSimpleName(), "Sending message " + message);
         Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
             @Override
-            public void onResult(NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
+            public void onResult(@NonNull NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
                 List<Node> nodes = getConnectedNodesResult.getNodes();
                 for (Node node : nodes) {
                     Log.i(MainActivity.class.getSimpleName(), "sending " + message + " to " + node);
                     Wearable.MessageApi.sendMessage(client, node.getId(), message, payload).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
                         @Override
-                        public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+                        public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
                             Log.i(MainActivity.class.getSimpleName(), "Result " + sendMessageResult.getStatus());
                         }
                     });

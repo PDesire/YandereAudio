@@ -16,19 +16,16 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.meli.pdesire.yanderecore.listeners;
+package com.meli.pdesire.yanderecore.services.listeners;
 
-/**
- * Created by PDesire on 8/26/17.
- */
-
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.WearableListenerService;
-import com.meli.pdesire.yanderecore.resolver.YandereWearToMobileTransaction;
+import com.meli.pdesire.yanderecore.framework.YandereWearToMobileTransaction;
 
 public class YandereWearableApplyListener extends WearableListenerService {
 
@@ -51,10 +48,11 @@ public class YandereWearableApplyListener extends WearableListenerService {
     }
 
     @Override
-    public void onMessageReceived(MessageEvent messageEvent) {
+    public void onMessageReceived(@NonNull MessageEvent messageEvent) {
         super.onMessageReceived(messageEvent);
         Log.i(YandereWearableApplyListener.class.getSimpleName(), "Message Received" + messageEvent.getPath());
-        YandereWearToMobileTransaction.wearable.wearToCommand(messageEvent.getPath());
+        final YandereWearToMobileTransaction executeLocal = new YandereWearToMobileTransaction(messageEvent.getPath());
+        executeLocal.wearToCommand();
     }
 
     @Override

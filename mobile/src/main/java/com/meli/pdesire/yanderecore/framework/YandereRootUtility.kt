@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -18,16 +18,27 @@
 
 package com.meli.pdesire.yanderecore.framework
 
+import android.os.AsyncTask
 import android.support.annotation.NonNull
 import java.io.DataOutputStream
 import java.io.IOException
 
-/**
- * Created by PDesire on 26.05.2017.
+
+
+/*
+ * YandereRootUtility is the root method framework for YandereAudio by PDesire
  */
 
-object YandereRootUtility {
+class YandereRootUtility()  {
 
+    // General sudo command
+    @NonNull
+    fun sudo(command : String) {
+        val execute = Runtime.getRuntime().exec("su -c " + command)
+        execute.waitFor()
+    }
+
+    // TODO: This whole code needs to be more efficient
     fun mount_rw_rootfs() {
         sudo("mount -o remount,rw /")
         sudo("mount -o remount,rw rootfs")
@@ -46,8 +57,14 @@ object YandereRootUtility {
         sudo("mount -o remount,ro /system")
     }
 
+    /*
+     * That's a simultaneous Root Request, to support any Root solution, which does not support
+     * Runtime call without DataOutputStream on non-privileged mode
+     * TODO: Get a general solution for root call with hooking it into sudo method WITHOUT jrummy or Chainfire's solution (I don't like Apache)
+     */
     @NonNull
-    fun sudo(strings: String) {
+    fun obtainSURights() {
+        val strings = "whoami"
         try {
             val su = Runtime.getRuntime().exec("su")
             val outputStream = DataOutputStream(su.outputStream)
@@ -69,13 +86,5 @@ object YandereRootUtility {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
-        execute_sudo(strings)
-    }
-
-    @NonNull
-    private fun execute_sudo(command : String) {
-        val execute = Runtime.getRuntime().exec("su -c " + command)
-        execute.waitFor()
     }
 }

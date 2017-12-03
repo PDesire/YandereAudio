@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -29,7 +29,6 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
-import com.meli.pdesire.yanderecore.framework.YandereCommandHandler
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePDesireAudioAPI
 import projectmeli.yandereaudio.pdesire.R
@@ -41,6 +40,7 @@ class PDesireAudioControlFragment : PreferenceFragment() {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(activity)
         super.onCreate(savedInstanceState)
 
         addPreferencesFromResource(R.xml.pref_pdesireaudio_control)
@@ -57,24 +57,24 @@ class PDesireAudioControlFragment : PreferenceFragment() {
             pdesireaudio_static.isEnabled = false
         }
 
-        if (!YanderePDesireAudioAPI.getPDesireAudio().equals("")) {
-            YandereOutputWrapper.outputToast(R.string.pdesireaudio_found, activity)
+        if (YanderePDesireAudioAPI.getPDesireAudio() != "") {
+            mOutputWrapper!!.outputToast(R.string.pdesireaudio_found)
         } else {
-            YandereOutputWrapper.outputToast(R.string.pdesireaudio_not_found, activity)
+            mOutputWrapper!!.outputToast(R.string.pdesireaudio_not_found)
         }
 
         pdesireaudio_uhqa.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.callPDesireAudio(1)
-                YandereOutputWrapper.addNotification(activity, getString(R.string.pdesireaudio_enabled), getString(R.string.pdesireaudio_enabled_description))
+                YanderePDesireAudioAPI.callPDesireAudio(1)
+                mOutputWrapper.addNotification(getString(R.string.pdesireaudio_enabled), getString(R.string.pdesireaudio_enabled_description))
                 pdesireaudio_static.isEnabled = true
                 editor.putBoolean(PREF_PDESIREAUDIO, true)
                 editor.apply()
             } else {
-                YandereCommandHandler.callPDesireAudio(0)
-                YandereOutputWrapper.addNotification(activity, getString(R.string.pdesireaudio_disabled), getString(R.string.pdesireaudio_disabled_description))
+                YanderePDesireAudioAPI.callPDesireAudio(0)
+                mOutputWrapper.addNotification(getString(R.string.pdesireaudio_disabled), getString(R.string.pdesireaudio_disabled_description))
                 pdesireaudio_static.isEnabled = false
                 editor.putBoolean(PREF_PDESIREAUDIO, false)
                 editor.apply()
@@ -87,9 +87,9 @@ class PDesireAudioControlFragment : PreferenceFragment() {
             val switched = (preference as SwitchPreference)
                     .isChecked
             if (!switched) {
-                YandereCommandHandler.callPDesireAudioStatic(1)
+                YanderePDesireAudioAPI.callPDesireAudioStatic(1)
             } else {
-                YandereCommandHandler.callPDesireAudioStatic(0)
+                YanderePDesireAudioAPI.callPDesireAudioStatic(0)
             }
 
             true

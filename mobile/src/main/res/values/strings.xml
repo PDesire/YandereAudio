@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">YandereAudio</string>
 
-    <string name="pdesireaudio_service_control">PDesireAudio Service Control</string>
+    <string name="kernel_service_control">Kernel Control</string>
     <string name="yandere_audio_service_control">YandereAudio Service Control</string>
     <string name="navigation_drawer_open"> </string>
     <string name="navigation_drawer_close"> </string>
-    <string name="security_error">App shutdowning because security conditions not given</string>
+    <string name="security_error">App shutting down because security conditions not given</string>
     <string name="service_name">YandereAudio Service</string>
-    <string name="title_activity_pdesire_audio">PDesireAudio Service</string>
+    <string name="title_activity_kernel">Kernel Settings</string>
     <string name="title_activity_universal">Universal Management</string>
     <string name="title_activity_sony">Sony Management</string>
     <string name="heavybass_description">A SRS Re-callibration to output more bass from the Headphones</string>
@@ -21,6 +21,7 @@
     <string name="pref_header_credits">Other</string>
     <string name="pref_header_pdesireaudio_controls">PDesireAudio Controls</string>
     <string name="pref_header_pdesireaudio_credits">Other</string>
+    <string name="pref_header_yuno_gasaiq_controls">Yuno-GasaIQ Controls</string>
     <string name="main_author_description">Tristan Marsell (PDesire)</string>
     <string name="main_author_title">Main Author</string>
     <string name="special_author_title">Special Credits</string>
@@ -33,10 +34,8 @@
     <string name="credits_pdesireaudio">All Credits goes to PDesire</string>
     <string name="pdesireaudio_found">PDesireAudio found on Kernel</string>
     <string name="pdesireaudio_not_found">PDesireAudio not found on Kernel</string>
-    <string name="pdesireaudio_desc">What is PDesireAudio</string>
-    <string name="pdesireaudio_description">PDesireAudio is a kernel modification for high end audio \n \nAsk your kernel developer if he can implement PDesireAudio to his kernel if it doesn\'t have it yet</string>
-    <string name="meli_not_installed">Project Meli not found</string>
-    <string name="no_project_meli_installed">You do not have Project Meli installed, or installed not properly, download the latest version from Project Meli Thread</string>
+    <string name="meli_not_installed">Project Shinka-PD not found</string>
+    <string name="no_project_meli_installed">You do not have Project Shinka-PD installed, or installed not properly, download the latest version from Project Shinka-PD Thread</string>
     <string name="go_to_thread">Go To Thread</string>
     <string name="ignore">Ignore</string>
     <string name="yes">Yes</string>
@@ -52,9 +51,9 @@
     <string name="new_theme">New Theme</string>
     <string name="theme">Theme</string>
     <string name="yume_audio">YumeAudio Engine</string>
-    <string name="yume_audio_description">The old but best Engine of Project Yume.\nApply if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
+    <string name="yume_audio_description">The old but best Engine of Project Yume.\nApply it if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
     <string name="meli_audio">MeliAudio Y Engine</string>
-    <string name="meli_audio_description">New, better, more powerful.\nThe MeliAudio Y Engine is for people, who wants audio without any compromises. \nIt does get updated everytime by every Project Meli version, and is already activated by default.\nAttention: Your device will reboot</string>
+    <string name="meli_audio_description">New, better, more powerful.\nThe MeliAudio Y Engine is for people, who wants audio without any compromises. \nIt does get updated every time by every Project Shinka-PD version, and is already activated by default.\nAttention: Your device will reboot</string>
     <string name="sony_management">Sony Management</string>
     <string name="universal_management">Universal Management</string>
     <string name="device_management">Device Management</string>
@@ -81,9 +80,6 @@
     <string name="ssr">Surround Sound Recording (SSR)</string>
     <string name="clearaudio">ClearAudio</string>
     <string name="htc_audio_effects">HTC Audio Effects</string>
-    <string name="secure_replace_successful">Secure Replace: Successful</string>
-    <string name="secure_replace_failed">Secure Replace: Failed</string>
-    <string name="security">Security</string>
     <string name="settings">Settings</string>
     <string name="yandere_settings">Yandere Settings</string>
     <string name="heavybass_enabled">Heavybass Enabled</string>
@@ -105,18 +101,16 @@
     <string name="htc_ssr_enabled_description">HTC Surround Sound Recording is enabled. Many people does hate HTC, but they know how to use audio correctly</string>
     <string name="htc_ssr_enabled">HTC Surround Sound Recording Enabled</string>
     <string name="welcome_back">Welcome Back</string>
-    <string name="welcome_back_description">Welcome Back to Project Meli</string>
+    <string name="welcome_back_description">Welcome Back to Project Shinka-PD</string>
     <string name="welcome_back_yandereaudio">Welcome back to YandereAudio</string>
     <string name="hello_yandere">Hello, I am YandereAudio ^-^</string>
-    <string name="hello_yandere_description">I am YandereAudio, your personal assistant for Project Meli hihi ^~^ \nI was created by PDesire as replication of his personality in Project Meli. \nHe coded me to assist you while callibrating Project Meli. \nI hope it is okay for you that I call you master :3 \nAre you ready for fantastic audio? ^~^</string>
+    <string name="hello_yandere_description">I am YandereAudio, your personal assistant for Project Shinka-PD hihi ^~^ \nI was created by PDesire as replication of his personality in Project Shinka-PD. \nHe coded me to assist you while callibrating Project Meli. \nI hope it is okay for you that I call you master :3 \nAre you ready for fantastic audio? ^~^</string>
     <string name="never_show_again">Never show again</string>
     <string name="info_analytics">Info about Analytics</string>
     <string name="google_analytics">Google Firebase Analytics</string>
     <string name="google_analytics_description">Enable anonymous Analytics, for helping PDesire what features should be improved. Of course any data will keep private and secure</string>
     <string name="fabric_analytics">Fabric.io Analytics</string>
     <string name="fabric_analytics_description">Enable anonymous Analytics and Crashlytics, for helping PDesire to improve the app. Of course any data will keep private and secure</string>
-    <string name="secure_replace">Secure Replace</string>
-    <string name="secure_replace_description">Ensure your files does get replaced successfully in cost of performance</string>
     <string name="analytics">Analytics</string>
     <string name="about_firebase_analytics">About Google Firebase Analytics</string>
     <string name="about_firebase_analytics_description">Google Firebase Analytics is a service by Google to provide analytics to this app. \nLogged will be: Gender, Device, Android Version, Which country you are living and What you are doing on YandereAudio app. \nThese data will be saved on Google Servers and I just have access to these data. \nI grant that any data of you will keep private and is just for improving Project Meli. \nI will not spy on you nor these data will be used for payment. \nIf you still do not believe me, look on the Source Code and you see there will not be any dangerous data transmitted to me or something like that</string>
@@ -130,5 +124,20 @@
     <string name="pdaec_audio_effects">PDAEC Audio Effects</string>
     <string name="heavybass">Heavybass</string>
     <string name="pdaec">PDesire Audio Effect Core (PDAEC)</string>
+    <string name="boot_apply_success_title">Successfully applied settings</string>
+    <string name="boot_apply_success_desc">Your Settings has been successfully applied</string>
+    <string name="boot_apply_failed_title">Applying settings failed</string>
+    <string name="boot_apply_failed_desc">PDesire Audio Effect Core (PDAEC)</string>
+    <string name="project_shinka_pd_for_xperia">Project Shinka-PD for Xperia</string>
+    <string name="the_hi_fi_power_of_xperia_together_with_project_shinka_pd_unleashes_perfect_audio_performance">The Hi-Fi power of Xperia together with Project Shinka-PD unleashes perfect audio performance</string>
+    <string name="project_shinka_pd_for_pixel">Project Shinka-PD for Pixel</string>
+    <string name="the_perfection_made_by_google_llc_with_project_shinka_pd_is_the_perfect_combination_for_your_music_lifestyle">The perfection made by Google LLC with Project Shinka-PD is the perfect combination for your music lifestyle</string>
+    <string name="yuno_gasaiq_kernel_audio_project">Yuno-GasaIQ Kernel Audio Project</string>
+    <string name="get_the_maximum_out_of_your_qualcomm_dac_with_just_a_modified_kernel_driver">Get the maximum out of your Qualcomm DAC with just a modified kernel driver. Ask your kernel dev for implementing Yuno-GasaIQ kernel driver</string>
+    <string name="by_pdesire">by PDesire</string>
+    <string name="project_shinka_pd_for_everyone">Project Shinka-PD for Everyone</string>
+    <string name="the_unique_audio_procession_by_project_shinka_pd_for_everyone">The unique audio procession by Project Shinka-PD for everyone</string>
+    <string name="project_shinka_pd_telegram_community">Project Shinka-PD Telegram Community</string>
+    <string name="we_are_project_shinka_pd_join_our_community_on_telegram_now">We are Project Shinka-PD, join our community on Telegram now</string>
 
 </resources>

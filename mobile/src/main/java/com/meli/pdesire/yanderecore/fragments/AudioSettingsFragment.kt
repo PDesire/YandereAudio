@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -37,6 +37,8 @@ class AudioSettingsFragment : PreferenceFragment() {
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
+        val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(activity)
+
         super.onCreate(savedInstanceState)
 
         addPreferencesFromResource(R.xml.pref_general)
@@ -52,10 +54,10 @@ class AudioSettingsFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.callHeavybass(true)
-                YandereOutputWrapper.addNotification(activity, getString(R.string.heavybass_enabled), getString(R.string.heavybass_enabled_description))
+                mOutputWrapper!!.addNotification(getString(R.string.heavybass_enabled), getString(R.string.heavybass_enabled_description))
             } else {
                 YandereCommandHandler.callHeavybass(false)
-                YandereOutputWrapper.addNotification(activity, getString(R.string.heavybass_disabled), getString(R.string.heavybass_disabled_description))
+                mOutputWrapper!!.addNotification(getString(R.string.heavybass_disabled), getString(R.string.heavybass_disabled_description))
             }
             true
         }
@@ -92,7 +94,7 @@ class AudioSettingsFragment : PreferenceFragment() {
                     .setPositiveButton(getString(R.string.yes)) { _, _ ->
                         YandereCommandHandler.callReboot()
                     }
-                    .setNegativeButton(getString(R.string.no)) { dialog, which ->
+                    .setNegativeButton(getString(R.string.no)) { _, _ ->
                         // do nothing
                     }
                     .setIcon(R.mipmap.ic_launcher)

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -16,31 +16,30 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package com.meli.pdesire.yanderecore.resolver
+package com.meli.pdesire.yanderecore.framework
 
 import android.util.Log
 import com.meli.pdesire.yanderecore.framework.YandereCommandHandler
+import com.meli.pdesire.yanderecore.framework.YanderePDesireAudioAPI
 
 
 /**
  * Created by PDesire on 8/26/17.
  */
-class YandereWearToMobileTransaction {
-    companion object wearable {
-        fun wearToCommand(command: String) {
-            if (command.equals("/start_pdesireaudio_enable")) {
-                YandereCommandHandler.callPDesireAudio(1)
-            } else if (command.equals("/start_pdesireaudio_disable")) {
-                YandereCommandHandler.callPDesireAudio(0)
-            } else if (command.equals("/start_heavybass_enable")) {
-                YandereCommandHandler.callHeavybass(true)
-            } else if (command.equals("/start_heavybass_disable")) {
-                YandereCommandHandler.callHeavybass(false)
-            } else if (command.equals("/start_reboot")) {
-                YandereCommandHandler.callReboot()
-            } else {
-                Log.i("YandereAudio:", "Transaction Failed, Command not valid")
-            }
+class YandereWearToMobileTransaction(val command: String) {
+    fun wearToCommand() {
+        if (command.equals("/start_pdesireaudio_enable")) {
+            YanderePDesireAudioAPI.callPDesireAudio(1)
+        } else if (command.equals("/start_pdesireaudio_disable")) {
+            YanderePDesireAudioAPI.callPDesireAudio(0)
+        } else if (command.equals("/start_heavybass_enable")) {
+            YandereCommandHandler.callHeavybass(true)
+        } else if (command.equals("/start_heavybass_disable")) {
+            YandereCommandHandler.callHeavybass(false)
+        } else if (command.equals("/start_reboot")) {
+            YandereCommandHandler.callReboot()
+        } else {
+            Log.i("YandereAudio:", "Transaction Failed, Command not valid")
         }
     }
 }

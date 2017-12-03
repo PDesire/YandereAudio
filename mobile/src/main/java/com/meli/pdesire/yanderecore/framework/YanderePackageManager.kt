@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Tristan Marsell, All rights reserved.
+ * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
  * This code is licensed under the BSD-3-Clause License
  *
@@ -18,23 +18,21 @@
 
 package com.meli.pdesire.yanderecore.framework
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 
-@SuppressLint("Registered")
+
 /**
  * Created by PDesire on 8/16/17.
  */
 
 
-object YanderePackageManager : Activity() {
+object YanderePackageManager {
 
     // Check if app is installed, this just count for apps which are installed and not their subclasses
     fun isAppInstalled(packageName : String, contexts : Context): Boolean {
-        val context = contexts
-        val pm = context.packageManager
+        val pm = contexts.packageManager
         val installed: Boolean
         installed = try {
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
@@ -62,19 +60,21 @@ object YanderePackageManager : Activity() {
         return false
     }
 
-    private val closedRelease : Boolean = false
-
     fun closedReleaseTest(context: Context) : Boolean {
+        val mFirebaseRemoteConfig: FirebaseRemoteConfig? = FirebaseRemoteConfig.getInstance()
+
+        val closedRelease = mFirebaseRemoteConfig!!.getBoolean("piracy_switch")
+
         if (!closedRelease)
             return false
 
-        val blockedClassesValue : Int = 4
+        val blockedClassesValue = 4
         val blockedClasses = arrayOf("com.dimonvideo.luckypatcher",
                                             "com.chelpus.lackypatch",
                                             "com.android.vending.billing.InAppBillingService.LACK",
                                             "com.android.vending.billing.InAppBillingService.LOCK")
 
-        var count : Int = 0
+        var count = 0
 
         while (count != blockedClassesValue) {
             if (packageExists(blockedClasses[count], context))
