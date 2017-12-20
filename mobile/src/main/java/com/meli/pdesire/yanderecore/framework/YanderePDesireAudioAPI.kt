@@ -41,10 +41,10 @@ object YanderePDesireAudioAPI {
     }
 
     fun callPDesireAudio (activation : Int) {
-        YandereRootUtility().sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudio())
+        YandereRootUtility.sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudio())
     }
 
     fun callPDesireAudioStatic (activation : Int) {
-        YandereRootUtility().sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudioStatic())
+        YandereRootUtility.sudo("echo " + activation.toString() + " " + YanderePDesireAudioAPI.getPDesireAudioStatic())
     }
 }

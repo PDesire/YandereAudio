@@ -43,6 +43,7 @@ import com.meli.pdesire.yanderecore.framework.YandereFileManager
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePackageManager
 import com.meli.pdesire.yanderecore.framework.YandereRootUtility
+import com.pdesire.projectcluster.core.AssetCopyManager
 import io.fabric.sdk.android.Fabric
 
 
@@ -133,18 +134,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val animate = AnimationUtils.loadAnimation(this, R.anim.fade)
 
-        YandereRootUtility().obtainSURights()
+        YandereRootUtility.obtainSURights()
 
         closedReleaseTest()
 
         if (meliInstalledCheck() && !useYandere) {
             val messageOutput = AlertDialog.Builder(this)
-            messageOutput.setTitle(getString(R.string.hello_yandere))
-                    .setMessage(getString(R.string.hello_yandere_description))
-                    .setPositiveButton(getString(R.string.ignore)) { _, _ ->
+            messageOutput.setTitle(R.string.hello_yandere)
+                    .setMessage(R.string.hello_yandere_description)
+                    .setPositiveButton(R.string.ignore) { _, _ ->
 
                     }
-                    .setNegativeButton(getString(R.string.never_show_again)) { _, _ ->
+                    .setNegativeButton(R.string.never_show_again) { _, _ ->
                         editor.putBoolean(PREF_YANDERE, true)
                         editor.apply()
                     }
@@ -258,6 +259,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }, animate.duration)
         }
+
+        val intent = Intent(applicationContext, AssetCopyManager::class.java)
+        startActivity(intent)
+
     }
 
 

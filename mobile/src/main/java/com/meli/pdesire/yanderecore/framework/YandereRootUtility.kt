@@ -18,8 +18,9 @@
 
 package com.meli.pdesire.yanderecore.framework
 
-import android.os.AsyncTask
+import android.content.Context
 import android.support.annotation.NonNull
+import projectmeli.yandereaudio.pdesire.projectyandere.framework.YandereASyncTaskHandler
 import java.io.DataOutputStream
 import java.io.IOException
 
@@ -29,13 +30,12 @@ import java.io.IOException
  * YandereRootUtility is the root method framework for YandereAudio by PDesire
  */
 
-class YandereRootUtility()  {
+object YandereRootUtility  {
 
     // General sudo command
     @NonNull
     fun sudo(command : String) {
-        val execute = Runtime.getRuntime().exec("su -c " + command)
-        execute.waitFor()
+        YandereASyncTaskHandler.CommandASyncExecution(command).execute()
     }
 
     // TODO: This whole code needs to be more efficient

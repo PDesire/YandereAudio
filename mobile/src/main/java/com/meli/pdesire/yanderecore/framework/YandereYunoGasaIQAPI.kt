@@ -18,6 +18,9 @@
 
 package com.meli.pdesire.yanderecore.framework
 
+import android.content.Context
+import projectmeli.yandereaudio.pdesire.projectyandere.framework.YandereASyncTaskHandler
+
 /**
  * Created by PDesire on 8/17/17.
  */
@@ -50,14 +53,17 @@ object YandereYunoGasaIQAPI {
     }
 
     fun callGasaIQAudio (activation : Int) {
-        YandereRootUtility().sudo("echo " + activation.toString() + " " + getGasaIQAudio())
+        YandereASyncTaskHandler
+                .CommandASyncExecution("echo " + activation.toString() + " " + getGasaIQAudio()).execute()
     }
 
     fun callAllowCompander (activation : Int) {
-        YandereRootUtility().sudo("echo " + activation.toString() + " " + getAllowCompander())
+        YandereASyncTaskHandler
+                .CommandASyncExecution("echo " + activation.toString() + " " + getAllowCompander()).execute()
     }
 
     fun callAllowBiQuads (activation : Int) {
-        YandereRootUtility().sudo("echo " + activation.toString() + " " + getAllowBiQuads())
+        YandereASyncTaskHandler
+                .CommandASyncExecution("echo " + activation.toString() + " " + getAllowBiQuads()).execute()
     }
 }

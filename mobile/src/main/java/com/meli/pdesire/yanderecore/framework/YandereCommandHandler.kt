@@ -28,17 +28,17 @@ object YandereCommandHandler {
              source_file : String,
              destination : String) {
 
-        YandereRootUtility().sudo("cp " + source_directory + "/" + source_file + " " + destination)
+        YandereRootUtility.sudo("cp " + source_directory + "/" + source_file + " " + destination)
     }
 
     fun mount_rw () {
-        YandereRootUtility().mount_rw_rootfs()
-        YandereRootUtility().mount_rw_system()
+        YandereRootUtility.mount_rw_rootfs()
+        YandereRootUtility.mount_rw_system()
     }
 
     fun mount_ro () {
-        YandereRootUtility().mount_ro_rootfs()
-        YandereRootUtility().mount_ro_system()
+        YandereRootUtility.mount_ro_rootfs()
+        YandereRootUtility.mount_ro_system()
     }
 
     fun callHeavybass (apply : Boolean) {
@@ -121,7 +121,7 @@ object YandereCommandHandler {
     }
 
     fun callReboot() {
-        YandereRootUtility().sudo("reboot")
+        YandereRootUtility.sudo("reboot")
     }
 
 

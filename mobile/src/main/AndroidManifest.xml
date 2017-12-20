@@ -112,12 +112,18 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name="projectmeli.yandereaudio.pdesire.projectcluster.receivers.YandereClusterBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <meta-data android:name="com.google.android.gms.version"
                    android:value="@integer/google_play_services_version" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="" />
+            android:value="0" />
 
     </application>
 </manifest>
