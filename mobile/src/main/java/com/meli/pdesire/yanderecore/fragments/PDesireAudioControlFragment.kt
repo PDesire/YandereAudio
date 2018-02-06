@@ -29,6 +29,8 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePDesireAudioAPI
 import projectmeli.yandereaudio.pdesire.R
@@ -37,6 +39,9 @@ class PDesireAudioControlFragment : PreferenceFragment() {
 
     private val PREFS_NAME = "prefs"
     private val PREF_PDESIREAUDIO = "pdesireaudio"
+    private val PREF_ADS = "ads"
+
+    private lateinit var mInterstitialAd: InterstitialAd
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +56,14 @@ class PDesireAudioControlFragment : PreferenceFragment() {
 
         val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val usePDesireAudio = preferences.getBoolean(PREF_PDESIREAUDIO, false)
+        val useAds = preferences.getBoolean(PREF_ADS, true)
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+
+        if (useAds) {
+            mInterstitialAd = InterstitialAd(activity)
+            mInterstitialAd.adUnitId = "ca-app-pub-6207390033733991/6525356424"
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+        }
 
         if (!usePDesireAudio) {
             pdesireaudio_static.isEnabled = false
@@ -72,12 +84,18 @@ class PDesireAudioControlFragment : PreferenceFragment() {
                 pdesireaudio_static.isEnabled = true
                 editor.putBoolean(PREF_PDESIREAUDIO, true)
                 editor.apply()
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 YanderePDesireAudioAPI.callPDesireAudio(0)
                 mOutputWrapper.addNotification(getString(R.string.pdesireaudio_disabled), getString(R.string.pdesireaudio_disabled_description))
                 pdesireaudio_static.isEnabled = false
                 editor.putBoolean(PREF_PDESIREAUDIO, false)
                 editor.apply()
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             }
 
             true
@@ -88,8 +106,14 @@ class PDesireAudioControlFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YanderePDesireAudioAPI.callPDesireAudioStatic(1)
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 YanderePDesireAudioAPI.callPDesireAudioStatic(0)
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             }
 
             true

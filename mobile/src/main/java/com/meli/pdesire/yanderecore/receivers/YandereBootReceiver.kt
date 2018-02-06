@@ -24,14 +24,10 @@ import android.content.Intent
 import android.util.Log
 import android.net.ConnectivityManager.CONNECTIVITY_ACTION
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
-import com.meli.pdesire.yanderecore.services.jobs.YandereFirebaseJob
-import com.meli.pdesire.yanderecore.services.jobs.YandereWearableJob
 import com.meli.pdesire.yanderecore.framework.YandereBootApplyManager
 import projectmeli.yandereaudio.pdesire.R
-import com.firebase.jobdispatcher.GooglePlayDriver
-import com.firebase.jobdispatcher.FirebaseJobDispatcher
-import com.firebase.jobdispatcher.RetryStrategy
-import com.firebase.jobdispatcher.Trigger
+import com.meli.pdesire.yanderecore.services.YandereFirebaseMessagingService
+import com.meli.pdesire.yanderecore.services.listeners.YandereWearableApplyListener
 
 
 /**
@@ -48,29 +44,11 @@ class YandereBootReceiver : BroadcastReceiver() {
             Log.d("YandereAudio:", "BroadcastReceiver Connected")
         }
 
-        val firebase = FirebaseJobDispatcher(GooglePlayDriver(context))
-        val firebaseJob = firebase.newJobBuilder()
-                .setService(YandereFirebaseJob::class.java)
-                .setTag("YandereFirebaseJob")
-                .setRecurring(false)
-                .setReplaceCurrent(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                .setTrigger(Trigger.executionWindow(0, 120))
-                .build()
-        val wearable = FirebaseJobDispatcher(GooglePlayDriver(context))
-        val wearableJob = wearable.newJobBuilder()
-                .setService(YandereWearableJob::class.java)
-                .setTag("YandereWearableJob")
-                .setRecurring(false)
-                .setReplaceCurrent(true)
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                .setTrigger(Trigger.executionWindow(30, 360))
-                .build()
+        val firebase = Intent(context, YandereFirebaseMessagingService::class.java)
+        val wearable = Intent(context, YandereWearableApplyListener::class.java)
 
-        firebase.mustSchedule(firebaseJob)
-        wearable.mustSchedule(wearableJob)
-        firebase.schedule(firebaseJob)
-        wearable.schedule(wearableJob)
+        context.startService(firebase)
+        context.startService(wearable)
 
         val apply_manager = YandereBootApplyManager(context).release()
 

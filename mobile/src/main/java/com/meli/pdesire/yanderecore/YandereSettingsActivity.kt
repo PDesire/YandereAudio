@@ -23,10 +23,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceFragment
-import android.support.design.widget.NavigationView
-import android.support.v4.widget.DrawerLayout
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.Toolbar
 import com.meli.pdesire.yanderecore.fragments.AnalyticsFragment
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePackageManager

@@ -24,25 +24,42 @@ package com.meli.pdesire.yanderecore.fragments
 
 import android.annotation.TargetApi
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.meli.pdesire.yanderecore.framework.YandereCommandHandler
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import projectmeli.yandereaudio.pdesire.R
 
 class AudioSettingsFragment : PreferenceFragment() {
 
+    private val PREFS_NAME = "prefs"
+    private val PREF_ADS = "ads"
+
+    private lateinit var mInterstitialAd: InterstitialAd
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
         val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(activity)
+
+        val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val useAds = preferences.getBoolean(PREF_ADS, true)
 
         super.onCreate(savedInstanceState)
 
         addPreferencesFromResource(R.xml.pref_general)
         setHasOptionsMenu(true)
+
+        if (useAds) {
+            mInterstitialAd = InterstitialAd(activity)
+            mInterstitialAd.adUnitId = "ca-app-pub-6207390033733991/6525356424"
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+        }
 
         val heavybass = findPreference("heavybass_switch")
         val reboot = findPreference("reboot_click")
@@ -55,6 +72,9 @@ class AudioSettingsFragment : PreferenceFragment() {
             if (!switched) {
                 YandereCommandHandler.callHeavybass(true)
                 mOutputWrapper!!.addNotification(getString(R.string.heavybass_enabled), getString(R.string.heavybass_enabled_description))
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 YandereCommandHandler.callHeavybass(false)
                 mOutputWrapper!!.addNotification(getString(R.string.heavybass_disabled), getString(R.string.heavybass_disabled_description))
@@ -80,6 +100,9 @@ class AudioSettingsFragment : PreferenceFragment() {
                     .isChecked
             if (!switched) {
                 YandereCommandHandler.callPDAECMagic()
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 YandereCommandHandler.removePDAECMagic()
             }

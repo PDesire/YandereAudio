@@ -25,6 +25,8 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.meli.pdesire.yanderecore.framework.YandereCommandHandler
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import projectmeli.yandereaudio.pdesire.R
@@ -35,6 +37,9 @@ class SSECallibrationFragment : PreferenceFragment() {
     private val PREF_PDESIRE_CLEARAUDIO = "pdesire_clearaudio"
     private val PREF_TREBLE_CLEARAUDIO= "treble_clearaudio"
     private val PREF_BASS_CLEARAUDIO= "bass_clearaudio"
+    private val PREF_ADS = "ads"
+
+    private lateinit var mInterstitialAd: InterstitialAd
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +53,14 @@ class SSECallibrationFragment : PreferenceFragment() {
         val usePDesire = preferences.getBoolean(PREF_PDESIRE_CLEARAUDIO, false)
         val useBass = preferences.getBoolean(PREF_BASS_CLEARAUDIO, false)
         val useTreble = preferences.getBoolean(PREF_TREBLE_CLEARAUDIO, false)
+        val useAds = preferences.getBoolean(PREF_ADS, true)
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+
+        if (useAds) {
+            mInterstitialAd = InterstitialAd(activity)
+            mInterstitialAd.adUnitId = "ca-app-pub-6207390033733991/6525356424"
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+        }
 
         val treble = findPreference("treble_clearaudio_switch")
         val bass = findPreference("bass_clearaudio_switch")
@@ -75,6 +87,9 @@ class SSECallibrationFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_TREBLE_CLEARAUDIO, true)
                 editor.apply()
                 mOutputWrapper!!.addNotification(getString(R.string.treble_clearaudio_enabled), getString(R.string.treble_clearaudio_enabled_description))
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 setStock()
                 pdesire.isEnabled = true
@@ -93,6 +108,9 @@ class SSECallibrationFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_BASS_CLEARAUDIO, true)
                 editor.apply()
                 mOutputWrapper!!.addNotification(getString(R.string.bass_clearaudio_enabled), getString(R.string.bass_clearaudio_enabled_description))
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 setStock()
                 treble.isEnabled = true
@@ -111,6 +129,9 @@ class SSECallibrationFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, true)
                 editor.apply()
                 mOutputWrapper!!.addNotification(getString(R.string.pdesire_clearaudio_enabled), getString(R.string.pdesire_clearaudio_enabled_description))
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 setStock()
                 treble.isEnabled = true
@@ -122,10 +143,15 @@ class SSECallibrationFragment : PreferenceFragment() {
 
     private fun setStock() {
         YandereCommandHandler.copy("/system/Yuno/Sony/ClearAudio/stock", "effect_params.data","/system/etc/sony_effect")
+        val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val useAds = preferences.getBoolean(PREF_ADS, true)
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
         editor.putBoolean(PREF_PDESIRE_CLEARAUDIO, false)
         editor.putBoolean(PREF_BASS_CLEARAUDIO, false)
         editor.putBoolean(PREF_TREBLE_CLEARAUDIO, false)
         editor.apply()
+        if (mInterstitialAd.isLoaded && useAds) {
+            mInterstitialAd.show()
+        }
     }
 }

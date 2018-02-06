@@ -17,7 +17,7 @@
     <string name="pdesireaudio_static_description">Gives you full control to PDesireAudio</string>
     <string name="pdesireaudio_static_title">Static Mode</string>
     <string name="pref_header_audio_settings">Audio Settings</string>
-    <string name="pref_header_engines">Engines</string>
+    <string name="pref_header_engines">Configurations</string>
     <string name="pref_header_credits">Other</string>
     <string name="pref_header_pdesireaudio_controls">PDesireAudio Controls</string>
     <string name="pref_header_pdesireaudio_credits">Other</string>
@@ -50,10 +50,10 @@
     <string name="basic_theme">Basic Theme</string>
     <string name="new_theme">New Theme</string>
     <string name="theme">Theme</string>
-    <string name="yume_audio">YumeAudio Engine</string>
-    <string name="yume_audio_description">The old but best Engine of Project Yume.\nApply it if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
-    <string name="meli_audio">MeliAudio Y Engine</string>
-    <string name="meli_audio_description">New, better, more powerful.\nThe MeliAudio Y Engine is for people, who wants audio without any compromises. \nIt does get updated every time by every Project Shinka-PD version, and is already activated by default.\nAttention: Your device will reboot</string>
+    <string name="yume_audio">YumeAudio Config</string>
+    <string name="yume_audio_description">The old but best Config of Project Yume.\nApply it if you feel nostalgic and want to hear something old but wonderful.\nAttention: Your device will reboot</string>
+    <string name="meli_audio">Shinka-PD Y Config</string>
+    <string name="meli_audio_description">New, better, more powerful.\nThe Shinka-PD Y Config is for people, who wants audio without any compromises. \nIt does get updated every time by every Project Shinka-PD version, and is already activated by default.\nAttention: Your device will reboot</string>
     <string name="sony_management">Sony Management</string>
     <string name="universal_management">Universal Management</string>
     <string name="device_management">Device Management</string>
@@ -139,5 +139,9 @@
     <string name="the_unique_audio_procession_by_project_shinka_pd_for_everyone">The unique audio procession by Project Shinka-PD for everyone</string>
     <string name="project_shinka_pd_telegram_community">Project Shinka-PD Telegram Community</string>
     <string name="we_are_project_shinka_pd_join_our_community_on_telegram_now">We are Project Shinka-PD, join our community on Telegram now</string>
+    <string name="donate">Donate</string>
+    <string name="ads_description">These Ads support PDesire without you need to donate something, you can enable and disable it</string>
+    <string name="ads_title">Google AdMob Ads</string>
+    <string name="ads">Ads</string>
 
 </resources>

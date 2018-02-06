@@ -25,12 +25,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Objects;
 
 import projectmeli.yandereaudio.pdesire.MainActivity;
 import projectmeli.yandereaudio.pdesire.R;
@@ -43,7 +44,7 @@ public class YandereFirebaseMessagingService extends FirebaseMessagingService {
             Log.d("YandereFirebaseMessage", "Message data: " + remoteMessage.getData());
         }
         try {
-            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            sendNotification(Objects.requireNonNull(remoteMessage.getNotification()).getTitle(), remoteMessage.getNotification().getBody());
         } catch (NullPointerException e) {
             sendNotification("Firebase Mesaging failed", "Sending notification via Firebase Cloud Messaging has been failed, contact PDesire for that");
             e.printStackTrace();

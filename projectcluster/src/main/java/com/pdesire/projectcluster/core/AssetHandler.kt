@@ -16,7 +16,7 @@ class AssetHandler(val context: Context) {
     @Throws(IOException::class)
     fun copyDirorfileFromAssetManager(arg_assetDir: String, arg_destinationDir: String): String {
         val sd_path = Environment.getExternalStorageDirectory()
-        val dest_dir_path = sd_path.toString() + addLeadingSlash(arg_destinationDir)
+        val dest_dir_path = sd_path.toString() + addLeadingSlash(arg_destinationDir) + addLeadingSlash(context.javaClass.name)
         val dest_dir = File(dest_dir_path)
 
         createDir(dest_dir)

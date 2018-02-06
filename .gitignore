@@ -11,3 +11,4 @@
 /release
 add_fabric_key.sh
 remove_fabric_key.sh
+/mobile/fabric.properties

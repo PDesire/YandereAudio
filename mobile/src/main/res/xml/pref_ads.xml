@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Ads" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="ads_switch"
+        android:summary="@string/ads_description"
+        android:title="@string/ads_title" />
+
+</PreferenceScreen>

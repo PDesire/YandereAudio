@@ -36,6 +36,8 @@ import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.ContentViewEvent
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.meli.pdesire.yanderecore.*
@@ -59,8 +61,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val PREF_YANDERE = "yandere"
     private val PREF_ANALYTICS = "analytics"
     private val PREF_ANALYTICS_FABRIC = "analytics_fabric"
+    private val PREF_ADS = "ads"
+
+    private val PREFS_CLUSTER_NAME = "cluster_prefs"
+    private val PREF_CLUSTER_SUCCESS = "cluster_success"
 
     private val mOutputWrapper : YandereOutputWrapper? = YandereOutputWrapper(this)
+    private lateinit var mInterstitialAd: InterstitialAd
 
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
     private var mFirebaseRemoteConfig: FirebaseRemoteConfig? = null
@@ -112,7 +119,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val useYandere = preferences.getBoolean(PREF_YANDERE, false)
         val useGoogleAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
         val useFabricAnalytics = preferences.getBoolean(PREF_ANALYTICS_FABRIC, false)
+        val useAds = preferences.getBoolean(PREF_ADS, false)
         val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+
+        val cluster = getSharedPreferences(PREFS_CLUSTER_NAME, Context.MODE_PRIVATE)
+        val cluster_success = cluster.getBoolean(PREF_CLUSTER_SUCCESS, false)
 
         if (useNewTheme) {
             setTheme(R.style.AppTheme_New_NoActionBar)
@@ -120,16 +131,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar) as Toolbar
+        val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
-        val navigationView = findViewById<NavigationView>(R.id.nav_view) as NavigationView
+        val navigationView = findViewById(R.id.nav_view) as NavigationView
         navigationView.setNavigationItemSelectedListener(this)
 
         val animate = AnimationUtils.loadAnimation(this, R.anim.fade)
@@ -154,6 +165,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .create()
                     .show()
         }
+
+        MobileAds.initialize(this, "ca-app-pub-6207390033733991~9531735666")
+
+        if (!useAds)
+            mInterstitialAd = InterstitialAd(this)
 
         mOutputWrapper!!.addNotification(getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
 
@@ -215,7 +231,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity(intent)
                 finish()
             }, animate.duration) */
-            mOutputWrapper.outputToast("Coming soon")
+            mOutputWrapper.outputToast("Ready soon")
         }
 
         cardview_thrd.setOnClickListener {
@@ -259,15 +275,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }, animate.duration)
         }
-
-        val intent = Intent(applicationContext, AssetCopyManager::class.java)
-        startActivity(intent)
-
+        try {
+            if (System.getProperty("ro.projectcluster.state")!!.equals("true") && !cluster_success) {
+                val intent = Intent(applicationContext, AssetCopyManager::class.java)
+                startActivity(intent)
+            }
+        } catch (n0 : NullPointerException) {
+            n0.printStackTrace()
+        }
     }
 
 
     override fun onBackPressed() {
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
@@ -298,6 +318,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else if (id == R.id.settings) {
             val intent = Intent(applicationContext, YandereSettingsActivity::class.java)
             startActivity(intent)
+        } else if (id == R.id.donate) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://paypal.me/PDesireChan"))
+            startActivity(intent)
         } else if (id == R.id.nav_contact_xda) {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
             startActivity(intent)
@@ -306,7 +329,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             startActivity(intent)
         }
 
-        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout) as DrawerLayout
+        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
         return true
     }

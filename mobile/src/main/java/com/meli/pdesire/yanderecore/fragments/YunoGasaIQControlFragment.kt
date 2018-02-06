@@ -25,6 +25,8 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.SwitchPreference
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.meli.pdesire.yanderecore.framework.YandereYunoGasaIQAPI
 import projectmeli.yandereaudio.pdesire.R
 
@@ -34,6 +36,9 @@ class YunoGasaIQControlFragment : PreferenceFragment() {
     private val PREF_GASAIQ = "gasaiq"
     private val PREF_GASAIQ_COMPANDER = "gasaiq_compander"
     private val PREF_GASAIQ_BIQUADS = "gasaiq_biquads"
+    private val PREF_ADS = "ads"
+
+    private lateinit var mInterstitialAd: InterstitialAd
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +47,15 @@ class YunoGasaIQControlFragment : PreferenceFragment() {
         addPreferencesFromResource(R.xml.pref_gasaiq_control)
         setHasOptionsMenu(true)
 
+        val preferences = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val useAds = preferences.getBoolean(PREF_ADS, true)
         val editor = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+
+        if (useAds) {
+            mInterstitialAd = InterstitialAd(activity)
+            mInterstitialAd.adUnitId = "ca-app-pub-6207390033733991/6525356424"
+            mInterstitialAd.loadAd(AdRequest.Builder().build())
+        }
 
         val gasaiq_audio = findPreference("gasaiq_audio_switch")
         val allow_compander = findPreference("allow_compander_switch")
@@ -55,6 +68,9 @@ class YunoGasaIQControlFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_GASAIQ, true)
                 editor.apply()
                 YandereYunoGasaIQAPI.callGasaIQAudio(1)
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 editor.putBoolean(PREF_GASAIQ, false)
                 editor.apply()
@@ -71,6 +87,9 @@ class YunoGasaIQControlFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_GASAIQ_COMPANDER, true)
                 editor.apply()
                 YandereYunoGasaIQAPI.callAllowCompander(1)
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 editor.putBoolean(PREF_GASAIQ_COMPANDER, false)
                 editor.apply()
@@ -87,6 +106,9 @@ class YunoGasaIQControlFragment : PreferenceFragment() {
                 editor.putBoolean(PREF_GASAIQ_BIQUADS, true)
                 editor.apply()
                 YandereYunoGasaIQAPI.callAllowBiQuads(1)
+                if (mInterstitialAd.isLoaded && useAds) {
+                    mInterstitialAd.show()
+                }
             } else {
                 editor.putBoolean(PREF_GASAIQ_BIQUADS, false)
                 editor.apply()

@@ -25,13 +25,11 @@ import android.preference.SwitchPreference;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
-import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.util.List;
@@ -60,66 +58,53 @@ public class MainActivity extends PreferenceActivity implements MessageApi.Messa
 
         Preference heavybass = findPreference("heavybass_switch");
 
-        heavybass.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                boolean switched = ((SwitchPreference) preference)
-                        .isChecked();
-                if (!switched) {
-                    sendMessage("/start_heavybass_enable", null);
-                } else {
-                    sendMessage("/start_heavybass_disable", null);
-                }
-                return true;
+        heavybass.setOnPreferenceChangeListener((preference, newValue) -> {
+            boolean switched = ((SwitchPreference) preference)
+                    .isChecked();
+            if (!switched) {
+                sendMessage("/start_heavybass_enable", null);
+            } else {
+                sendMessage("/start_heavybass_disable", null);
             }
+            return true;
         });
 
         Preference pdesireaudio = findPreference("pdesireaudio_switch");
 
-        pdesireaudio.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                boolean switched = ((SwitchPreference) preference)
-                        .isChecked();
-                if (!switched) {
-                    sendMessage("/start_pdesireaudio_enable", null);
-                } else {
-                    sendMessage("/start_pdesireaudio_disable", null);
-                }
-                return true;
+        pdesireaudio.setOnPreferenceChangeListener((preference, newValue) -> {
+            boolean switched = ((SwitchPreference) preference)
+                    .isChecked();
+            if (!switched) {
+                sendMessage("/start_pdesireaudio_enable", null);
+            } else {
+                sendMessage("/start_pdesireaudio_disable", null);
             }
+            return true;
         });
 
         Preference reboot = findPreference("reboot_phone_click");
 
-        reboot.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                sendMessage("/start_reboot", null);
-                return false;
-            }
+        reboot.setOnPreferenceClickListener(preference -> {
+            sendMessage("/start_reboot", null);
+            return false;
         });
 
     }
 
     private void sendMessage(final String message, final byte[] payload) {
         Log.i(MainActivity.class.getSimpleName(), "Sending message " + message);
-        Wearable.NodeApi.getConnectedNodes(client).setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
-            @Override
-            public void onResult(@NonNull NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
-                List<Node> nodes = getConnectedNodesResult.getNodes();
-                for (Node node : nodes) {
-                    Log.i(MainActivity.class.getSimpleName(), "sending " + message + " to " + node);
-                    Wearable.MessageApi.sendMessage(client, node.getId(), message, payload).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
-                        @Override
-                        public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
-                            Log.i(MainActivity.class.getSimpleName(), "Result " + sendMessageResult.getStatus());
-                        }
-                    });
-                }
-
+        Wearable.NodeApi.getConnectedNodes(client).setResultCallback(getConnectedNodesResult -> {
+            List<Node> nodes = getConnectedNodesResult.getNodes();
+            for (Node node : nodes) {
+                Log.i(MainActivity.class.getSimpleName(), "sending " + message + " to " + node);
+                Wearable.MessageApi.sendMessage(client, node.getId(), message, payload).setResultCallback(new ResultCallback<MessageApi.SendMessageResult>() {
+                    @Override
+                    public void onResult(@NonNull MessageApi.SendMessageResult sendMessageResult) {
+                        Log.i(MainActivity.class.getSimpleName(), "Result " + sendMessageResult.getStatus());
+                    }
+                });
             }
+
         });
     }
 

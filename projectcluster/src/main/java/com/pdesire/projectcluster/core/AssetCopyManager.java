@@ -3,13 +3,10 @@ package com.pdesire.projectcluster.core;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.pdesire.projectcluster.R;
@@ -36,17 +33,29 @@ public class AssetCopyManager extends Activity {
         mActivity = this;
         status = findViewById(R.id.progress);
         AlertDialog.Builder start = new AlertDialog.Builder(this);
-        start.setTitle("Do you want to update ?")
-                .setMessage("This applies a new cluster to your system. \n \nThe dev is not responsible for any damages on your device.")
-                .setPositiveButton("Yes", (dialog, id) -> {
-                    FullClusterApply apply = new FullClusterApply();
-                    apply.execute();
-                })
-                .setNegativeButton("No", (dialog, id) -> {
-                    finish();
-                })
-                .create()
-                .show();
+        try {
+            if (System.getProperty("ro.cluster.version").equals("2.0")) {
+                start.setTitle("Do you want to update ?")
+                        .setMessage("This applies a new cluster to your system. \n \nThe dev is not responsible for any damages on your device.")
+                        .setPositiveButton("Yes", (dialog, id) -> {
+                            FullClusterApply apply = new FullClusterApply();
+                            apply.execute();
+                        })
+                        .setNegativeButton("No", (dialog, id) -> finish())
+                        .create()
+                        .show();
+            } else {
+                start.setTitle("Update manually to newest version")
+                        .setMessage("Your version is not compatible with Project Cluster update. \nManually update Project Shinka-PD via flashing the latest zip")
+                        .create()
+                        .show();
+            }
+        } catch (NullPointerException n0) {
+            start.setTitle("Update manually to newest version")
+                    .setMessage("Your version is not compatible with Project Cluster update. \nManually update Project Shinka-PD via flashing the latest zip")
+                    .create()
+                    .show();
+        }
     }
 
     public class FullClusterApply extends AsyncTask<String, String, String> {
@@ -60,6 +69,7 @@ public class AssetCopyManager extends Activity {
             AssetHandler asst = new AssetHandler(getApplicationContext());
             SharedPreferences preferences = getApplicationContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
+            String dest_path = "";
 
             try {
                 publishProgress("Initialize Asset Copy Framework...");
@@ -68,8 +78,13 @@ public class AssetCopyManager extends Activity {
                 File FolderInCache = new File(arg_destinationDir);
                 publishProgress("Copy Assets to Cache...");
                 if (!FolderInCache.exists()) {
-                    asst.copyDirorfileFromAssetManager(arg_assetDir, arg_destinationDir);
+                    dest_path = asst.copyDirorfileFromAssetManager(arg_assetDir, arg_destinationDir);
                 }
+                publishProgress("Let's add some magic...");
+                Runtime.getRuntime().exec("su -c mkdir /data/meli");
+                Runtime.getRuntime().exec("su -c cp -fr " + dest_path + " /data/meli");
+                Runtime.getRuntime().exec("su -c /system/bin/meli_module_control --reinstall");
+
                 publishProgress("Report Successful Execution...");
                 editor.putBoolean(PREF_CLUSTER_SUCCESS, true);
                 editor.apply();
@@ -95,9 +110,7 @@ public class AssetCopyManager extends Activity {
                         FullClusterApply apply = new FullClusterApply();
                         apply.execute();
                     })
-                    .setNegativeButton("No", (dialog, id) -> {
-                        mActivity.finish();
-                    })
+                    .setNegativeButton("No", (dialog, id) -> mActivity.finish())
                     .create()
                     .show();
 

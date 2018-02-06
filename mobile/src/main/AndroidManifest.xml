@@ -90,22 +90,6 @@
             </intent-filter>
         </service>
 
-        <service
-            android:exported="false"
-            android:name="com.meli.pdesire.yanderecore.services.jobs.YandereFirebaseJob">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-            </intent-filter>
-        </service>
-
-        <service
-            android:exported="false"
-            android:name="com.meli.pdesire.yanderecore.services.jobs.YandereWearableJob">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
-            </intent-filter>
-        </service>
-
         <receiver android:name="com.meli.pdesire.yanderecore.receivers.YandereBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

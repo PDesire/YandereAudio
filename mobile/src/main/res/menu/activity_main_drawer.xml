@@ -59,6 +59,10 @@
     <item android:title="@string/support">
         <menu>
             <item
+                android:id="@+id/donate"
+                android:icon="@drawable/ic_monetization_on_black_24dp"
+                android:title="@string/donate"/>
+            <item
                 android:id="@+id/nav_contact_xda"
                 android:icon="@drawable/ic_question_answer_black_24dp"
                 android:title="@string/xda_thread"/>

@@ -19,8 +19,6 @@
 package com.meli.pdesire.yanderecore.framework
 
 import android.util.Log
-import com.meli.pdesire.yanderecore.framework.YandereCommandHandler
-import com.meli.pdesire.yanderecore.framework.YanderePDesireAudioAPI
 
 
 /**
