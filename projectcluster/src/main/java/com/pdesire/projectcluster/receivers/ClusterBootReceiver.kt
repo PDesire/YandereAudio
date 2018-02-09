@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2017-2018 Tristan Marsell, All rights reserved.
  *
- * This code is licensed under the BSD-3-Clause License
+ * This code is licensed under the PPL (PDesire Public License) License
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,

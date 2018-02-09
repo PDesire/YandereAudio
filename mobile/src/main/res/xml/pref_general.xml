@@ -7,13 +7,6 @@
         android:summary="@string/heavybass_description"
         android:title="@string/heavybass_title" />
 
-    <PreferenceCategory android:title="@string/pdaec" />
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="pdaec_core_switch"
-        android:summary="@string/pdaec_core_description"
-        android:title="@string/pdaec_core" />
-
     <SwitchPreference
         android:defaultValue="true"
         android:key="pdaec_effects_switch"

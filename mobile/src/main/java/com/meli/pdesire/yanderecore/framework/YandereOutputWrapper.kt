@@ -20,16 +20,19 @@ package com.meli.pdesire.yanderecore.framework
 
 import android.annotation.TargetApi
 import android.app.AlertDialog
-import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.widget.Toast
 import projectmeli.yandereaudio.pdesire.MainActivity
 import projectmeli.yandereaudio.pdesire.R
+
+
 
 /**
  * Created by PDesire on 8/16/17.
@@ -72,17 +75,23 @@ class YandereOutputWrapper(private val mContext : Context) {
 
         val i = Intent(mContext, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(mContext, 0, i, 0)
+        val picture = BitmapFactory.decodeResource(mContext.resources,
+                R.mipmap.ic_launcher)
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O){
-            val b = Notification.Builder(mContext, "OutputWrapperNotification")
+            val notificationChannel = NotificationChannel("YandereMessage", "YandereAudioMessage", NotificationManager.IMPORTANCE_DEFAULT)
+            val nm = mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            nm.createNotificationChannel(notificationChannel)
+            val b = NotificationCompat.Builder(mContext, "YandereMessage")
                     .setAutoCancel(true)
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_yandere_black_24dp)
                     .setTicker(message)
                     .setContentTitle(title + " ^-^")
                     .setContentText("Master, " + message + " ^~^")
+                    .setChannelId("YandereMessage")
+                    .setLargeIcon(picture)
                     .setContentIntent(pendingIntent)
-            val nm = mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.notify(1, b.build())
         } else{
             val b = NotificationCompat.Builder(mContext, "OutputWrapperNotification")
@@ -91,9 +100,11 @@ class YandereOutputWrapper(private val mContext : Context) {
                     .setWhen(System.currentTimeMillis())
                     .setSmallIcon(R.drawable.ic_yandere_black_24dp)
                     .setTicker(message)
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
                     .setContentTitle(title + " ^-^")
                     .setContentText("Master, " + message + " ^~^")
                     .setContentIntent(pendingIntent)
+                    .setLargeIcon(picture)
                     .setContentInfo("INFO")
             val nm = mContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nm.notify(1, b.build())

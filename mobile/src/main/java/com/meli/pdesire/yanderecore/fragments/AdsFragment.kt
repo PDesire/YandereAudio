@@ -38,7 +38,7 @@ class AdsFragment : PreferenceFragment() {
         super.onCreate(savedInstanceState)
 
 
-        addPreferencesFromResource(R.xml.pref_analytics)
+        addPreferencesFromResource(R.xml.pref_ads)
         setHasOptionsMenu(true)
 
         val ads = findPreference("ads_switch")

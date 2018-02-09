@@ -23,6 +23,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import com.meli.pdesire.yanderecore.fragments.AdsFragment
 import com.meli.pdesire.yanderecore.fragments.AnalyticsFragment
 import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
 import com.meli.pdesire.yanderecore.framework.YanderePackageManager
@@ -83,6 +84,7 @@ class YandereSettingsActivity : AppCompatPreferenceActivity() {
     override fun isValidFragment(fragmentName: String): Boolean {
         return PreferenceFragment::class.java.name == fragmentName
                 || AnalyticsFragment::class.java.name == fragmentName
+                || AdsFragment::class.java.name == fragmentName
     }
 
     public override fun onStart() {

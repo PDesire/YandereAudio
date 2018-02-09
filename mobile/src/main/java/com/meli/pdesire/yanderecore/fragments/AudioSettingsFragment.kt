@@ -63,7 +63,6 @@ class AudioSettingsFragment : PreferenceFragment() {
 
         val heavybass = findPreference("heavybass_switch")
         val reboot = findPreference("reboot_click")
-        val pdaec_core = findPreference("pdaec_core_switch")
         val pdaec_audio_effects = findPreference("pdaec_effects_switch")
 
         heavybass.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
@@ -81,19 +80,6 @@ class AudioSettingsFragment : PreferenceFragment() {
             }
             true
         }
-
-        pdaec_core.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
-            val switched = (preference as SwitchPreference)
-                    .isChecked
-            if (!switched) {
-
-            } else {
-
-            }
-            true
-        }
-
-        pdaec_core.isEnabled = false
 
         pdaec_audio_effects.onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, _ ->
             val switched = (preference as SwitchPreference)

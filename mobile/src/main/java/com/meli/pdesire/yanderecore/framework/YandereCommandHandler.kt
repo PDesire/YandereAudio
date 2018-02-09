@@ -57,18 +57,12 @@ object YandereCommandHandler {
         copy("/system/Yuno/Engines/Yume/Final/etc",
                 "audio_effects.conf",
                 "/system/etc")
-        copy("/system/Yuno/Engines/Yume/Final/vendor",
-                "audio_effects.conf",
-                "/system/vendor/etc")
     }
 
     fun callMeliEngine(){
         copy("/system/Yuno/Engines/Meli/etc",
                 "audio_effects.conf",
                 "/system/etc")
-        copy("/system/Yuno/Engines/Meli/vendor",
-                "audio_effects.conf",
-                "/system/vendor/etc")
 
     }
 
