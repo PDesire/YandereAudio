@@ -1,21 +1,41 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="gasaiq_audio_switch"
-        android:summary="Set your GasaIQ supported soundcard to the max limits"
-        android:title="GasaIQ-Audio" />
+    <PreferenceCategory android:title="Yuno-GasaIQ">
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="allow_compander_switch"
-        android:summary="Allows compander streams, which are stable but known to be battery draining and audio quality decreasing"
-        android:title="Allow Compander" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="gasaiq_audio_switch"
+            android:summary="Set your GasaIQ supported soundcard to the max limits"
+            android:title="GasaIQ-Audio" />
 
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="allow_biquads_switch"
-        android:summary="Allow BiQuads filtering, mostly used on telephony or ANC so caution if disabling them"
-        android:title="Allow BiQuads" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="allow_compander_switch"
+            android:summary="Allows compander streams, which are stable but known to be battery draining and audio quality decreasing"
+            android:title="Allow Compander" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="allow_biquads_switch"
+            android:summary="Allow BiQuads filtering, mostly used on telephony or ANC so caution if disabling them"
+            android:title="Allow BiQuads" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="PDesireAudio">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="pdesireaudio_uhqa_switch"
+            android:summary="@string/pdesireaudio_uhqa_description"
+            android:title="@string/pdesireaudio_uhqa_title" />
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pdesireaudio_static_switch"
+            android:summary="@string/pdesireaudio_static_description"
+            android:title="@string/pdesireaudio_static_title" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

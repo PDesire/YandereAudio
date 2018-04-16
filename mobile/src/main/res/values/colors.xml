@@ -4,4 +4,8 @@
     <color name="colorPrimaryDarkNew">@color/colorPrimaryNew</color>
     <color name="colorAccentNew">#7b1fa2</color>
     <color name="colorAccent">#e70004</color>
+    <color name="card_text_background">#afffffff</color>
+    <color name="card_title_color">#000</color>
+    <color name="card_desc_color">#111</color>
+    <color name="drawer_shade_color">#afffffff</color>
 </resources>

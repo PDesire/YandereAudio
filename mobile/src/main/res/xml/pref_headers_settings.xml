@@ -1,12 +1,12 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
     <header
-        android:fragment="com.meli.pdesire.yanderecore.fragments.AnalyticsFragment"
+        android:fragment="com.yandereaudio.pdesire.yanderecore.fragments.AnalyticsFragment"
         android:icon="@null"
         android:title="@string/analytics" />
 
     <header
-        android:fragment="com.meli.pdesire.yanderecore.fragments.AdsFragment"
+        android:fragment="com.yandereaudio.pdesire.yanderecore.fragments.AdsFragment"
         android:icon="@null"
         android:title="@string/ads" />
 

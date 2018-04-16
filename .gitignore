@@ -8,6 +8,7 @@
 /captures
 .externalNativeBuild
 /mobile/google-services.json
+/mobile/google-services-free.json
 /release
 add_fabric_key.sh
 remove_fabric_key.sh

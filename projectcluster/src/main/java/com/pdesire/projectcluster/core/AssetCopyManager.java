@@ -24,10 +24,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
 import com.pdesire.projectcluster.R;
+import com.pdesire.projectcluster.framework.ClusterPropertyControl;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,6 +43,7 @@ public class AssetCopyManager extends Activity {
     private TextView status;
     private Context mContext;
     private Activity mActivity;
+    private ClusterPropertyControl mProperty = new ClusterPropertyControl();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +55,7 @@ public class AssetCopyManager extends Activity {
         status = findViewById(R.id.progress);
         AlertDialog.Builder start = new AlertDialog.Builder(this);
         try {
-            if (System.getProperty("ro.cluster.version").equals("2.0")) {
+            if (mProperty.getprop("ro.cluster.version").equals("2.0")) {
                 start.setTitle("Do you want to update ?")
                         .setMessage("This applies a new cluster to your system. \n \nThe dev is not responsible for any damages on your device.")
                         .setPositiveButton("Yes", (dialog, id) -> {
@@ -99,9 +102,6 @@ public class AssetCopyManager extends Activity {
                     dest_path = asst.copyDirorfileFromAssetManager(arg_assetDir, arg_destinationDir);
                 }
                 publishProgress("Let's add some magic...");
-                Runtime.getRuntime().exec("su -c mkdir /data/meli");
-                Runtime.getRuntime().exec("su -c cp -fr " + dest_path + " /data/meli");
-                Runtime.getRuntime().exec("su -c /system/bin/meli_module_control --reinstall");
 
                 publishProgress("Report Successful Execution...");
                 editor.putBoolean(PREF_CLUSTER_SUCCESS, true);

@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-feature android:name="android.hardware.screen.portrait" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -32,7 +31,31 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.YandereAudioActivity"
+            android:name=".YandereActivity"
+            android:label="YandereActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".PhoneActivity"
+            android:label="PhoneActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".KernelActivity"
+            android:label="KernelActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.yandereaudio.pdesire.yanderecore.YandereAudioActivity"
             android:label="@string/service_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -40,7 +63,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.KernelSettingsActivity"
+            android:name="com.yandereaudio.pdesire.yanderecore.KernelSettingsActivity"
             android:label="@string/title_activity_kernel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -48,7 +71,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.UniversalManagementActivity"
+            android:name="com.yandereaudio.pdesire.yanderecore.UniversalManagementActivity"
             android:label="@string/title_activity_universal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -56,7 +79,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.SonyManagementActivity"
+            android:name="com.yandereaudio.pdesire.yanderecore.SonyManagementActivity"
             android:label="@string/title_activity_sony">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -64,7 +87,7 @@
         </activity>
 
         <activity
-            android:name="com.meli.pdesire.yanderecore.YandereSettingsActivity"
+            android:name="com.yandereaudio.pdesire.yanderecore.YandereSettingsActivity"
             android:label="@string/settings">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -72,7 +95,7 @@
         </activity>
 
         <service
-            android:name="com.meli.pdesire.yanderecore.services.listeners.YandereWearableApplyListener" >
+            android:name="com.yandereaudio.pdesire.yanderecore.services.listeners.YandereWearableApplyListener" >
             <intent-filter>
                 <!-- listeners receive events that match the action and data filters -->
                 <action android:name="com.google.android.gms.wearable.DATA_CHANGED" />
@@ -84,14 +107,14 @@
         </service>
 
         <service
-            android:name="com.meli.pdesire.yanderecore.services.YandereFirebaseMessagingService"
+            android:name="com.yandereaudio.pdesire.yanderecore.services.YandereFirebaseMessagingService"
             android:permission="com.google.firebase.MESSAGING_EVENT">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
-        <receiver android:name="com.meli.pdesire.yanderecore.receivers.YandereBootReceiver">
+        <receiver android:name="com.yandereaudio.pdesire.yanderecore.receivers.YandereBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -108,7 +131,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="" />
+            android:value="0" />
 
     </application>
 </manifest>

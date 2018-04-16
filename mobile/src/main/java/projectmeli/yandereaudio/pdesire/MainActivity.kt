@@ -18,36 +18,45 @@
 
 package projectmeli.yandereaudio.pdesire
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.preference.PreferenceFragment
 import android.support.design.widget.NavigationView
+import android.support.v4.content.ContextCompat
+import android.support.v4.graphics.drawable.DrawableCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.Toolbar
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
+import android.widget.TextView
 import android.widget.Toast
 import com.crashlytics.android.Crashlytics
 import com.crashlytics.android.answers.Answers
 import com.crashlytics.android.answers.ContentViewEvent
-import com.github.javiersantos.appupdater.AppUpdater
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.meli.pdesire.yanderecore.*
-import com.meli.pdesire.yanderecore.framework.YandereFileManager
-import com.meli.pdesire.yanderecore.framework.YandereOutputWrapper
-import com.meli.pdesire.yanderecore.framework.YanderePackageManager
-import com.meli.pdesire.yanderecore.framework.YandereRootUtility
+import com.yandereaudio.pdesire.yanderecore.*
 import com.pdesire.projectcluster.core.AssetCopyManager
+import com.yandereaudio.pdesire.yanderecore.fragments.AdsFragment
+import com.yandereaudio.pdesire.yanderecore.framework.app.YandereOutputWrapper
+import com.yandereaudio.pdesire.yanderecore.framework.fs.YandereFileManager
+import com.yandereaudio.pdesire.yanderecore.framework.os.YanderePackageManager
+import com.yandereaudio.pdesire.yanderecore.framework.os.YanderePropertyControl
+import com.yandereaudio.pdesire.yanderecore.framework.os.YandereRootUtility
 import io.fabric.sdk.android.Fabric
 
 
@@ -63,6 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val PREF_YANDERE = "yandere"
     private val PREF_ANALYTICS = "analytics"
     private val PREF_ANALYTICS_FABRIC = "analytics_fabric"
+    private val PREF_ROOT_CHECKED = "root_checked"
     private val PREF_ADS = "ads"
 
     private val PREFS_CLUSTER_NAME = "cluster_prefs"
@@ -94,28 +104,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
 
-    private fun closedReleaseTest() {
-        if (YanderePackageManager.closedReleaseTest(this)) {
-            Toast.makeText(this, getString(R.string.security_error),
-                    Toast.LENGTH_LONG).show()
-            finish()
-        }
-    }
-
     private fun meliInstalledCheck(): Boolean {
-        if (!YandereFileManager.fileCheck("/system/meli.prop")) {
+        if (!YandereFileManager.fileCheck("/system/meli.prop") && !YandereFileManager.fileCheck("/system_root/meli.prop")) {
             val messageOutput = AlertDialog.Builder(this)
             messageOutput.setTitle(getString(R.string.meli_not_installed))
                     .setMessage(getString(R.string.no_project_meli_installed))
                     .setPositiveButton(getString(R.string.go_to_thread)) { _, _ ->
-                        if (System.getProperty("ro.service.xfrm.supported")!!.equals("true")) {
+                        if (YanderePropertyControl.getprop("ro.service.xfrm.supported").equals("true")) {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
                             startActivity(intent)
                         } else {
                             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/android/software/soundmod-project-desire-hear-perfection-t3183119"))
                             startActivity(intent)
                         }
-
                     }
                     .setNegativeButton(getString(R.string.ignore)) { _, _ ->
                         // do nothing
@@ -129,49 +130,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
-        val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        val useYandere = preferences.getBoolean(PREF_YANDERE, false)
-
-        val cluster = getSharedPreferences(PREFS_CLUSTER_NAME, Context.MODE_PRIVATE)
-        val cluster_success = cluster.getBoolean(PREF_CLUSTER_SUCCESS, false)
-
-        closedReleaseTest()
-
-        YandereRootUtility.obtainSURights()
-
-        if (meliInstalledCheck() && !useYandere) {
-            val messageOutput = AlertDialog.Builder(this)
-            messageOutput.setTitle(R.string.hello_yandere)
-                    .setMessage(R.string.hello_yandere_description)
-                    .setPositiveButton(R.string.ignore) { _, _ ->
-
-                    }
-                    .setNegativeButton(R.string.never_show_again) { _, _ ->
-                        editor.putBoolean(PREF_YANDERE, true)
-                        editor.apply()
-                    }
-                    .setCancelable(false)
-                    .setIcon(R.mipmap.ic_launcher)
-                    .create()
-                    .show()
-        }
-
-        try {
-            if (System.getProperty("ro.projectcluster.state")!!.equals("true") && !cluster_success) {
-                val intent = Intent(applicationContext, AssetCopyManager::class.java)
-                startActivity(intent)
-            }
-        } catch (n0 : NullPointerException) {
-            n0.printStackTrace()
-        }
-
-        val appUpdater = AppUpdater(this)
-        appUpdater.start()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         // Use the chosen theme
         val preferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -179,13 +137,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val useGoogleAnalytics = preferences.getBoolean(PREF_ANALYTICS, false)
         val useFabricAnalytics = preferences.getBoolean(PREF_ANALYTICS_FABRIC, false)
         val useAds = preferences.getBoolean(PREF_ADS, true)
+        val useYandere = preferences.getBoolean(PREF_YANDERE, false)
+        val rootChecked = preferences.getBoolean(PREF_ROOT_CHECKED, false)
+        val editor = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+
+        val cluster = getSharedPreferences(PREFS_CLUSTER_NAME, Context.MODE_PRIVATE)
+        val cluster_success = cluster.getBoolean(PREF_CLUSTER_SUCCESS, false)
 
         if (useNewTheme) {
             setTheme(R.style.AppTheme_New_NoActionBar)
         }
-
         super.onCreate(savedInstanceState)
+
+
         setContentView(R.layout.activity_main)
+        window.decorView.setBackgroundColor(Color.WHITE)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -193,10 +159,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
+        drawer.setScrimColor(ContextCompat.getColor(applicationContext, R.color.drawer_shade_color))
         toggle.syncState()
+
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
+
+        val googlesans = Typeface.createFromAsset(assets, "fonts/GoogleSans-Regular.ttf")
+        val title_big = findViewById<TextView>(R.id.title_big)
+        title_big.setTypeface(googlesans)
 
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         navigationView.setNavigationItemSelectedListener(this)
+        navigationView.background.alpha = 235
 
         val animate = AnimationUtils.loadAnimation(this, R.anim.fade)
 
@@ -207,8 +181,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             mInterstitialAd.adUnitId = "ca-app-pub-6207390033733991/6525356424"
             mInterstitialAd.loadAd(AdRequest.Builder().build())
         }
-
-        mOutputWrapper!!.addNotification(getString(R.string.welcome_back), getString(R.string.welcome_back_yandereaudio))
 
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
         mFirebaseRemoteConfig!!.setDefaults(R.xml.firebase_values)
@@ -235,6 +207,40 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             // Fabric.io Analytics
             Fabric.with(this, Crashlytics())
             Answers.getInstance().logContentView(ContentViewEvent())
+        }
+
+        if (meliInstalledCheck() && !useYandere) {
+            val messageOutput = AlertDialog.Builder(this)
+            messageOutput.setTitle(R.string.hello_yandere)
+                    .setMessage(R.string.hello_yandere_description)
+                    .setPositiveButton(R.string.ignore) { _, _ ->
+
+                    }
+                    .setNegativeButton(R.string.never_show_again) { _, _ ->
+                        editor.putBoolean(PREF_YANDERE, true)
+                        editor.apply()
+                    }
+                    .setCancelable(false)
+                    .setIcon(R.mipmap.ic_launcher)
+                    .create()
+                    .show()
+        }
+
+        if (YanderePackageManager.closedReleaseTest(this)) {
+            Toast.makeText(this, getString(R.string.security_error),
+                    Toast.LENGTH_LONG).show()
+            finish()
+        }
+
+        if (YanderePropertyControl.getprop("ro.projectcluster.state").equals("true") && !cluster_success) {
+            val intent = Intent(applicationContext, AssetCopyManager::class.java)
+            startActivity(intent)
+        }
+
+        if (!rootChecked) {
+            YandereRootUtility.obtainSURights().execute()
+            editor.putBoolean(PREF_ROOT_CHECKED, true)
+            editor.apply()
         }
 
         val cardview_intro = findViewById<CardView>(R.id.intro)
@@ -328,47 +334,54 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
+    fun intentLauncher (intent : Intent) {
+        startActivity(intent)
+        showAds()
+    }
+
+    fun intentLauncher (uri : String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        startActivity(intent)
+        showAds()
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         val id = item.itemId
 
-        if (id == R.id.nav_service) {
-            val intent = Intent(applicationContext, YandereAudioActivity::class.java)
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.nav_pdesireaudio) {
-            val intent = Intent(applicationContext, KernelSettingsActivity::class.java)
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.universal_management) {
-            val intent = Intent(applicationContext, UniversalManagementActivity::class.java)
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.sony_management) {
-            val intent = Intent(applicationContext, SonyManagementActivity::class.java)
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.basic_theme) {
-            toggleThemeNew(false)
-            showAds()
-        } else if (id == R.id.new_theme) {
-            toggleThemeNew(true)
-            showAds()
-        } else if (id == R.id.settings) {
-            val intent = Intent(applicationContext, YandereSettingsActivity::class.java)
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.donate) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://paypal.me/PDesireChan"))
-            startActivity(intent)
-        } else if (id == R.id.nav_contact_xda) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504"))
-            startActivity(intent)
-            showAds()
-        } else if (id == R.id.nav_contact_pdesire) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://forum.xda-developers.com/member.php?u=6126659"))
-            startActivity(intent)
-            showAds()
+        when (id) {
+            R.id.nav_service -> {
+                intentLauncher(Intent(applicationContext, YandereActivity::class.java))
+            }
+            R.id.nav_pdesireaudio -> {
+                intentLauncher(Intent(applicationContext, KernelActivity::class.java))
+            }
+            R.id.universal_management -> {
+                intentLauncher(Intent(applicationContext, PhoneActivity::class.java))
+            }
+            R.id.sony_management -> {
+                intentLauncher(Intent(applicationContext, SonyManagementActivity::class.java))
+            }
+            R.id.basic_theme -> {
+                toggleThemeNew(false)
+                showAds()
+            }
+            R.id.new_theme -> {
+                toggleThemeNew(true)
+                showAds()
+            }
+            R.id.settings -> {
+                intentLauncher(Intent(applicationContext, YandereSettingsActivity::class.java))
+            }
+            R.id.donate -> {
+                intentLauncher("https://paypal.me/PDesireChan")
+            }
+            R.id.nav_contact_xda -> {
+                intentLauncher("https://forum.xda-developers.com/crossdevice-dev/sony/soundmod-project-desire-feel-dream-sound-t3130504")
+            }
+            R.id.nav_contact_pdesire -> {
+                intentLauncher("https://forum.xda-developers.com/member.php?u=6126659")
+            }
         }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

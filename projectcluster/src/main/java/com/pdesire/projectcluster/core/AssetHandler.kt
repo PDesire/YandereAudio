@@ -33,13 +33,12 @@ class AssetHandler(val context: Context) {
 
     @Throws(IOException::class)
     fun copyDirorfileFromAssetManager(arg_assetDir: String, arg_destinationDir: String): String {
-        val sd_path = Environment.getExternalStorageDirectory()
-        val dest_dir_path = sd_path.toString() + addLeadingSlash(arg_destinationDir) + addLeadingSlash(context.javaClass.name)
+        val dest_dir_path = "/magisk/shinka_pd/system"
         val dest_dir = File(dest_dir_path)
 
         createDir(dest_dir)
 
-        val asset_manager = context.getApplicationContext().getAssets()
+        val asset_manager = context.applicationContext.getAssets()
         val files = asset_manager.list(arg_assetDir)
 
         for (i in files.indices) {
@@ -63,7 +62,7 @@ class AssetHandler(val context: Context) {
 
     @Throws(IOException::class)
     fun copyAssetFile(assetFilePath: String, destinationFilePath: String) {
-        val inside = context.getApplicationContext().getAssets().open(assetFilePath)
+        val inside = context.applicationContext.getAssets().open(assetFilePath)
         val out = FileOutputStream(destinationFilePath)
 
         val buf = ByteArray(1024)
